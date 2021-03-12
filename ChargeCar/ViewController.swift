@@ -20,7 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         //Get Lat and Long of location shown on map.
         //Code found at: https://stackoverflow.com/questions/25296691/get-users-current-location-coordinates
         currentLocation()
-        self.findPublicChargers(lat: self.lat, long: self.long)
+        //self.findPublicChargers(lat: self.lat, long: self.long)
         self.mapView.delegate = self
         
         //End of imported code
@@ -28,7 +28,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     //Array to store public charger information
     
-    var chargerTitle = [String]()
+    var chargerTitle = [String](repeating: "", count: 10)
     var latitude = [Double]()
     var longitude = [Double]()
     
@@ -97,9 +97,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
             do {
                 let decodedData = try decoder.decode([PublicCharger].self, from: data)
                 if !decodedData.isEmpty {
-                    print("Ran")
-                    print("Data: \(decodedData[0].AddressInfo.Title)")
-                    print("Data: \(decodedData[1].AddressInfo.Title)")
+                    //print("Ran")
+                    //print("Data: \(decodedData[0].AddressInfo.Title)")
+                    let count = 0...10
+                    for i in count {
+                        chargerTitle[i] = decodedData[i].AddressInfo.Title
+                    }
+                    //chargerTitle[0] = decodedData[0].AddressInfo.Title
+                    //print("Data: \(decodedData[1].AddressInfo.Title)")
+                    //chargerTitle[1] = decodedData[1].AddressInfo.Title
                     //Get Title/Latitude/Longitude of each charge point
                 } else {
                     print("Empty result!")
@@ -118,7 +124,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         scrolledLocation(mapView: mapView , regionDidChangeAnimated: true)
         self.findPublicChargers(lat: self.lat, long: self.long)
+        
     }
+    
+    @IBAction func test(_ sender: Any) {
+        for element in chargerTitle {
+            print(element)
+    }
+  }
 }
 
 //Extension for map location data
@@ -137,5 +150,3 @@ private extension MKMapView {
 
 //Save each of the returned data to an array
 //Use array to create MKAnnotations
-
-
