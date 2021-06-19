@@ -16,6 +16,7 @@ public class GetLocation: NSObject, CLLocationManagerDelegate {
 
     public func run(callback: @escaping (CLLocation?) -> Void) {
         locationCallback = callback
+        manager.startUpdatingLocation()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.requestWhenInUseAuthorization()

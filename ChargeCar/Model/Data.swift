@@ -14,6 +14,8 @@ struct PublicCharger: Decodable {
 
 struct AddressInfo: Decodable {
     let Title: String
+    let Latitude: Double
+    let Longitude: Double
 }
 
 

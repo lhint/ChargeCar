@@ -3,25 +3,38 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */; };
+		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
+		B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7957D33267E05B00066E3DB /* PublicChargers.swift */; };
+		B7957D36267E05C90066E3DB /* PublicChargerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7957D35267E05C90066E3DB /* PublicChargerController.swift */; };
 		B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68025F0E6E10084073C /* AppDelegate.swift */; };
 		B7E5F68325F0E6E10084073C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68225F0E6E10084073C /* SceneDelegate.swift */; };
-		B7E5F68525F0E6E10084073C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68425F0E6E10084073C /* ViewController.swift */; };
+		B7E5F68525F0E6E10084073C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68425F0E6E10084073C /* HomeViewController.swift */; };
 		B7E5F68825F0E6E10084073C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68625F0E6E10084073C /* Main.storyboard */; };
 		B7E5F68A25F0E6E20084073C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68925F0E6E20084073C /* Assets.xcassets */; };
 		B7E5F68D25F0E6E20084073C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68B25F0E6E20084073C /* LaunchScreen.storyboard */; };
 		B7E5F69625F0FC080084073C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69525F0FC080084073C /* LocationManager.swift */; };
 		B7E5F69925F11AA20084073C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69825F11AA20084073C /* Data.swift */; };
+		E5DCCEECAA99C41458F52F33 /* Pods_ChargeCar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.release.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.release.xcconfig"; sourceTree = "<group>"; };
+		6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.debug.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.debug.xcconfig"; sourceTree = "<group>"; };
+		AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeCar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationData.swift; sourceTree = "<group>"; };
+		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
+		B7957D33267E05B00066E3DB /* PublicChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargers.swift; sourceTree = "<group>"; };
+		B7957D35267E05C90066E3DB /* PublicChargerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargerController.swift; sourceTree = "<group>"; };
+		B7D1A5A5267CFD54004796ED /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E5F67D25F0E6E10084073C /* ChargeCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChargeCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E5F68025F0E6E10084073C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7E5F68225F0E6E10084073C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B7E5F68425F0E6E10084073C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B7E5F68425F0E6E10084073C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B7E5F68725F0E6E10084073C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B7E5F68925F0E6E20084073C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B7E5F68C25F0E6E20084073C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,17 +48,62 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5DCCEECAA99C41458F52F33 /* Pods_ChargeCar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E2F0AB0201DE321B995ADAC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */,
+				3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B7957D30267E03C50066E3DB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */,
+				B7E5F69825F11AA20084073C /* Data.swift */,
+				B7957D33267E05B00066E3DB /* PublicChargers.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B7957D31267E03D50066E3DB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B7557C3325FCFD45005D66D7 /* MarkerView.swift */,
+				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
+				B7E5F68625F0E6E10084073C /* Main.storyboard */,
+				B7E5F68925F0E6E20084073C /* Assets.xcassets */,
+				B7E5F68B25F0E6E20084073C /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B7957D32267E03DA0066E3DB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B7E5F69525F0FC080084073C /* LocationManager.swift */,
+				B7E5F68025F0E6E10084073C /* AppDelegate.swift */,
+				B7E5F68225F0E6E10084073C /* SceneDelegate.swift */,
+				B7957D35267E05C90066E3DB /* PublicChargerController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		B7E5F67425F0E6E10084073C = {
 			isa = PBXGroup;
 			children = (
 				B7E5F67F25F0E6E10084073C /* ChargeCar */,
 				B7E5F67E25F0E6E10084073C /* Products */,
+				1E2F0AB0201DE321B995ADAC /* Pods */,
+				EBC6EA2D141F33349CAF5059 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,17 +118,21 @@
 		B7E5F67F25F0E6E10084073C /* ChargeCar */ = {
 			isa = PBXGroup;
 			children = (
-				B7E5F68025F0E6E10084073C /* AppDelegate.swift */,
-				B7E5F68225F0E6E10084073C /* SceneDelegate.swift */,
-				B7E5F68425F0E6E10084073C /* ViewController.swift */,
-				B7E5F69825F11AA20084073C /* Data.swift */,
-				B7E5F69525F0FC080084073C /* LocationManager.swift */,
-				B7E5F68625F0E6E10084073C /* Main.storyboard */,
-				B7E5F68925F0E6E20084073C /* Assets.xcassets */,
-				B7E5F68B25F0E6E20084073C /* LaunchScreen.storyboard */,
 				B7E5F68E25F0E6E20084073C /* Info.plist */,
+				B7957D32267E03DA0066E3DB /* Controller */,
+				B7957D31267E03D50066E3DB /* View */,
+				B7957D30267E03C50066E3DB /* Model */,
 			);
 			path = ChargeCar;
+			sourceTree = "<group>";
+		};
+		EBC6EA2D141F33349CAF5059 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B7D1A5A5267CFD54004796ED /* SVProgressHUD.framework */,
+				AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,9 +142,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7E5F69125F0E6E20084073C /* Build configuration list for PBXNativeTarget "ChargeCar" */;
 			buildPhases = (
+				E54E733A35F919D4E8CD6E03 /* [CP] Check Pods Manifest.lock */,
 				B7E5F67925F0E6E10084073C /* Sources */,
 				B7E5F67A25F0E6E10084073C /* Frameworks */,
 				B7E5F67B25F0E6E10084073C /* Resources */,
+				4719DEFF2F523A854413AE55 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -138,14 +202,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4719DEFF2F523A854413AE55 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChargeCar/Pods-ChargeCar-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChargeCar/Pods-ChargeCar-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChargeCar/Pods-ChargeCar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E54E733A35F919D4E8CD6E03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChargeCar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B7E5F67925F0E6E10084073C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B7E5F69625F0FC080084073C /* LocationManager.swift in Sources */,
+				B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */,
+				B7957D36267E05C90066E3DB /* PublicChargerController.swift in Sources */,
 				B7E5F69925F11AA20084073C /* Data.swift in Sources */,
-				B7E5F68525F0E6E10084073C /* ViewController.swift in Sources */,
+				B7E5F68525F0E6E10084073C /* HomeViewController.swift in Sources */,
+				B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */,
+				B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */,
 				B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */,
 				B7E5F68325F0E6E10084073C /* SceneDelegate.swift in Sources */,
 			);
@@ -291,6 +401,7 @@
 		};
 		B7E5F69225F0E6E20084073C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +421,7 @@
 		};
 		B7E5F69325F0E6E20084073C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
