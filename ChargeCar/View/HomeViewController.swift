@@ -11,16 +11,20 @@ import SVProgressHUD
 
 class HomeViewController: UIViewController, MKMapViewDelegate {
     
+    //Map Outlet to view controller component
     @IBOutlet weak var mapView: MKMapView!
+    
+    //public lat & long veriables
     public var lat = 0.0, long = 0.0
     
+    //viewdidload - To load at startup
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
         mapView.register(
-          MarkerView.self,
-          forAnnotationViewWithReuseIdentifier:
-            MKMapViewDefaultAnnotationViewReuseIdentifier)
+            MarkerView.self,
+            forAnnotationViewWithReuseIdentifier:
+                MKMapViewDefaultAnnotationViewReuseIdentifier)
         //End of imported code
         currentLocation()
     }//End of viewDidLoad
@@ -59,11 +63,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Find scrolled map location
     func scrolledLocation(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            let center = mapView.centerCoordinate
-            //print("\(center.latitude) + \(center.longitude)")
-            self.lat = center.latitude
-            self.long = center.longitude
-       }
+        let center = mapView.centerCoordinate
+        //print("\(center.latitude) + \(center.longitude)")
+        self.lat = center.latitude
+        self.long = center.longitude
+    }
     
     //Find public chargers from local coordinates
     func findPublicChargers(lat: Double, long: Double) {
@@ -77,7 +81,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     }
     
     //Perform API Request - (London App Brewry code)
-    //Create the custom url
     
     func performRequest(urlString: String) {
         if let url = URL(string: urlString) {
@@ -101,29 +104,29 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //parse the JSON and use data that is needed
     func parseJSON(data: Data){
-            let decoder = JSONDecoder()
-            do {
-                let decodedData = try decoder.decode([PublicCharger].self, from: data)
-                if !decodedData.isEmpty {
-                    //print("Ran")
-                    //print("Data: \(decodedData[0].AddressInfo.Title)")
-                    let count = 0...10
-                    for i in count {
-                        publicChargerTitle.append(decodedData[i].AddressInfo.Title)
-                        publicChargerLatitude.append(decodedData[i].AddressInfo.Latitude)
-                        publicChargerLongitude.append(decodedData[i].AddressInfo.Longitude)
-                    }
-                    //chargerTitle[0] = decodedData[0].AddressInfo.Title
-                    //print("Data: \(decodedData[1].AddressInfo.Title)")
-                    //chargerTitle[1] = decodedData[1].AddressInfo.Title
-                    //Get Title/Latitude/Longitude of each charge point
-                } else {
-                    print("Empty result!")
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode([PublicCharger].self, from: data)
+            if !decodedData.isEmpty {
+                //print("Ran")
+                //print("Data: \(decodedData[0].AddressInfo.Title)")
+                let count = 0...10
+                for i in count {
+                    publicChargerTitle.append(decodedData[i].AddressInfo.Title)
+                    publicChargerLatitude.append(decodedData[i].AddressInfo.Latitude)
+                    publicChargerLongitude.append(decodedData[i].AddressInfo.Longitude)
                 }
-            } catch {
-                print("Error!: \(error)")
+                //chargerTitle[0] = decodedData[0].AddressInfo.Title
+                //print("Data: \(decodedData[1].AddressInfo.Title)")
+                //chargerTitle[1] = decodedData[1].AddressInfo.Title
+                //Get Title/Latitude/Longitude of each charge point
+            } else {
+                print("Empty result!")
             }
+        } catch {
+            print("Error!: \(error)")
         }
+    }
     
     //Updates the charger data everytime the user navigates the map
     
@@ -134,7 +137,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         let _ = Timer.scheduledTimer(timeInterval: 7.0, target: self, selector: #selector(self.publicChargersOnMap), userInfo: nil, repeats: false)
     }
     
-    //Test that api data is being stored into the array
+    //Test that the api data is being stored into the array
     func test() {
         for element in publicChargerTitle {
             print(element)
@@ -145,7 +148,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         for element in publicChargerLatitude {
             print(element)
         }
-  }
+    }
     
     //Add public chargers to map
     
@@ -155,30 +158,43 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         
         //let count = 0...10
         for index in stride(from: 0, through: publicChargerTitle.count-1, by: 1) {
-        let charger = Charger(
-        title: "\(publicChargerTitle[index])",
-        locationName: "\(publicChargerTitle[index])",
-        coordinate: CLLocationCoordinate2D(latitude: publicChargerLatitude[index], longitude: publicChargerLongitude[index]))
-        mapView.addAnnotation(charger)
-        SVProgressHUD.dismiss()
-        //annotationView.markerTintColor = UIColor.blue (Change marker colours for my own chargers)
+            let charger = Charger(
+                title: "\(publicChargerTitle[index])",
+                locationName: "\(publicChargerTitle[index])",
+                coordinate: CLLocationCoordinate2D(latitude: publicChargerLatitude[index], longitude: publicChargerLongitude[index]))
+            mapView.addAnnotation(charger)
+            SVProgressHUD.dismiss()
+            //annotationView.markerTintColor = UIColor.blue (Change marker colours for my own chargers)
+        }
+    }
+    
+    //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        performSegue(withIdentifier: "chargerInfo", sender: nil)
+    }
+    
+    //Segue Method from: https://www.hackingwithswift.com/example-code/system/how-to-pass-data-between-two-view-controllers
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "chargerInfo" {
+            let controller = segue.destination as! ChargerInfo
+            controller.chargerTitle =
+            
+            //Create an index number for each charging location then pass the data
+            
         }
     }
 }
 
 //Extension for map location data
 private extension MKMapView {
-  func centerToLocation(
-    _ location: CLLocation,
-    regionRadius: CLLocationDistance = 1000
-  ) {
-    let coordinateRegion = MKCoordinateRegion(
-      center: location.coordinate,
-      latitudinalMeters: regionRadius,
-      longitudinalMeters: regionRadius)
-    setRegion(coordinateRegion, animated: true)
-  }
+    func centerToLocation(
+        _ location: CLLocation,
+        regionRadius: CLLocationDistance = 1000
+    ) {
+        let coordinateRegion = MKCoordinateRegion(
+            center: location.coordinate,
+            latitudinalMeters: regionRadius,
+            longitudinalMeters: regionRadius)
+        setRegion(coordinateRegion, animated: true)
+    }
 }
-
-//Save each of the returned data to an array
-//Use array to create MKAnnotations

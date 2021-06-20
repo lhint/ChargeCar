@@ -13,7 +13,7 @@ public class GetLocation: NSObject, CLLocationManagerDelegate {
     var locationCallback: ((CLLocation?) -> Void)!
     var locationServicesEnabled = false
     var didFailWithError: Error?
-
+    
     public func run(callback: @escaping (CLLocation?) -> Void) {
         locationCallback = callback
         manager.startUpdatingLocation()
@@ -24,19 +24,19 @@ public class GetLocation: NSObject, CLLocationManagerDelegate {
         if locationServicesEnabled { manager.startUpdatingLocation() }
         else { locationCallback(nil) }
     }
-
-   public func locationManager(_ manager: CLLocationManager,
-                         didUpdateLocations locations: [CLLocation]) {
+    
+    public func locationManager(_ manager: CLLocationManager,
+                                didUpdateLocations locations: [CLLocation]) {
         locationCallback(locations.last!)
         manager.stopUpdatingLocation()
     }
-
+    
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         didFailWithError = error
         locationCallback(nil)
         manager.stopUpdatingLocation()
     }
-
+    
     deinit {
         manager.stopUpdatingLocation()
     }
