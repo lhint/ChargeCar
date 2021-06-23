@@ -9,5 +9,11 @@ import UIKit
 
 class ChargerInfo: UIViewController {
     
-    var chargerTitle = ""
+    @IBOutlet weak var chargerTitle: UILabel!
+    
+    public var name = ""
+    
+    override func viewDidLoad() {
+        self.title = name
+    }
 }

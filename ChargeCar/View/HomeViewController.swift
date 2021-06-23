@@ -29,11 +29,25 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         currentLocation()
     }//End of viewDidLoad
     
+    //Hides navigation bar at the top of screen
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    //Will show navigation bar at the top of the screen on the next view controller
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     //Array to store returned public charger information
     
     var publicChargerTitle = [String]()
     var publicChargerLatitude = [Double]()
     var publicChargerLongitude = [Double]()
+    var publicMapCount = [Int]()
+    var chargerTitle = ""
     
     //Finds the users current gps location
     func currentLocation() {
@@ -156,8 +170,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         //If scrolled location == 0 use current location
         print("Lat: \(self.lat) & Long: \(self.long)")
         
-        //let count = 0...10
+        var count = 0
         for index in stride(from: 0, through: publicChargerTitle.count-1, by: 1) {
+            count+=1
+            self.publicMapCount.append(count)
             let charger = Charger(
                 title: "\(publicChargerTitle[index])",
                 locationName: "\(publicChargerTitle[index])",
@@ -168,21 +184,28 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        performSegue(withIdentifier: "chargerInfo", sender: nil)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
     }
     
-    //Segue Method from: https://www.hackingwithswift.com/example-code/system/how-to-pass-data-between-two-view-controllers
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "chargerInfo" {
-            let controller = segue.destination as! ChargerInfo
-            controller.chargerTitle =
-            
-            //Create an index number for each charging location then pass the data
-            
+    
+    //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        //performSegue(withIdentifier: "chargerInfo", sender: nil)
+        
+        guard let annotationTitle = view.annotation?.title else
+        {
+            print("Unable to retrieve details")
+            return
         }
+        print("User tapped on annotation with title: \(annotationTitle!)")
+        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let home = storyBoard.instantiateViewController(withIdentifier: "ChargerInfo") as! ChargerInfo
+        home.name = annotationTitle!
+        navigationController?.pushViewController(home, animated: true)
     }
+    
 }
 
 //Extension for map location data
