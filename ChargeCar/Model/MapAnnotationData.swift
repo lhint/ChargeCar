@@ -11,17 +11,26 @@ class Charger: NSObject, MKAnnotation {
     let title: String?
     let locationName: String?
     let coordinate: CLLocationCoordinate2D
+    let chargerStatus: Int
+    let chargerConnector: Int
+    let chargerKW: Int
     
     init(
         title: String?,
         locationName: String?,
-        coordinate: CLLocationCoordinate2D
-    ) {
+        coordinate: CLLocationCoordinate2D,
+        chargerStatus: Int,
+        chargerConnector: Int,
+        chargerKW: Int)
+    {
         self.title = title
         self.locationName = locationName
         self.coordinate = coordinate
-            
-            super.init()
+        self.chargerStatus = chargerStatus
+        self.chargerConnector = chargerConnector
+        self.chargerKW = chargerKW
+        
+        super.init()
     }
     
     var subtitle: String? {
