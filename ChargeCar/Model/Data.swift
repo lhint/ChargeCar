@@ -23,13 +23,5 @@ struct Connections: Decodable {
     let StatusTypeID: Int
     let ConnectionTypeID: Int
     let PowerKW: Int
+
 }
-
-
-
-
-
-
-
-
-

@@ -38,7 +38,6 @@ class ChargerInfo: UIViewController {
         
     }
     
+    //Figure out if null can be added in place where no Connections array is given - Create an array with custom type
     //Create a function that converts status connector and KW into the string that the value represents
-    //Split the 1 & 2 results so they show correct for the side of the pump
-    //Maxol service station causes crash - investigate - Could be releated to above
 }

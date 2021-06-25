@@ -43,12 +43,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Array to store returned public charger information
     
-    var publicChargerTitle = [String]()
-    var publicChargerLatitude = [Double]()
-    var publicChargerLongitude = [Double]()
-    var publicChargerStatus = [Int]()
-    var publicChargerConnector = [Int]()
-    var publicChargerKW = [Int]()
+    var publicCharger = [PublicChargers]()
     
     //Finds the users current gps location
     func currentLocation() {
@@ -67,8 +62,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let viewRegion = MKCoordinateRegion(center: initialLocation, latitudinalMeters: 20000, longitudinalMeters: 20000)
                 self.mapView.setRegion(viewRegion, animated: false)
                 self.mapView.showsUserLocation = true
-                self.findPublicChargers(lat: self.lat, long: self.long)
                 SVProgressHUD.show()
+                self.findPublicChargers(lat: self.lat, long: self.long)
                 let _ = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.publicChargersOnMap), userInfo: nil, repeats: false)
             } else {
                 print("Get Location failed \(String(describing: getLocation.didFailWithError))")
@@ -127,12 +122,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 //print("Data: \(decodedData[0].AddressInfo.Title)")
                 let count = 0...10
                 for i in count {
-                    publicChargerTitle.append(decodedData[i].AddressInfo.Title)
-                    publicChargerLatitude.append(decodedData[i].AddressInfo.Latitude)
-                    publicChargerLongitude.append(decodedData[i].AddressInfo.Longitude)
-                    publicChargerStatus.append(decodedData[i].Connections[0].StatusTypeID)
-                    publicChargerConnector.append(decodedData[i].Connections[0].ConnectionTypeID)
-                    publicChargerKW.append(decodedData[i].Connections[0].PowerKW)
+                    let charger = PublicChargers(publicChargerTitle: "\(decodedData[i].AddressInfo.Title)", publicChargerLatitude: decodedData[i].AddressInfo.Latitude, publicChargerLongitude: decodedData[i].AddressInfo.Longitude, publicChargerStatus1: decodedData[i].Connections[0].StatusTypeID, publicChargerStatus2: decodedData[i].Connections[0].StatusTypeID, publicChargerConnector1: decodedData[i].Connections[0].ConnectionTypeID, publicChargerConnector2: decodedData[i].Connections[0].ConnectionTypeID, publicChargerKW1: decodedData[i].Connections[0].PowerKW, publicChargerKW2: decodedData[i].Connections[0].PowerKW)
+                    publicCharger.append(charger)
                 }
             } else {
                 print("Empty result!")
@@ -153,26 +144,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Test that the api data is being stored into the array
     func test() {
-        for element in publicChargerTitle {
-            print(element)
-        }
-        for element in publicChargerLongitude {
-            print(element)
-        }
-        for element in publicChargerLatitude {
-            print(element)
-        }
-        print("Status")
-        for element in publicChargerStatus {
-            print(element)
-        }
-        print("Connector")
-        for element in publicChargerConnector {
-            print(element)
-        }
-        print("KW")
-        for element in publicChargerKW {
-            print(element)
+        for element in publicCharger {
+            print("Chargers")
+            print(element.publicChargerTitle)
+            print(element.publicChargerLatitude)
+            print(element.publicChargerLongitude)
+            print(element.publicChargerStatus1)
+            print(element.publicChargerStatus2)
+            print(element.publicChargerConnector1)
+            print(element.publicChargerConnector2)
+            print(element.publicChargerKW1)
+            print(element.publicChargerKW2)
         }
     }
     
@@ -181,21 +163,25 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     @objc func publicChargersOnMap() {
         //If scrolled location == 0 use current location
         print("Lat: \(self.lat) & Long: \(self.long)")
-        //test()
+        test()
         
-        for index in stride(from: 0, through: publicChargerTitle.count-1, by: 1) {
-            let charger = Charger(
-                title: "\(publicChargerTitle[index])",
-                locationName: "\(publicChargerTitle[index])",
-                coordinate: CLLocationCoordinate2D(latitude: publicChargerLatitude[index], longitude: publicChargerLongitude[index]),
-                chargerStatus: publicChargerStatus[index],
-                chargerConnector: publicChargerConnector[index],
-                chargerKW: publicChargerKW[index])
-            mapView.addAnnotation(charger)
+            for element in publicCharger {
+                let charger = Charger(
+                    title: element.publicChargerTitle,
+                    locationName: element.publicChargerTitle,
+                    coordinate: CLLocationCoordinate2D(latitude: element.publicChargerLatitude, longitude: element.publicChargerLongitude),
+                    chargerStatus1: element.publicChargerStatus1,
+                    chargerStatus2: element.publicChargerStatus2,
+                    chargerConnector1: element.publicChargerConnector1,
+                    chargerConnector2: element.publicChargerConnector2,
+                    chargerKW1: element.publicChargerKW1,
+                    chargerKW2: element.publicChargerKW2)
+                mapView.addAnnotation(charger)
+            }
+            
             SVProgressHUD.dismiss()
             //annotationView.markerTintColor = UIColor.blue (Change marker colours for my own chargers)
         }
-    }
     
     //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -212,12 +198,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         let home = storyBoard.instantiateViewController(withIdentifier: "ChargerInfo") as! ChargerInfo
         let annotation = view.annotation as? Charger
         home.name = annotationTitle!
-        home.s1 = annotation?.chargerStatus ?? 0
-        home.c1 = annotation?.chargerConnector ?? 0
-        home.k1 = annotation?.chargerKW ?? 0
-        home.s2 = annotation?.chargerStatus ?? 0
-        home.c2 = annotation?.chargerConnector ?? 0
-        home.k2 = annotation?.chargerKW ?? 0
+        home.s1 = annotation?.chargerStatus1 ?? 0
+        home.c1 = annotation?.chargerConnector1 ?? 0
+        home.k1 = annotation?.chargerKW1 ?? 0
+        home.s2 = annotation?.chargerStatus2 ?? 0
+        home.c2 = annotation?.chargerConnector2 ?? 0
+        home.k2 = annotation?.chargerKW2 ?? 0
         navigationController?.pushViewController(home, animated: true)
     }
     
