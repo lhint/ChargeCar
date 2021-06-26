@@ -12,14 +12,14 @@ class PublicChargers {
     let publicChargerTitle: String
     let publicChargerLatitude: Double
     let publicChargerLongitude: Double
-    let publicChargerStatus1: Int
-    let publicChargerStatus2: Int
-    let publicChargerConnector1: Int
-    let publicChargerConnector2: Int
-    let publicChargerKW1: Int
-    let publicChargerKW2: Int
+    let publicChargerStatus1: Double
+    let publicChargerStatus2: Double
+    let publicChargerConnector1: Double
+    let publicChargerConnector2: Double
+    let publicChargerKW1: Double
+    let publicChargerKW2: Double
     
-    init(publicChargerTitle: String, publicChargerLatitude: Double, publicChargerLongitude: Double, publicChargerStatus1: Int, publicChargerStatus2: Int, publicChargerConnector1: Int, publicChargerConnector2: Int, publicChargerKW1: Int, publicChargerKW2: Int) {
+    init(publicChargerTitle: String, publicChargerLatitude: Double, publicChargerLongitude: Double, publicChargerStatus1: Double, publicChargerStatus2: Double, publicChargerConnector1: Double, publicChargerConnector2: Double, publicChargerKW1: Double, publicChargerKW2: Double) {
         
         self.publicChargerTitle = publicChargerTitle
         self.publicChargerLatitude = publicChargerLatitude

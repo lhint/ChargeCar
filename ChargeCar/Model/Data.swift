@@ -17,11 +17,12 @@ struct AddressInfo: Decodable {
     let Title: String
     let Latitude: Double
     let Longitude: Double
+    let CountryID: Double
 }
 
 struct Connections: Decodable {
-    let StatusTypeID: Int
-    let ConnectionTypeID: Int
-    let PowerKW: Int
+    let StatusTypeID: Double?
+    let ConnectionTypeID: Double?
+    let PowerKW: Double?
 
 }

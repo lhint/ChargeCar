@@ -120,10 +120,54 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             if !decodedData.isEmpty {
                 //print("Ran")
                 //print("Data: \(decodedData[0].AddressInfo.Title)")
+            
+                
                 let count = 0...10
                 for i in count {
-                    let charger = PublicChargers(publicChargerTitle: "\(decodedData[i].AddressInfo.Title)", publicChargerLatitude: decodedData[i].AddressInfo.Latitude, publicChargerLongitude: decodedData[i].AddressInfo.Longitude, publicChargerStatus1: decodedData[i].Connections[0].StatusTypeID, publicChargerStatus2: decodedData[i].Connections[0].StatusTypeID, publicChargerConnector1: decodedData[i].Connections[0].ConnectionTypeID, publicChargerConnector2: decodedData[i].Connections[0].ConnectionTypeID, publicChargerKW1: decodedData[i].Connections[0].PowerKW, publicChargerKW2: decodedData[i].Connections[0].PowerKW)
+                    print("Connections: \(decodedData[i].Connections.count)")
+                    
+                    var statusType1 = decodedData[i].AddressInfo.CountryID
+                    var statusType2 = decodedData[i].AddressInfo.CountryID
+                    var chargerConnector1 = decodedData[i].AddressInfo.CountryID
+                    var chargerConnector2 = decodedData[i].AddressInfo.CountryID
+                    var chargerKW1 = decodedData[i].AddressInfo.CountryID
+                    var chargerKW2 = decodedData[i].AddressInfo.CountryID
+                    
+                    if decodedData[i].Connections.count == 0  {
+                        statusType1 = decodedData[i].AddressInfo.CountryID
+                        statusType2 = decodedData[i].AddressInfo.CountryID
+                        chargerConnector1 = decodedData[i].AddressInfo.CountryID
+                        chargerConnector2 = decodedData[i].AddressInfo.CountryID
+                        chargerKW1 = decodedData[i].AddressInfo.CountryID
+                        chargerKW2 = decodedData[i].AddressInfo.CountryID
+                        
+                    } else if decodedData[i].Connections.count == 1 {
+                        statusType1 = decodedData[i].Connections[0].StatusTypeID ?? 0
+                        statusType2 = decodedData[i].AddressInfo.CountryID
+                        chargerConnector1 = decodedData[i].Connections[0].ConnectionTypeID ?? 0
+                        chargerConnector2 = decodedData[i].AddressInfo.CountryID
+                        chargerKW1 = decodedData[i].Connections[0].PowerKW ?? 0
+                        chargerKW2 = decodedData[i].AddressInfo.CountryID
+                    } else if decodedData[i].Connections.count == 2 {
+                        statusType1 = decodedData[i].Connections[0].StatusTypeID ?? 0
+                        statusType2 = decodedData[i].Connections[1].StatusTypeID ?? 0
+                        chargerConnector1 = decodedData[i].Connections[0].ConnectionTypeID ?? 0
+                        chargerConnector2 = decodedData[i].Connections[1].ConnectionTypeID ?? 0
+                        chargerKW1 = decodedData[i].Connections[0].PowerKW ?? 0
+                        chargerKW2 = decodedData[i].Connections[1].PowerKW ?? 0
+                    }
+                    else {
+                        statusType1 = decodedData[i].Connections[0].StatusTypeID ?? 0
+                        statusType2 = decodedData[i].Connections[1].StatusTypeID ?? 0
+                        chargerConnector1 = decodedData[i].Connections[0].ConnectionTypeID ?? 0
+                        chargerConnector2 = decodedData[i].Connections[1].ConnectionTypeID ?? 0
+                        chargerKW1 = decodedData[i].Connections[0].PowerKW ?? 0
+                        chargerKW2 = decodedData[i].Connections[1].PowerKW ?? 0
+                    }
+                    
+                    let charger = PublicChargers(publicChargerTitle: decodedData[i].AddressInfo.Title, publicChargerLatitude: decodedData[i].AddressInfo.Latitude, publicChargerLongitude: decodedData[i].AddressInfo.Longitude, publicChargerStatus1: statusType1, publicChargerStatus2: statusType2, publicChargerConnector1: chargerConnector1, publicChargerConnector2: chargerConnector2 , publicChargerKW1: chargerKW1, publicChargerKW2: chargerKW2)
                     publicCharger.append(charger)
+                    
                 }
             } else {
                 print("Empty result!")
@@ -163,7 +207,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     @objc func publicChargersOnMap() {
         //If scrolled location == 0 use current location
         print("Lat: \(self.lat) & Long: \(self.long)")
-        test()
+        //test()
         
             for element in publicCharger {
                 let charger = Charger(

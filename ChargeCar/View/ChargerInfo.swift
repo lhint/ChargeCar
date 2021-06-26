@@ -19,12 +19,12 @@ class ChargerInfo: UIViewController {
     
     
     public var name = ""
-    public var s1 = 0
-    public var c1 = 0
-    public var k1 = 0
-    public var s2 = 0
-    public var c2 = 0
-    public var k2 = 0
+    public var s1 = 0.0
+    public var c1 = 0.0
+    public var k1 = 0.0
+    public var s2 = 0.0
+    public var c2 = 0.0
+    public var k2 = 0.0
     
     
     override func viewDidLoad() {
