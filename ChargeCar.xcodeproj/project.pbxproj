@@ -78,8 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				B7557C3325FCFD45005D66D7 /* MarkerView.swift */,
-				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
-				B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */,
 				B7E5F68625F0E6E10084073C /* Main.storyboard */,
 				B7E5F68925F0E6E20084073C /* Assets.xcassets */,
 				B7E5F68B25F0E6E20084073C /* LaunchScreen.storyboard */,
@@ -93,6 +91,8 @@
 				B7E5F69525F0FC080084073C /* LocationManager.swift */,
 				B7E5F68025F0E6E10084073C /* AppDelegate.swift */,
 				B7E5F68225F0E6E10084073C /* SceneDelegate.swift */,
+				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
+				B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

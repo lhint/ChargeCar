@@ -124,7 +124,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 
                 let count = 0...10
                 for i in count {
-                    print("Connections: \(decodedData[i].Connections.count)")
+                    //print("Connections: \(decodedData[i].Connections.count)")
                     
                     var statusType1 = decodedData[i].AddressInfo.CountryID
                     var statusType2 = decodedData[i].AddressInfo.CountryID

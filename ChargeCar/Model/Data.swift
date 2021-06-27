@@ -10,7 +10,6 @@ import Foundation
 struct PublicCharger: Decodable {
     let AddressInfo: AddressInfo
     let Connections: [Connections]
-    
 }
 
 struct AddressInfo: Decodable {
