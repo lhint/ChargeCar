@@ -7,5 +7,6 @@ target 'ChargeCar' do
 
   # Pods for ChargeCar
   pod 'SVProgressHUD'
+  pod 'SideMenu'
 
 end

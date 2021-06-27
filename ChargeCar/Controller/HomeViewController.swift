@@ -8,25 +8,33 @@
 import UIKit
 import MapKit
 import SVProgressHUD
+import SideMenu
 
 class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Map Outlet to view controller component
     @IBOutlet weak var mapView: MKMapView!
     
-    //public lat & long veriables
+    //Global veriables
     public var lat = 0.0, long = 0.0
+    private let sideMenu = SideMenuNavigationController(rootViewController: MenuController(with: ["Sign in", "Register"]))
     
     //viewdidload - To load at startup
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Mapview code from https://developer.apple.com/
         self.mapView.delegate = self
         mapView.register(
             MarkerView.self,
             forAnnotationViewWithReuseIdentifier:
                 MKMapViewDefaultAnnotationViewReuseIdentifier)
-        //End of imported code
+        //Side Menu code
+        sideMenu.leftSide = true
+        SideMenuManager.default.leftMenuNavigationController = sideMenu
+        SideMenuManager.default.addPanGestureToPresent(toView: view)
+        //Called functions
         currentLocation()
+        
     }//End of viewDidLoad
     
     //Hides navigation bar at the top of screen
@@ -251,6 +259,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         navigationController?.pushViewController(home, animated: true)
     }
     
+    @IBAction func menuButton(_ sender: Any) {
+        present(sideMenu, animated: true)
+        
+    }
 }
 
 //Extension for map location data

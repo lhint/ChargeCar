@@ -49,7 +49,7 @@ class ChargerInfo: UIViewController {
         } else if value == 2 {
             answer = "CHAdeMO"
         } else if value == 1036 {
-            answer = "CHAdeMO"
+            answer = "Type2(Tethered)"
         } else if value == 0 {
             answer = "Restricted"
         } else if value == 75 {
