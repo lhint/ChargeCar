@@ -17,7 +17,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Global veriables
     public var lat = 0.0, long = 0.0
-    private let sideMenu = SideMenuNavigationController(rootViewController: MenuController(with: ["Sign in", "Register"]))
     
     //viewdidload - To load at startup
     override func viewDidLoad() {
@@ -28,10 +27,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             MarkerView.self,
             forAnnotationViewWithReuseIdentifier:
                 MKMapViewDefaultAnnotationViewReuseIdentifier)
-        //Side Menu code
-        sideMenu.leftSide = true
-        SideMenuManager.default.leftMenuNavigationController = sideMenu
-        SideMenuManager.default.addPanGestureToPresent(toView: view)
         //Called functions
         currentLocation()
         
@@ -257,11 +252,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         home.c2 = annotation?.chargerConnector2 ?? 0
         home.k2 = annotation?.chargerKW2 ?? 0
         navigationController?.pushViewController(home, animated: true)
-    }
-    
-    @IBAction func menuButton(_ sender: Any) {
-        present(sideMenu, animated: true)
-        
     }
 }
 

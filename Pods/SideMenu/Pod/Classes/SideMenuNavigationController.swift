@@ -69,7 +69,7 @@ internal protocol MenuModel {
     @objc optional func sideMenuDidDisappear(menu: SideMenuNavigationController, animated: Bool)
 }
 
-internal protocol SideMenuNavigationControllerTransitionDelegate: class {
+internal protocol SideMenuNavigationControllerTransitionDelegate: AnyObject {
     func sideMenuTransitionDidDismiss(menu: Menu)
 }
 
@@ -198,6 +198,7 @@ open class SideMenuNavigationController: UINavigationController {
         super.viewDidAppear(animated)
 
         // We had presented a view before, so lets dismiss ourselves as already acted upon
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         if view.isHidden {
             dismiss(animated: false, completion: { [weak self] in
                 self?.view.isHidden = false
@@ -218,6 +219,7 @@ open class SideMenuNavigationController: UINavigationController {
         // which can break the visual layout we had before. So, we move the menu view back to its original transition view to preserve it.
         if let presentingView = presentingViewController?.view, let containerView = presentingView.superview {
             containerView.addSubview(view)
+
         }
 
         if dismissOnPresent {

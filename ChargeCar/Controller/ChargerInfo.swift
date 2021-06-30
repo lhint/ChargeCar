@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ChargerInfo: UIViewController {
     
@@ -15,8 +16,10 @@ class ChargerInfo: UIViewController {
     @IBOutlet weak var status2: UILabel!
     @IBOutlet weak var connector2: UILabel!
     @IBOutlet weak var kw2: UILabel!
-    
-    
+    @IBOutlet weak var device2Title: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var connectorLabel: UILabel!
+    @IBOutlet weak var kwhLabel: UILabel!
     
     public var name = ""
     public var s1 = 0.0
@@ -26,11 +29,12 @@ class ChargerInfo: UIViewController {
     public var c2 = 0.0
     public var k2 = 0.0
     
-    
     override func viewDidLoad() {
             
         
         self.title = name
+        SVProgressHUD.dismiss()
+        showCharger2(k2: k2)
         self.status1.text = checkKey(value: s1)
         self.connector1.text = checkKey(value: c1)
         self.kw1.text = kwCheck(kw: k1)
@@ -38,6 +42,15 @@ class ChargerInfo: UIViewController {
         self.connector2.text = checkKey(value: c2)
         self.kw2.text = kwCheck(kw: k2)
         
+    }
+    
+    func showCharger2(k2: Double) {
+        if k2 == 1.0 {
+            self.device2Title.isHidden = true
+            self.statusLabel.isHidden = true
+            self.connectorLabel.isHidden = true
+            self.kwhLabel.isHidden = true
+        }
     }
     
     func checkKey(value: Double) -> String {
@@ -56,6 +69,8 @@ class ChargerInfo: UIViewController {
             answer = "Partly Operational"
         } else if value == 100 {
             answer = "Not Operational"
+        } else if value == 27 {
+            answer = "Tesla Supercharger"
         }
         return answer
     }
@@ -74,6 +89,9 @@ class ChargerInfo: UIViewController {
         return answer
     }
     
-    //Figure out if null can be added in place where no Connections array is given - Create an array with custom type
-    //Create a function that converts status connector and KW into the string that the value represents
+    @IBAction func infoButton(_ sender: Any) {
+        let alert = UIAlertController(title: "Info", message: "Data maybe incomplete in showing actual number of chargers avilable.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+        present(alert, animated: true)
+    }
 }

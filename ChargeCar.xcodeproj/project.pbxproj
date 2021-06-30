@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B7548A4C268932DD00294D6A /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7548A4B268932DD00294D6A /* MenuController.swift */; };
 		B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */; };
 		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
+		B766C5F9268C82540043B7CD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766C5F8268C82540043B7CD /* Login.swift */; };
 		B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */; };
 		B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7957D33267E05B00066E3DB /* PublicChargers.swift */; };
+		B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFB56B268BAF4A00E6298B /* Menu.swift */; };
+		B7DFB56E268BC71C00E6298B /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFB56D268BC71C00E6298B /* Register.swift */; };
 		B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68025F0E6E10084073C /* AppDelegate.swift */; };
 		B7E5F68325F0E6E10084073C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68225F0E6E10084073C /* SceneDelegate.swift */; };
 		B7E5F68525F0E6E10084073C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68425F0E6E10084073C /* HomeViewController.swift */; };
@@ -27,12 +29,14 @@
 		3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.release.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.release.xcconfig"; sourceTree = "<group>"; };
 		6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.debug.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.debug.xcconfig"; sourceTree = "<group>"; };
 		AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeCar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B7548A4B268932DD00294D6A /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationData.swift; sourceTree = "<group>"; };
 		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
+		B766C5F8268C82540043B7CD /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerInfo.swift; sourceTree = "<group>"; };
 		B7957D33267E05B00066E3DB /* PublicChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargers.swift; sourceTree = "<group>"; };
 		B7D1A5A5267CFD54004796ED /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7DFB56B268BAF4A00E6298B /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = ChargeCar/View/Menu.swift; sourceTree = SOURCE_ROOT; };
+		B7DFB56D268BC71C00E6298B /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Register.swift; path = "/Users/lukehinton/Library/Mobile Documents/com~apple~CloudDocs/Postgraduate Degree/8. COM814 - Project/ChargeCar/ChargeCar/Controller/Register.swift"; sourceTree = "<absolute>"; };
 		B7E5F67D25F0E6E10084073C /* ChargeCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChargeCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E5F68025F0E6E10084073C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7E5F68225F0E6E10084073C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,11 +94,13 @@
 		B7957D32267E03DA0066E3DB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B7DFB56D268BC71C00E6298B /* Register.swift */,
+				B766C5F8268C82540043B7CD /* Login.swift */,
+				B7DFB56B268BAF4A00E6298B /* Menu.swift */,
 				B7E5F69525F0FC080084073C /* LocationManager.swift */,
 				B7E5F68025F0E6E10084073C /* AppDelegate.swift */,
 				B7E5F68225F0E6E10084073C /* SceneDelegate.swift */,
 				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
-				B7548A4B268932DD00294D6A /* MenuController.swift */,
 				B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */,
 			);
 			path = Controller;
@@ -166,6 +172,9 @@
 		B7E5F67525F0E6E10084073C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					1,
+				);
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
@@ -252,12 +261,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7548A4C268932DD00294D6A /* MenuController.swift in Sources */,
 				B7E5F69625F0FC080084073C /* LocationManager.swift in Sources */,
 				B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */,
 				B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */,
+				B7DFB56E268BC71C00E6298B /* Register.swift in Sources */,
 				B7E5F69925F11AA20084073C /* Data.swift in Sources */,
+				B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */,
 				B7E5F68525F0E6E10084073C /* HomeViewController.swift in Sources */,
+				B766C5F9268C82540043B7CD /* Login.swift in Sources */,
 				B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */,
 				B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */,
 				B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */,
