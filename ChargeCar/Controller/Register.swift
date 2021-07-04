@@ -7,6 +7,7 @@
 
 import UIKit
 import SVProgressHUD
+import Firebase
 
 class Register: UIViewController, UITextFieldDelegate {
     
@@ -47,8 +48,26 @@ class Register: UIViewController, UITextFieldDelegate {
         }
         return true
     }
+    
     @IBAction func registerButton(_ sender: Any) {
-        
+        //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
+        if let email = email.text, let password = password2.text {
+        Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+            if error != nil {
+             // report error
+                print(error ?? "Please enter a valid email and password")
+             return
+            } else {
+                self.performSegue(withIdentifier: "home", sender: self)
+                //Change menu bar here
+                //Show username in menu
+                //Logged in message on home page
+                //Save rest of the required data to firebase realtime database
+            }
+        })
+        }
     }
+    //Include error messages
+    //Include validation messages
     
 }

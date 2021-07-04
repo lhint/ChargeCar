@@ -15,6 +15,7 @@ class Menu: UITableViewController {
     }
     
     var menu1: [String] = ["Login", "Register"]
+    var menu2: [String] = ["Host","Help","Account","Sign Out"]
     
     override func viewWillAppear(_ animated: Bool) {
         //navigationController?.setNavigationBarHidden(true, animated: animated)

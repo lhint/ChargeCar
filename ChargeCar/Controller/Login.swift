@@ -35,5 +35,23 @@ class Login: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-   
+    
+    @IBAction func loginButton(_ sender: Any) {
+        //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
+        if let email = email.text, let password = password.text {
+            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                if error != nil {
+                 // report error
+                    print(error ?? "Please enter a valid email and password")
+                 return
+                } else {
+                    self.performSegue(withIdentifier: "loginhome", sender: self)
+                    //Change menu bar here
+                    //Show username in menu
+                    //Logged in message on home page
+                }
+            }
+        }
+    }
+    
 }
