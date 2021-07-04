@@ -73,15 +73,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B78F72452691EE4E002B1EED /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B7E5F68E25F0E6E20084073C /* Info.plist */,
-				B78F72442691EE34002B1EED /* GoogleService-Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		B7957D30267E03C50066E3DB /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +80,6 @@
 				B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */,
 				B7E5F69825F11AA20084073C /* Data.swift */,
 				B7957D33267E05B00066E3DB /* PublicChargers.swift */,
-				B78F72452691EE4E002B1EED /* Supporting Files */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -123,6 +113,8 @@
 		B7E5F67425F0E6E10084073C = {
 			isa = PBXGroup;
 			children = (
+				B7E5F68E25F0E6E20084073C /* Info.plist */,
+				B78F72442691EE34002B1EED /* GoogleService-Info.plist */,
 				B7E5F67F25F0E6E10084073C /* ChargeCar */,
 				B7E5F67E25F0E6E10084073C /* Products */,
 				1E2F0AB0201DE321B995ADAC /* Pods */,
