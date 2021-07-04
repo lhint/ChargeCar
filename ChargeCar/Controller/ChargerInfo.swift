@@ -16,10 +16,14 @@ class ChargerInfo: UIViewController {
     @IBOutlet weak var status2: UILabel!
     @IBOutlet weak var connector2: UILabel!
     @IBOutlet weak var kw2: UILabel!
+    @IBOutlet weak var price1: UILabel!
+    @IBOutlet weak var price2: UILabel!
     @IBOutlet weak var device2Title: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var connectorLabel: UILabel!
     @IBOutlet weak var kwhLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
     
     public var name = ""
     public var s1 = 0.0
@@ -28,9 +32,9 @@ class ChargerInfo: UIViewController {
     public var s2 = 0.0
     public var c2 = 0.0
     public var k2 = 0.0
+    public var f1 = ""
     
     override func viewDidLoad() {
-            
         
         self.title = name
         SVProgressHUD.dismiss()
@@ -41,7 +45,8 @@ class ChargerInfo: UIViewController {
         self.status2.text = checkKey(value: s2)
         self.connector2.text = checkKey(value: c2)
         self.kw2.text = kwCheck(kw: k2)
-        
+        self.price1.text = f1
+        self.price2.text = f1
     }
     
     func showCharger2(k2: Double) {
@@ -50,6 +55,8 @@ class ChargerInfo: UIViewController {
             self.statusLabel.isHidden = true
             self.connectorLabel.isHidden = true
             self.kwhLabel.isHidden = true
+            self.priceLabel.isHidden = true
+            self.price2.isHidden = true
         }
     }
     
@@ -63,14 +70,16 @@ class ChargerInfo: UIViewController {
             answer = "CHAdeMO"
         } else if value == 1036 {
             answer = "Type2(Tethered)"
+        } else if value == 27 {
+            answer = "Tesla Supercharger"
+        } else if value == 33 {
+            answer = "CCS"
         } else if value == 0 {
             answer = "Restricted"
         } else if value == 75 {
             answer = "Partly Operational"
         } else if value == 100 {
             answer = "Not Operational"
-        } else if value == 27 {
-            answer = "Tesla Supercharger"
         }
         return answer
     }

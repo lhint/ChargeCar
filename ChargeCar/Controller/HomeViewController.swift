@@ -123,7 +123,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             if !decodedData.isEmpty {
                 //print("Ran")
                 //print("Data: \(decodedData[0].AddressInfo.Title)")
-            
+                
                 
                 let count = 0...10
                 for i in count {
@@ -158,8 +158,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         chargerConnector2 = decodedData[i].Connections[1].ConnectionTypeID ?? 0
                         chargerKW1 = decodedData[i].Connections[0].PowerKW ?? 0
                         chargerKW2 = decodedData[i].Connections[1].PowerKW ?? 0
-                    }
-                    else {
+                    } else {
                         statusType1 = decodedData[i].Connections[0].StatusTypeID ?? 0
                         statusType2 = decodedData[i].Connections[1].StatusTypeID ?? 0
                         chargerConnector1 = decodedData[i].Connections[0].ConnectionTypeID ?? 0
@@ -168,7 +167,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         chargerKW2 = decodedData[i].Connections[1].PowerKW ?? 0
                     }
                     
-                    let charger = PublicChargers(publicChargerTitle: decodedData[i].AddressInfo.Title, publicChargerLatitude: decodedData[i].AddressInfo.Latitude, publicChargerLongitude: decodedData[i].AddressInfo.Longitude, publicChargerStatus1: statusType1, publicChargerStatus2: statusType2, publicChargerConnector1: chargerConnector1, publicChargerConnector2: chargerConnector2 , publicChargerKW1: chargerKW1, publicChargerKW2: chargerKW2)
+                    let charger = PublicChargers(publicChargerTitle: decodedData[i].AddressInfo.Title, publicChargerLatitude: decodedData[i].AddressInfo.Latitude, publicChargerLongitude: decodedData[i].AddressInfo.Longitude, publicChargerStatus1: statusType1, publicChargerStatus2: statusType2, publicChargerConnector1: chargerConnector1, publicChargerConnector2: chargerConnector2 , publicChargerKW1: chargerKW1, publicChargerKW2: chargerKW2, publicChargerFee1: decodedData[i].UsageCost ?? "")
                     publicCharger.append(charger)
                     
                 }
@@ -202,6 +201,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             print(element.publicChargerConnector2)
             print(element.publicChargerKW1)
             print(element.publicChargerKW2)
+            print(element.publicChargerFee1)
         }
     }
     
@@ -212,23 +212,24 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         print("Lat: \(self.lat) & Long: \(self.long)")
         //test()
         
-            for element in publicCharger {
-                let charger = Charger(
-                    title: element.publicChargerTitle,
-                    locationName: element.publicChargerTitle,
-                    coordinate: CLLocationCoordinate2D(latitude: element.publicChargerLatitude, longitude: element.publicChargerLongitude),
-                    chargerStatus1: element.publicChargerStatus1,
-                    chargerStatus2: element.publicChargerStatus2,
-                    chargerConnector1: element.publicChargerConnector1,
-                    chargerConnector2: element.publicChargerConnector2,
-                    chargerKW1: element.publicChargerKW1,
-                    chargerKW2: element.publicChargerKW2)
-                mapView.addAnnotation(charger)
-            }
-            
-            SVProgressHUD.dismiss()
-            //annotationView.markerTintColor = UIColor.blue (Change marker colours for my own chargers)
+        for element in publicCharger {
+            let charger = Charger(
+                title: element.publicChargerTitle,
+                locationName: element.publicChargerTitle,
+                coordinate: CLLocationCoordinate2D(latitude: element.publicChargerLatitude, longitude: element.publicChargerLongitude),
+                chargerStatus1: element.publicChargerStatus1,
+                chargerStatus2: element.publicChargerStatus2,
+                chargerConnector1: element.publicChargerConnector1,
+                chargerConnector2: element.publicChargerConnector2,
+                chargerKW1: element.publicChargerKW1,
+                chargerKW2: element.publicChargerKW2,
+                chargerFee1: element.publicChargerFee1)
+            mapView.addAnnotation(charger)
         }
+        
+        SVProgressHUD.dismiss()
+        //annotationView.markerTintColor = UIColor.blue (Change marker colours for my own chargers)
+    }
     
     //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -251,6 +252,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         home.s2 = annotation?.chargerStatus2 ?? 0
         home.c2 = annotation?.chargerConnector2 ?? 0
         home.k2 = annotation?.chargerKW2 ?? 0
+        home.f1 = annotation?.chargerFee1 ?? ""
         navigationController?.pushViewController(home, animated: true)
     }
 }

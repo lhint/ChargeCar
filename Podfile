@@ -8,5 +8,6 @@ target 'ChargeCar' do
   # Pods for ChargeCar
   pod 'SVProgressHUD'
   pod 'SideMenu'
+  pod 'Firebase/Core'
 
 end

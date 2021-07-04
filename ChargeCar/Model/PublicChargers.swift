@@ -18,8 +18,18 @@ class PublicChargers {
     let publicChargerConnector2: Double
     let publicChargerKW1: Double
     let publicChargerKW2: Double
+    let publicChargerFee1: String
     
-    init(publicChargerTitle: String, publicChargerLatitude: Double, publicChargerLongitude: Double, publicChargerStatus1: Double, publicChargerStatus2: Double, publicChargerConnector1: Double, publicChargerConnector2: Double, publicChargerKW1: Double, publicChargerKW2: Double) {
+    init(publicChargerTitle: String,
+         publicChargerLatitude: Double,
+         publicChargerLongitude: Double,
+         publicChargerStatus1: Double,
+         publicChargerStatus2: Double,
+         publicChargerConnector1: Double,
+         publicChargerConnector2: Double,
+         publicChargerKW1: Double,
+         publicChargerKW2: Double,
+         publicChargerFee1: String) {
         
         self.publicChargerTitle = publicChargerTitle
         self.publicChargerLatitude = publicChargerLatitude
@@ -30,6 +40,7 @@ class PublicChargers {
         self.publicChargerConnector2 = publicChargerConnector2
         self.publicChargerKW1 = publicChargerKW1
         self.publicChargerKW2 = publicChargerKW2
+        self.publicChargerFee1 = publicChargerFee1
     }
 }
 

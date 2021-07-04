@@ -10,6 +10,7 @@ import Foundation
 struct PublicCharger: Decodable {
     let AddressInfo: AddressInfo
     let Connections: [Connections]
+    var UsageCost: String?
 }
 
 struct AddressInfo: Decodable {
@@ -23,5 +24,4 @@ struct Connections: Decodable {
     let StatusTypeID: Double?
     let ConnectionTypeID: Double?
     let PowerKW: Double?
-
 }

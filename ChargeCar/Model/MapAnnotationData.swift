@@ -17,6 +17,7 @@ class Charger: NSObject, MKAnnotation {
     let chargerConnector2: Double
     let chargerKW1: Double
     let chargerKW2: Double
+    let chargerFee1: String
     
     init(
         title: String?,
@@ -27,7 +28,8 @@ class Charger: NSObject, MKAnnotation {
         chargerConnector1: Double,
         chargerConnector2: Double,
         chargerKW1: Double,
-        chargerKW2: Double)
+        chargerKW2: Double,
+        chargerFee1: String)
     {
         self.title = title
         self.locationName = locationName
@@ -38,6 +40,7 @@ class Charger: NSObject, MKAnnotation {
         self.chargerConnector2 = chargerConnector2
         self.chargerKW1 = chargerKW1
         self.chargerKW2 = chargerKW2
+        self.chargerFee1 = chargerFee1
         
         super.init()
     }
