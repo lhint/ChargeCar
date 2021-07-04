@@ -298,7 +298,7 @@
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <state key="normal" title="Register"/>
                                 <connections>
-                                    <action selector="registerButton:" destination="cDn-HK-D22" eventType="touchUpInside" id="LxJ-2Z-2gO"/>
+                                    <action selector="registerButton:" destination="cDn-HK-D22" eventType="touchUpInside" id="k6O-Td-PZS"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n1G-Th-qsr">
