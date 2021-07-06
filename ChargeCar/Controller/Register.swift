@@ -11,13 +11,12 @@ import Firebase
 
 class Register: UIViewController, UITextFieldDelegate {
     
-    
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var password2: UITextField!
     @IBOutlet weak var carReg: UITextField!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
@@ -29,8 +28,9 @@ class Register: UIViewController, UITextFieldDelegate {
         self.password.delegate = self
         self.password2.delegate = self
         self.carReg.delegate = self
+
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case self.name:
@@ -58,16 +58,16 @@ class Register: UIViewController, UITextFieldDelegate {
                 print(error ?? "Please enter a valid email and password")
              return
             } else {
+                Global.shared.signedIn = true
                 self.performSegue(withIdentifier: "home", sender: self)
-                //Change menu bar here
-                //Show username in menu
-                //Logged in message on home page
-                //Save rest of the required data to firebase realtime database
             }
         })
         }
     }
-    //Include error messages
+    //UserDefaults to save if signedIn or not
+    //Show username in menu
+    //Logged in message on map page
+    //Show sign in/ register errors as a UIAlertController
     //Include validation messages
-    
+    //Save rest of the required data to firebase realtime database
 }

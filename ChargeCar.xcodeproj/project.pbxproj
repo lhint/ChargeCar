@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B73536BE2694959D009C8A81 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73536BD2694959D009C8A81 /* Global.swift */; };
 		B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */; };
 		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
 		B766C5F9268C82540043B7CD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766C5F8268C82540043B7CD /* Login.swift */; };
@@ -31,6 +32,7 @@
 		3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.release.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.release.xcconfig"; sourceTree = "<group>"; };
 		6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.debug.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.debug.xcconfig"; sourceTree = "<group>"; };
 		AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeCar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B73536BD2694959D009C8A81 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationData.swift; sourceTree = "<group>"; };
 		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		B766C5F8268C82540043B7CD /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */,
 				B7E5F69825F11AA20084073C /* Data.swift */,
 				B7957D33267E05B00066E3DB /* PublicChargers.swift */,
+				B73536BD2694959D009C8A81 /* Global.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */,
 				B7E5F69925F11AA20084073C /* Data.swift in Sources */,
 				B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */,
+				B73536BE2694959D009C8A81 /* Global.swift in Sources */,
 				B7E5F68525F0E6E10084073C /* HomeViewController.swift in Sources */,
 				B7E16FF82691FEFC009A67FD /* Register.swift in Sources */,
 				B766C5F9268C82540043B7CD /* Login.swift in Sources */,

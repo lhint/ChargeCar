@@ -16,34 +16,43 @@ class Menu: UITableViewController {
     
     var menu1: [String] = ["Login", "Register"]
     var menu2: [String] = ["Host","Help","Account","Sign Out"]
+   
     
     override func viewWillAppear(_ animated: Bool) {
         //navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        menu1.count
+        var total = 0
+        if Global.shared.signedIn == false {
+           total = self.menu1.count
+        } else if Global.shared.signedIn == true {
+           total = self.menu2.count
+        }
+        return total
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        if Global.shared.signedIn == false {
         cell.textLabel?.text = menu1[indexPath.row]
+        } else if Global.shared.signedIn == true {
+            cell.textLabel?.text = menu2[indexPath.row]
+        }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let cell = tableView.cellForRow(at: indexPath)
-        if cell?.textLabel?.text == "Register" {
-            self.performSegue(withIdentifier: "register", sender: nil)
-        } else if cell?.textLabel?.text == "Login" {
-            self.performSegue(withIdentifier: "login", sender: nil)
-        }
+            let cell = tableView.cellForRow(at: indexPath)
+            if cell?.textLabel?.text == "Register" {
+                self.performSegue(withIdentifier: "register", sender: nil)
+            } else if cell?.textLabel?.text == "Login" {
+                self.performSegue(withIdentifier: "login", sender: nil)
+            } else if cell?.textLabel?.text == "Sign Out" {
+                SignOut.shared.signOut()
+                self.performSegue(withIdentifier: "returnHome", sender: nil)
+            }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
 }

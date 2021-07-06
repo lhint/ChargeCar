@@ -263,13 +263,13 @@
                                 <rect key="frame" x="159" y="260" width="197" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="new-password"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qza-dQ-iwQ">
                                 <rect key="frame" x="159" y="341" width="197" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="new-password"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Retype" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQU-2y-XOR">
                                 <rect key="frame" x="46" y="329" width="60" height="23"/>
@@ -355,11 +355,12 @@
                     <connections>
                         <segue destination="cDn-HK-D22" kind="show" identifier="register" id="F3z-fk-z46"/>
                         <segue destination="vQW-MO-jnW" kind="show" identifier="login" id="AAb-KI-dcb"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="returnHome" id="0qI-CJ-2G7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J5w-IW-7QM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4394" y="-549"/>
+            <point key="canvasLocation" x="4380" y="-549"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="KoD-eW-ve9">
@@ -376,7 +377,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAQ-HS-1pC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3641" y="-549"/>
+            <point key="canvasLocation" x="3628" y="-549"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FJD-3p-au0">
@@ -428,7 +429,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fq9-ac-eYJ">
                                 <rect key="frame" x="153" y="211" width="197" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZxU-B1-Sog">
@@ -459,7 +460,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FFx-Hy-QH1"/>
+        <segue reference="0qI-CJ-2G7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="PngItem_2882247" width="461" height="238"/>

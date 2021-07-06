@@ -9,14 +9,18 @@ import Foundation
 import Firebase
 
 class SignOut {
+
+    public static let shared = SignOut()
     
     func signOut() {
         let firebaseAuth = Auth.auth()
         
+        
         do {
             try firebaseAuth.signOut()
+            Global.shared.signedIn = false
         } catch let signOutError as NSError {
-            print("Eror signing out", signOutError)
+            print("Error signing out", signOutError)
         }
     }
 }

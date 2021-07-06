@@ -45,6 +45,7 @@ class Login: UIViewController, UITextFieldDelegate {
                     print(error ?? "Please enter a valid email and password")
                  return
                 } else {
+                    Global.shared.signedIn = true
                     self.performSegue(withIdentifier: "loginhome", sender: self)
                     //Change menu bar here
                     //Show username in menu
@@ -53,5 +54,4 @@ class Login: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
 }
