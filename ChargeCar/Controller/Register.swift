@@ -30,9 +30,9 @@ class Register: UIViewController, UITextFieldDelegate {
         self.password.delegate = self
         self.password2.delegate = self
         self.carReg.delegate = self
-
+        
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case self.name:
@@ -54,22 +54,38 @@ class Register: UIViewController, UITextFieldDelegate {
     @IBAction func registerButton(_ sender: Any) {
         //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
         if let email = email.text, let password = password2.text {
-        Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
-            if error != nil {
-             // report error
-                print(error ?? "Please enter a valid email and password")
-             return
-            } else {
-                Global.shared.signedIn = true
-                self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
-                self.performSegue(withIdentifier: "home", sender: self)
-            }
-        })
+            var answer = ""
+            Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+                if error != nil {
+                    // report error - Taken from: https://stackoverflow.com/questions/37449919/reading-firebase-auth-error-thrown-firebase-3-x-and-swift
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        
+                        switch errCode {
+                        case .emailAlreadyInUse:
+                        answer = "Email your trying to use is already registered."
+                        case .weakPassword:
+                            answer = "Your password is too weak. Please make it more complex."
+                        case .invalidEmail:
+                            answer = "Your email address is invalid. Please try again with a vaild email address."
+                        default:
+                            print("Either your Email Address entered is incorrect or the password is not complex enough. Please try again.")
+                        }
+                    }
+                    print(answer)
+                    let alert = UIAlertController(title: "Error!", message: "\(answer)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true)
+                    return
+                } else {
+                    Global.shared.signedIn = true
+                    self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
+                    self.performSegue(withIdentifier: "home", sender: self)
+                }
+            })
         }
     }
-    //Show username in menu
+    //Include validation messages - Both password fields must match!
+    //Show name in menu
     //Logged in message on map page
-    //Show sign in/ register errors as a UIAlertController
-    //Include validation messages
     //Save rest of the required data to firebase realtime database
 }

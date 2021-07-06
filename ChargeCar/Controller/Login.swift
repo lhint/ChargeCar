@@ -41,18 +41,30 @@ class Login: UIViewController, UITextFieldDelegate {
     @IBAction func loginButton(_ sender: Any) {
         //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
         if let email = email.text, let password = password.text {
+            var answer = ""
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if error != nil {
-                 // report error
-                    print(error ?? "Please enter a valid email and password")
-                 return
+                    // report error - Taken from: https://stackoverflow.com/questions/37449919/reading-firebase-auth-error-thrown-firebase-3-x-and-swift
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        
+                        switch errCode {
+                        case .invalidEmail:
+                            answer = "Incorrect Email Address. Please try again."
+                        case .wrongPassword:
+                            answer = "Incorrect Password. Please try again."
+                        default:
+                            print("Either your Email Address or Password is wrong. Please try again.")
+                        }
+                    }
+                    print(answer)
+                    let alert = UIAlertController(title: "Error!", message: "\(answer)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true)
+                    return
                 } else {
                     Global.shared.signedIn = true
                     self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
                     self.performSegue(withIdentifier: "loginhome", sender: self)
-                    //Change menu bar here
-                    //Show username in menu
-                    //Logged in message on home page
                 }
             }
         }

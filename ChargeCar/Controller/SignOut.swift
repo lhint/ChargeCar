@@ -11,6 +11,7 @@ import Firebase
 class SignOut {
 
     public static let shared = SignOut()
+    let defaults = UserDefaults.standard
     
     func signOut() {
         let firebaseAuth = Auth.auth()
@@ -18,6 +19,7 @@ class SignOut {
         do {
             try firebaseAuth.signOut()
             Global.shared.signedIn = false
+            self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
         } catch let signOutError as NSError {
             print("Error signing out", signOutError)
         }
