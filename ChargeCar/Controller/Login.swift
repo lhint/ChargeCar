@@ -14,6 +14,8 @@ class Login: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
@@ -46,6 +48,7 @@ class Login: UIViewController, UITextFieldDelegate {
                  return
                 } else {
                     Global.shared.signedIn = true
+                    self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
                     self.performSegue(withIdentifier: "loginhome", sender: self)
                     //Change menu bar here
                     //Show username in menu

@@ -17,6 +17,8 @@ class Register: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var password2: UITextField!
     @IBOutlet weak var carReg: UITextField!
     
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
@@ -59,12 +61,12 @@ class Register: UIViewController, UITextFieldDelegate {
              return
             } else {
                 Global.shared.signedIn = true
+                self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
                 self.performSegue(withIdentifier: "home", sender: self)
             }
         })
         }
     }
-    //UserDefaults to save if signedIn or not
     //Show username in menu
     //Logged in message on map page
     //Show sign in/ register errors as a UIAlertController

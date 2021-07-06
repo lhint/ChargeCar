@@ -15,6 +15,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     //Map Outlet to view controller component
     @IBOutlet weak var mapView: MKMapView!
     
+    let defaults = UserDefaults.standard
+    
     //Global veriables
     public var lat = 0.0, long = 0.0
     
@@ -29,6 +31,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 MKMapViewDefaultAnnotationViewReuseIdentifier)
         //Called functions
         currentLocation()
+        Global.shared.signedIn = defaults.bool(forKey: "SignedIn")
         
     }//End of viewDidLoad
     

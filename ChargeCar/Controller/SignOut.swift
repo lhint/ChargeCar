@@ -15,7 +15,6 @@ class SignOut {
     func signOut() {
         let firebaseAuth = Auth.auth()
         
-        
         do {
             try firebaseAuth.signOut()
             Global.shared.signedIn = false
