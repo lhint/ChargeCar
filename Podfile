@@ -24,5 +24,6 @@ target 'ChargeCar' do
   pod 'SideMenu'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Database'
 
 end

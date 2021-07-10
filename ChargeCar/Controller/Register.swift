@@ -32,8 +32,10 @@ class Register: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         
         //Objective-C Line used to keep checking if the text field is vaild before enabling the submit button
-        email.addTarget(self, action: #selector(passwordValidation), for: UIControl.Event.editingChanged)
-        password2.addTarget(self, action: #selector(passwordValidation), for: UIControl.Event.editingChanged)
+        email.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        name.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        carReg.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        password2.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         
         self.name.delegate = self
         self.email.delegate = self
@@ -62,10 +64,10 @@ class Register: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @objc func passwordValidation() {
+    @objc func validation() {
         //Text Field Validation check before button is enabled
         
-        if email.text == "" {
+        if email.text == "" || name.text == "" || carReg.text == "" {
             register.isUserInteractionEnabled = false
             register.backgroundColor = UIColor.gray
             
@@ -115,9 +117,15 @@ class Register: UIViewController, UITextFieldDelegate {
                 }
             })
         }
+        
+        //DVLA car check reg check API
+        
+        let ref = Database.database(url: "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+        //myDatabase.setValue("We've got data!")
+        ref.child("\(name.text ?? "")").setValue(["carreg": "\(carReg.text ?? "")","name": "\(name.text ?? "")"])
+        
     }
-    //Include validation messages - Both password fields must match!
     //Show name in menu
     //Logged in message on map page
-    //Save rest of the required data to firebase realtime database
+    
 }
