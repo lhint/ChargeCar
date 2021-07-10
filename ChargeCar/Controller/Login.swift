@@ -13,6 +13,7 @@ class Login: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var signInButton: UIButton!
     
     let defaults = UserDefaults.standard
     
@@ -24,6 +25,12 @@ class Login: UIViewController, UITextFieldDelegate {
         
         self.email.delegate = self
         self.password.delegate = self
+        
+        email.addTarget(self, action: #selector(passwordValidation), for: UIControl.Event.editingChanged)
+        password.addTarget(self, action: #selector(passwordValidation), for: UIControl.Event.editingChanged)
+        
+        signInButton.isUserInteractionEnabled = false
+        signInButton.backgroundColor = UIColor.gray
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -53,11 +60,11 @@ class Login: UIViewController, UITextFieldDelegate {
                         case .wrongPassword:
                             answer = "Incorrect Password. Please try again."
                         default:
-                            print("Either your Email Address or Password is wrong. Please try again.")
+                            answer = "Either your Email Address or Password is wrong. Please try again."
                         }
                     }
                     print(answer)
-                    let alert = UIAlertController(title: "Error!", message: "\(answer)", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Woops...", message: "\(answer)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alert, animated: true)
                     return
@@ -67,6 +74,17 @@ class Login: UIViewController, UITextFieldDelegate {
                     self.performSegue(withIdentifier: "loginhome", sender: self)
                 }
             }
+        }
+    }
+    
+    @objc func passwordValidation() {
+        
+        if email.text == "" || password.text == "" {
+            signInButton.isUserInteractionEnabled = false
+            signInButton.backgroundColor = UIColor.gray
+        } else {
+            signInButton.isUserInteractionEnabled = true
+            signInButton.backgroundColor = UIColor.systemGreen
         }
     }
 }

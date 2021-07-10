@@ -307,6 +307,13 @@
                                     <action selector="registerButton:" destination="cDn-HK-D22" eventType="touchUpInside" id="k6O-Td-PZS"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Passwords do not match" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4P-zS-BAd">
+                                <rect key="frame" x="159" y="383" width="197" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="D2Q-Fs-Lm9"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -318,14 +325,16 @@
                         <outlet property="carReg" destination="n1G-Th-qsr" id="WYG-1y-r5i"/>
                         <outlet property="email" destination="9Wv-5O-Shg" id="6Bp-sY-hJ0"/>
                         <outlet property="name" destination="h5x-I4-qNp" id="Smr-Gm-4oB"/>
+                        <outlet property="noMatch" destination="G4P-zS-BAd" id="383-bC-kro"/>
                         <outlet property="password" destination="mUL-K0-0xj" id="5K6-G4-ske"/>
                         <outlet property="password2" destination="Qza-dQ-iwQ" id="jtS-S0-ZFY"/>
+                        <outlet property="register" destination="yVy-0p-RtO" id="UZs-kn-gd8"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="home" id="FFx-Hy-QH1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPb-Kh-JVl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4381.159420289855" y="118.52678571428571"/>
+            <point key="canvasLocation" x="4379.7101449275369" y="118.52678571428571"/>
         </scene>
         <!--Charge Car-->
         <scene sceneID="QYc-Ob-JxF">
@@ -451,6 +460,7 @@
                     <connections>
                         <outlet property="email" destination="8ck-2d-8Hu" id="K93-gG-Zv0"/>
                         <outlet property="password" destination="Fq9-ac-eYJ" id="jzE-qM-ZH1"/>
+                        <outlet property="signInButton" destination="ZxU-B1-Sog" id="yhG-F5-41P"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="loginhome" id="GqO-G8-9UR"/>
                     </connections>
                 </viewController>
@@ -460,7 +470,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0qI-CJ-2G7"/>
+        <segue reference="GqO-G8-9UR"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="PngItem_2882247" width="461" height="238"/>
