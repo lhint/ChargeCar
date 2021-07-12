@@ -16,6 +16,7 @@ class Login: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signInButton: UIButton!
     
     let defaults = UserDefaults.standard
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,8 @@ class Login: UIViewController, UITextFieldDelegate {
         
         signInButton.isUserInteractionEnabled = false
         signInButton.backgroundColor = UIColor.gray
+        
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -47,6 +50,9 @@ class Login: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginButton(_ sender: Any) {
         //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
+        
+        let userEmail = email.text!
+        
         if let email = email.text, let password = password.text {
             var answer = ""
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
@@ -71,7 +77,14 @@ class Login: UIViewController, UITextFieldDelegate {
                 } else {
                     Global.shared.signedIn = true
                     self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
+                    Global.shared.signinUserEmail = userEmail
+                    print("Sign in - signed in user email \(Global.shared.signinUserEmail)")
+                    self.defaults.set(Global.shared.userEmail, forKey: "email")
+                    self.defaults.set(Global.shared.signinUserEmail, forKey: "signedinUserEmail")
                     self.performSegue(withIdentifier: "loginhome", sender: self)
+                    Global.shared.newSaveEmail = true
+                    self.defaults.set(Global.shared.newSaveEmail, forKey: "NewSaveEmail")
+                    
                 }
             }
         }

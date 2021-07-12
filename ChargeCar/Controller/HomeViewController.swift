@@ -17,10 +17,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     let defaults = UserDefaults.standard
-    let database = realtimeDatabase()
-    let ref = Database.database(url: "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/").reference()
-    var value = ""
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
+    let register = Register()
+    
+    var retrivedEmail = ""
     var signedInUsername = ""
+    @IBOutlet weak var testext: UILabel!
+    
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -37,43 +40,126 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         //Called functions
         currentLocation()
         Global.shared.signedIn = defaults.bool(forKey: "SignedIn")
+        Global.shared.newSaveEmail = defaults.bool(forKey: "NewSaveEmail")
+        
+        if Global.shared.newSaveEmail == true {
+        Global.shared.signinUserEmail = defaults.string(forKey: "signedinUserEmail") ?? "none"
+        }
+        //Global.shared.signinUserEmail = defaults.string(forKey: "signedinUserEmail") ?? ""
+        
+        //Get current logged in user data
+        
+        let user = Auth.auth().currentUser
+        if let user = user {
+            // The user's ID, unique to the Firebase project.
+            // Do NOT use this value to authenticate with your backend server,
+            // if you have one. Use getTokenWithCompletion:completion: instead.
+            Global.shared.userUid = user.uid
+            Global.shared.userEmail = user.email!
+            print("Uid: \(Global.shared.userUid)")
+            var multiFactorString = "MultiFactor: "
+            for info in user.multiFactor.enrolledFactors {
+                multiFactorString += info.displayName ?? "[DispayName]"
+                multiFactorString += " "
+                
+            }
+        }
         
         // Return signed in user details
         if Global.shared.signedIn == true {
             
-            let user = Auth.auth().currentUser
-            if let user = user {
-                // The user's ID, unique to the Firebase project.
-                // Do NOT use this value to authenticate with your backend server,
-                // if you have one. Use getTokenWithCompletion:completion: instead.
-                Global.shared.userUid = user.uid
-                Global.shared.userEmail = user.email!
-                print("Uid: \(Global.shared.userUid)")
-                var multiFactorString = "MultiFactor: "
-                for info in user.multiFactor.enrolledFactors {
-                    multiFactorString += info.displayName ?? "[DispayName]"
-                    multiFactorString += " "
-                    
-                }
-            }
-                // Get username for signed in user to display in menu
-                ref.child("\(Global.shared.userUid)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+            DispatchQueue.global(qos: .default).async {
+
+              // 2
+              let group = DispatchGroup()
+                
+                group.enter()
+              
+                self.ref.child("\(Global.shared.userUid)").child("email").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get item value
                     
                     if snapshot.exists() {
                         
-                        self.value = snapshot.value as? String ?? ""
-                        print(self.value)
-                        Global.shared.username = self.value
+                        Global.shared.userEmail = snapshot.value as? String ?? ""
+                        print("Email \(Global.shared.userEmail)")
                         
                     } else {
                         print("Error")
                         
                     }
                 })
+                
+                
+                  //Get username for signed in user to display in menu
+                 self.ref.child("\(Global.shared.userUid)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                     // Get item value
+                  var value = ""
+
+                     if snapshot.exists() {
+
+                         value = snapshot.value as? String ?? ""
+                         print("Username: \(value)")
+                         Global.shared.username = value
+                         
+                     } else {
+                         print("Error")
+
+                     }
+                 })
+                
+                //get car reg
+                self.ref.child("\(Global.shared.userUid)").child("carreg").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+                 var value = ""
+
+                    if snapshot.exists() {
+
+                        value = snapshot.value as? String ?? ""
+                        print("Username: \(value)")
+                        Global.shared.userReg = value
+                        
+                    } else {
+                        print("Error")
+
+                    }
+                })
+                
+                group.leave()
+                
+                group.wait()
+
+              // 6
+              DispatchQueue.main.async {
+    
+              }
+            }
+            
+            //Get user email address to check if created
+            
+            print("Saved user email from sign in screen: \(Global.shared.signinUserEmail)")
+            print("User email: \(Global.shared.userEmail)")
+            print("User name: \(Global.shared.username)")
+            
+            if Global.shared.signinUserEmail == Global.shared.userEmail {
+                
+            } else {
+                
+                //saves details to database saving against current users uid
+                self.ref.child("\(Global.shared.userUid)").setValue(["carreg": "\(Global.shared.userReg)","name": "\(Global.shared.username)","email": "\(Global.shared.userEmail)","uid": "\(Global.shared.userUid)"])
+                if Global.shared.newSaveEmail == true {
+                    print("Email on home: \(Global.shared.userEmail)")
+                    Global.shared.signinUserEmail = Global.shared.userEmail
+                    testext.text = "Register.email: \(String(describing: Global.shared.signinUserEmail))"
+                    self.defaults.set(Global.shared.signinUserEmail, forKey: "signedinUserEmail")
+                }
+            }
         }
         
     } //End of viewDidLoad
+    
+    
+
+      
     
     //Hides navigation bar at the top of screen
     override func viewWillAppear(_ animated: Bool) {

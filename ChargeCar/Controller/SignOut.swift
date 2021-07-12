@@ -19,7 +19,11 @@ class SignOut {
         do {
             try firebaseAuth.signOut()
             Global.shared.signedIn = false
-            self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
+            Global.shared.signinUserEmail = ""
+            self.defaults.set("Global.shared.signedIn", forKey: "SignedIn")
+            self.defaults.set(Global.shared.signinUserEmail, forKey: "signedinUserEmail")
+            Global.shared.newSaveEmail = false
+            self.defaults.set(Global.shared.newSaveEmail, forKey: "NewSaveEmail")
         } catch let signOutError as NSError {
             print("Error signing out", signOutError)
         }

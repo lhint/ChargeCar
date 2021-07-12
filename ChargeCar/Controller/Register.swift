@@ -21,7 +21,7 @@ class Register: UIViewController, UITextFieldDelegate {
     
     
     let defaults = UserDefaults.standard
-    let ref = Database.database(url: "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +94,7 @@ class Register: UIViewController, UITextFieldDelegate {
         
         if let email = email.text, let password2 = password2.text {
             var answer = ""
+            
             Auth.auth().createUser(withEmail: email, password: password2, completion: { authResult, error in
                 if error != nil {
                     // report error - Taken from: https://stackoverflow.com/questions/37449919/reading-firebase-auth-error-thrown-firebase-3-x-and-swift
@@ -125,8 +126,8 @@ class Register: UIViewController, UITextFieldDelegate {
                     self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
                     self.defaults.set(Global.shared.username, forKey: "UserName")
                     self.performSegue(withIdentifier: "home", sender: self)
-                    
-                    self.ref.child("\(Global.shared.userUid)").setValue(["carreg": "\(Global.shared.userReg)","name": "\(Global.shared.username)","email": "\(Global.shared.userEmail)","uid": "\(Global.shared.userUid)"])
+                    Global.shared.newSaveEmail = true
+                    self.defaults.set(Global.shared.newSaveEmail, forKey: "NewSaveEmail")
                 }
             })
         }

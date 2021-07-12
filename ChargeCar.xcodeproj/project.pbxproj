@@ -12,7 +12,6 @@
 		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
 		B766C5F9268C82540043B7CD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766C5F8268C82540043B7CD /* Login.swift */; };
 		B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */; };
-		B77FADA8269A1A4900C4CC97 /* RealTimeDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FADA7269A1A4900C4CC97 /* RealTimeDatabase.swift */; };
 		B77FADAC269C5FC600C4CC97 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FADAB269C5FC600C4CC97 /* Host.swift */; };
 		B77FADAE269C600800C4CC97 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FADAD269C600800C4CC97 /* Account.swift */; };
 		B77FADB0269C602100C4CC97 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FADAF269C602100C4CC97 /* Help.swift */; };
@@ -41,7 +40,6 @@
 		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		B766C5F8268C82540043B7CD /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerInfo.swift; sourceTree = "<group>"; };
-		B77FADA7269A1A4900C4CC97 /* RealTimeDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeDatabase.swift; sourceTree = "<group>"; };
 		B77FADAB269C5FC600C4CC97 /* Host.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Host.swift; sourceTree = "<group>"; };
 		B77FADAD269C600800C4CC97 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B77FADAF269C602100C4CC97 /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 			children = (
 				B7E16FF72691FEFC009A67FD /* Register.swift */,
 				B766C5F8268C82540043B7CD /* Login.swift */,
-				B77FADA7269A1A4900C4CC97 /* RealTimeDatabase.swift */,
 				B7D2041F26926C2F0037BE70 /* SignOut.swift */,
 				B7DFB56B268BAF4A00E6298B /* Menu.swift */,
 				B77FADAB269C5FC600C4CC97 /* Host.swift */,
@@ -288,7 +285,6 @@
 				B77FADB0269C602100C4CC97 /* Help.swift in Sources */,
 				B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */,
 				B77FADAC269C5FC600C4CC97 /* Host.swift in Sources */,
-				B77FADA8269A1A4900C4CC97 /* RealTimeDatabase.swift in Sources */,
 				B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */,
 				B7E5F69925F11AA20084073C /* PublicChargerData.swift in Sources */,
 				B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */,
