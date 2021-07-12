@@ -49,6 +49,12 @@ class Menu: UITableViewController {
             } else if cell?.textLabel?.text == "Sign Out" {
                 SignOut.shared.signOut()
                 self.performSegue(withIdentifier: "returnHome", sender: nil)
+            } else if cell?.textLabel?.text == "\(Global.shared.username)" {
+                self.performSegue(withIdentifier: "account", sender: nil)
+            } else if cell?.textLabel?.text == "Help" {
+                self.performSegue(withIdentifier: "help", sender: nil)
+            } else if cell?.textLabel?.text == "Host" {
+                self.performSegue(withIdentifier: "host", sender: nil)
             }
     }
 }
