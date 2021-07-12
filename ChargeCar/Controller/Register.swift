@@ -21,6 +21,7 @@ class Register: UIViewController, UITextFieldDelegate {
     
     
     let defaults = UserDefaults.standard
+    let ref = Database.database(url: "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/").reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +44,11 @@ class Register: UIViewController, UITextFieldDelegate {
         self.password2.delegate = self
         self.carReg.delegate = self
         
+        Global.shared.username = name.text ?? ""
+        
     }
     
+    //Keyboard return button moves curser to next text box
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case self.name:
@@ -64,6 +68,7 @@ class Register: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    //Validates the text field before the register button can be pressed
     @objc func validation() {
         //Text Field Validation check before button is enabled
         
@@ -92,11 +97,12 @@ class Register: UIViewController, UITextFieldDelegate {
             Auth.auth().createUser(withEmail: email, password: password2, completion: { authResult, error in
                 if error != nil {
                     // report error - Taken from: https://stackoverflow.com/questions/37449919/reading-firebase-auth-error-thrown-firebase-3-x-and-swift
+                    // Presents the user with an error reason if the registration is unsuccesful.
                     if let errCode = AuthErrorCode(rawValue: error!._code) {
                         
                         switch errCode {
                         case .emailAlreadyInUse:
-                        answer = "Email your trying to use is already registered."
+                            answer = "Email your trying to use is already registered."
                         case .weakPassword:
                             answer = "Your password is too weak. Please make it more complex."
                         case .invalidEmail:
@@ -111,21 +117,23 @@ class Register: UIViewController, UITextFieldDelegate {
                     self.present(alert, animated: true)
                     return
                 } else {
+                    //Sets the details in the global app variables.
                     Global.shared.signedIn = true
+                    Global.shared.username = self.name.text!
+                    Global.shared.userEmail = self.email.text!
+                    Global.shared.userReg = self.carReg.text!
                     self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
+                    self.defaults.set(Global.shared.username, forKey: "UserName")
                     self.performSegue(withIdentifier: "home", sender: self)
+                    
+                    self.ref.child("\(Global.shared.userUid)").setValue(["carreg": "\(Global.shared.userReg)","name": "\(Global.shared.username)","email": "\(Global.shared.userEmail)","uid": "\(Global.shared.userUid)"])
                 }
             })
         }
         
         //DVLA car check reg check API
-        
-        let ref = Database.database(url: "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/").reference()
-        //myDatabase.setValue("We've got data!")
-        ref.child("\(name.text ?? "")").setValue(["carreg": "\(carReg.text ?? "")","name": "\(name.text ?? "")"])
+        //Show name in menu
+        //Logged in message on map page
         
     }
-    //Show name in menu
-    //Logged in message on map page
-    
 }

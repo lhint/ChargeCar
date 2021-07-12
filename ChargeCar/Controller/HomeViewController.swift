@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import SVProgressHUD
 import SideMenu
+import Firebase
 
 class HomeViewController: UIViewController, MKMapViewDelegate {
     
@@ -16,6 +17,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     let defaults = UserDefaults.standard
+    let database = realtimeDatabase()
+    let ref = Database.database(url: "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/").reference()
+    var value = ""
+    var signedInUsername = ""
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -33,7 +38,42 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         currentLocation()
         Global.shared.signedIn = defaults.bool(forKey: "SignedIn")
         
-    }//End of viewDidLoad
+        // Return signed in user details
+        if Global.shared.signedIn == true {
+            
+            let user = Auth.auth().currentUser
+            if let user = user {
+                // The user's ID, unique to the Firebase project.
+                // Do NOT use this value to authenticate with your backend server,
+                // if you have one. Use getTokenWithCompletion:completion: instead.
+                Global.shared.userUid = user.uid
+                Global.shared.userEmail = user.email!
+                print("Uid: \(Global.shared.userUid)")
+                var multiFactorString = "MultiFactor: "
+                for info in user.multiFactor.enrolledFactors {
+                    multiFactorString += info.displayName ?? "[DispayName]"
+                    multiFactorString += " "
+                    
+                }
+            }
+                // Get username for signed in user to display in menu
+                ref.child("\(Global.shared.userUid)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+                    
+                    if snapshot.exists() {
+                        
+                        self.value = snapshot.value as? String ?? ""
+                        print(self.value)
+                        Global.shared.username = self.value
+                        
+                    } else {
+                        print("Error")
+                        
+                    }
+                })
+        }
+        
+    } //End of viewDidLoad
     
     //Hides navigation bar at the top of screen
     override func viewWillAppear(_ animated: Bool) {

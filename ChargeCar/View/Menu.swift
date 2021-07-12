@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Menu: UITableViewController {
     
@@ -15,7 +16,7 @@ class Menu: UITableViewController {
     }
     
     var menu1: [String] = ["Login", "Register"]
-    var menu2: [String] = ["Host","Help","Account","Sign Out"]
+    var menu2: [String] = ["\(Global.shared.username)","Host","Help","Sign Out"]
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var total = 0
