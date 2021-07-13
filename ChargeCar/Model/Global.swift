@@ -18,5 +18,10 @@ class Global {
     var userUid: String = "none"
     var userReg: String = ""
     var databaseURL: String = "https://chargecar-2a276-default-rtdb.europe-west1.firebasedatabase.app/"
+    var returnedChargerName: String = ""
+    var returnedChargerLat: String = ""
+    var returnedChargerLong: String = ""
+    var currentLat: String = ""
+    var currentLong: String = ""
     public static let shared = Global()
 }

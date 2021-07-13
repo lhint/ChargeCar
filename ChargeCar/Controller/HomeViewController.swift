@@ -22,8 +22,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     var retrivedEmail = ""
     var signedInUsername = ""
-    @IBOutlet weak var testext: UILabel!
-    
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -115,12 +113,55 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     if snapshot.exists() {
 
                         value = snapshot.value as? String ?? ""
-                        print("Username: \(value)")
+                        print("Carreg: \(value)")
                         Global.shared.userReg = value
                         
                     } else {
                         print("Error")
 
+                    }
+                })
+                
+                self.ref.child("\(Global.shared.userUid)").child("chargername").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+                    
+                    if snapshot.exists() {
+                        
+                        Global.shared.returnedChargerName = snapshot.value as? String ?? ""
+                        print("Charger Name: \(Global.shared.returnedChargerName)")
+                        
+                    } else {
+                        print("Error")
+                        
+                    }
+                })
+                
+                //Get username for signed in user to display in menu
+                self.ref.child("\(Global.shared.userUid)").child("chargerlat").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+                    if snapshot.exists() {
+                        
+                        Global.shared.returnedChargerLat = snapshot.value as? String ?? ""
+                        print("Charger Lat: \(Global.shared.returnedChargerLat)")
+                        
+                    } else {
+                        print("Error")
+                        
+                    }
+                })
+                
+                //get car reg
+                self.ref.child("\(Global.shared.userUid)").child("chargerlong").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+                    
+                    if snapshot.exists() {
+                        
+                        Global.shared.returnedChargerLong = snapshot.value as? String ?? ""
+                        print("Charger Long: \(Global.shared.returnedChargerLong)")
+                        
+                    } else {
+                        print("Error")
+                        
                     }
                 })
                 
@@ -149,7 +190,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 if Global.shared.newSaveEmail == true {
                     print("Email on home: \(Global.shared.userEmail)")
                     Global.shared.signinUserEmail = Global.shared.userEmail
-                    testext.text = "Register.email: \(String(describing: Global.shared.signinUserEmail))"
                     self.defaults.set(Global.shared.signinUserEmail, forKey: "signedinUserEmail")
                 }
             }
@@ -185,7 +225,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 //print("location = \(location.coordinate.latitude) \(location.coordinate.longitude)")
                 
                 self.lat = location.coordinate.latitude
+                Global.shared.currentLat = String(self.lat)
                 self.long = location.coordinate.longitude
+                Global.shared.currentLong = String(self.long)
                 print("current location Lat: \(self.lat) and Long: \(self.long)")
                 // Set initial location - https://www.raywenderlich.com/7738344-mapkit-tutorial-getting-started
                 let initialLocation = CLLocationCoordinate2D(latitude: self.lat, longitude: self.long)
