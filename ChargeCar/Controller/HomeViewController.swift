@@ -19,9 +19,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     let defaults = UserDefaults.standard
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     let register = Register()
-    
     var retrivedEmail = ""
     var signedInUsername = ""
+    var privateCharger = [PrivateChargers]()
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         //Mapview code from https://developer.apple.com/
         self.mapView.delegate = self
-        mapView.register(
+       mapView.register(
             MarkerView.self,
             forAnnotationViewWithReuseIdentifier:
                 MKMapViewDefaultAnnotationViewReuseIdentifier)
@@ -46,6 +46,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         //Global.shared.signinUserEmail = defaults.string(forKey: "signedinUserEmail") ?? ""
         
         //Get current logged in user data
+        
         
         let user = Auth.auth().currentUser
         if let user = user {
@@ -86,8 +87,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         
                     }
                 })
-                
-                
                   //Get username for signed in user to display in menu
                  self.ref.child("\(Global.shared.userUid)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
                      // Get item value
@@ -196,11 +195,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
         
     } //End of viewDidLoad
-    
-    
 
-      
-    
     //Hides navigation bar at the top of screen
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -375,6 +370,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             print(element.publicChargerFee1)
         }
     }
+    @IBAction func testing(_ sender: UIButton) {
+        self.addPrivateCharger(chargerName: "Test", coordinateLat: -6.209557941416728, coordinateLong: 54.80369169682945)
+        //callAllPrivateChargers()
+    }
     
     //Add public chargers to map
     
@@ -399,7 +398,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
         
         SVProgressHUD.dismiss()
-        //annotationView.markerTintColor = UIColor.blue (Change marker colours for my own chargers)
     }
     
     //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
@@ -412,6 +410,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             return
         }
         print("User tapped on annotation with title: \(annotationTitle!)")
+
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let home = storyBoard.instantiateViewController(withIdentifier: "ChargerInfo") as! ChargerInfo
@@ -425,6 +424,40 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         home.k2 = annotation?.chargerKW2 ?? 0
         home.f1 = annotation?.chargerFee1 ?? ""
         navigationController?.pushViewController(home, animated: true)
+    }
+    
+    func callAllPrivateChargers() {
+        //        var name = ""
+        //        var lat = ""
+        //        var long = ""
+        
+    
+        self.ref.observeSingleEvent(of: .value) { (snapshot) in
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let chargerName = snap.childSnapshot(forPath: "chargername").value as? String
+                let chargerLat = snap.childSnapshot(forPath: "chargerlat").value as? String
+                let chargerLong = snap.childSnapshot(forPath: "chargerlong").value as? String
+                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong)
+                self.privateCharger.append(custom)
+            }
+            
+            //                name = privateCharger.chargerName!
+            //                lat = privateCharger.chargerLat!
+            //                long = privateCharger.chargerLong!
+            
+//            for each in self.privateCharger {
+//                print(each.chargerName!, each.chargerLat!, each.chargerLong!)
+//
+//            }
+        }
+    }
+    
+    func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double) {
+        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat, longitude: coordinateLong)) //, pinColor: UIColor.blue
+        //markerTintColor = UIColor.blue
+        mapView.addAnnotation(privateChargerAnnotation)
     }
 }
 

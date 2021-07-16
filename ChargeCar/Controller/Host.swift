@@ -8,8 +8,9 @@
 import UIKit
 import SVProgressHUD
 import Firebase
+import MapKit
 
-class Host: UIViewController {
+class Host: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var chargerName: UITextField!
     @IBOutlet weak var chargerLatitude: UITextField!
@@ -18,6 +19,10 @@ class Host: UIViewController {
     
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
+    let home = HomeViewController()
+    var coordinateLat = 0.0
+    var coordinateLong = 0.0
+    var chargerValueName = ""
     
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
@@ -50,11 +55,14 @@ class Host: UIViewController {
     //Add Charger Button
     @IBAction func addCharger(_ sender: Any) {
         
-        let chargerName = chargerName.text ?? ""
+        let chargerConfirmedName = chargerName.text
         let chargerLat = chargerLatitude.text ?? ""
         let chargerLong = chargerLongitude.text ?? ""
+        self.chargerValueName = chargerConfirmedName!
+        self.coordinateLong = Double(chargerLong) ?? 0.0
+        self.coordinateLat = Double(chargerLat) ?? 0.0
         
-        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": "\(chargerName)","chargerlat": "\(chargerLong)","chargerlong": "\(chargerLat)"])
+        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLong)","chargerlong": "\(chargerLat)"])
         
         let alert = UIAlertController(title: "Charger Added!", message: "You can set times for this to be schedualed in your account page by selecting your name from the menu.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: { (action) -> Void in

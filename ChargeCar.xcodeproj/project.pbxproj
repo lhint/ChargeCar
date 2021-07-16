@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B730FCCC269E0065002EF4BA /* PrivateMapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */; };
+		B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCD269E0276002EF4BA /* PrivateChargers.swift */; };
 		B73536BE2694959D009C8A81 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73536BD2694959D009C8A81 /* Global.swift */; };
 		B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */; };
 		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
@@ -16,6 +18,7 @@
 		B77FADAE269C600800C4CC97 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FADAD269C600800C4CC97 /* Account.swift */; };
 		B77FADB0269C602100C4CC97 /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77FADAF269C602100C4CC97 /* Help.swift */; };
 		B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7957D33267E05B00066E3DB /* PublicChargers.swift */; };
+		B7A5B1C026A084D800552DAA /* PrivateChargerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A5B1BF26A084D800552DAA /* PrivateChargerData.swift */; };
 		B7D2041E26925F4A0037BE70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7D2041D26925F4A0037BE70 /* GoogleService-Info.plist */; };
 		B7D2042026926C2F0037BE70 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D2041F26926C2F0037BE70 /* SignOut.swift */; };
 		B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFB56B268BAF4A00E6298B /* Menu.swift */; };
@@ -35,6 +38,8 @@
 		3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.release.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.release.xcconfig"; sourceTree = "<group>"; };
 		6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.debug.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.debug.xcconfig"; sourceTree = "<group>"; };
 		AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeCar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMapAnnotationData.swift; sourceTree = "<group>"; };
+		B730FCCD269E0276002EF4BA /* PrivateChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChargers.swift; sourceTree = "<group>"; };
 		B73536BD2694959D009C8A81 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationData.swift; sourceTree = "<group>"; };
 		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
@@ -44,6 +49,7 @@
 		B77FADAD269C600800C4CC97 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		B77FADAF269C602100C4CC97 /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		B7957D33267E05B00066E3DB /* PublicChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargers.swift; sourceTree = "<group>"; };
+		B7A5B1BF26A084D800552DAA /* PrivateChargerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChargerData.swift; sourceTree = "<group>"; };
 		B7D1A5A5267CFD54004796ED /* SVProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7D2041D26925F4A0037BE70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7D2041F26926C2F0037BE70 /* SignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
@@ -86,8 +92,11 @@
 			isa = PBXGroup;
 			children = (
 				B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */,
+				B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */,
 				B7E5F69825F11AA20084073C /* PublicChargerData.swift */,
+				B7A5B1BF26A084D800552DAA /* PrivateChargerData.swift */,
 				B7957D33267E05B00066E3DB /* PublicChargers.swift */,
+				B730FCCD269E0276002EF4BA /* PrivateChargers.swift */,
 				B73536BD2694959D009C8A81 /* Global.swift */,
 			);
 			path = Model;
@@ -293,7 +302,10 @@
 				B7E16FF82691FEFC009A67FD /* Register.swift in Sources */,
 				B77FADAE269C600800C4CC97 /* Account.swift in Sources */,
 				B766C5F9268C82540043B7CD /* Login.swift in Sources */,
+				B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */,
+				B730FCCC269E0065002EF4BA /* PrivateMapAnnotationData.swift in Sources */,
 				B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */,
+				B7A5B1C026A084D800552DAA /* PrivateChargerData.swift in Sources */,
 				B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */,
 				B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */,
 				B7E5F68325F0E6E10084073C /* SceneDelegate.swift in Sources */,

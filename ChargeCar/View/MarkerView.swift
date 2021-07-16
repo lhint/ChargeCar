@@ -14,8 +14,10 @@ class MarkerView: MKMarkerAnnotationView {
             guard (newValue as? Charger) != nil else {
                 return
             }
+            guard (newValue as? Charger) != nil else {
+                return
+            }
             canShowCallout = true
-            //calloutOffset = CGPoint(x: -5, y: 5)
             rightCalloutAccessoryView = UIButton(type: .infoLight)
         }
     }
