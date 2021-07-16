@@ -193,6 +193,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
+        callAllPrivateChargers()
+        let _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.addPrivateChargerToMap), userInfo: nil, repeats: false)
         
     } //End of viewDidLoad
 
@@ -370,10 +372,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             print(element.publicChargerFee1)
         }
     }
-    @IBAction func testing(_ sender: UIButton) {
-        self.addPrivateCharger(chargerName: "Test", coordinateLat: -6.209557941416728, coordinateLong: 54.80369169682945)
-        //callAllPrivateChargers()
-    }
     
     //Add public chargers to map
     
@@ -403,7 +401,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         //performSegue(withIdentifier: "chargerInfo", sender: nil)
-        
         guard let annotationTitle = view.annotation?.title else
         {
             print("Unable to retrieve details")
@@ -424,14 +421,27 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         home.k2 = annotation?.chargerKW2 ?? 0
         home.f1 = annotation?.chargerFee1 ?? ""
         navigationController?.pushViewController(home, animated: true)
+    
     }
     
-    func callAllPrivateChargers() {
-        //        var name = ""
-        //        var lat = ""
-        //        var long = ""
-        
     
+    @objc func addPrivateChargerToMap() {
+        for each in privateCharger {
+            let lat = each.chargerLat!
+            //print(lat)
+            let latconvert = Double(lat) ?? 0.0
+            let long = each.chargerLong ?? ""
+            //print(long)
+            let longconvert = Double(long) ?? 0.0
+            self.addPrivateCharger(chargerName: each.chargerName ?? "", coordinateLat: latconvert, coordinateLong: longconvert)
+            print(each.chargerName ?? "", each.chargerLat ?? 0.0, each.chargerLong ?? 0.0)
+            
+        }
+    }
+    
+    
+    func callAllPrivateChargers() {
+
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
             for child in snapshot.children {
@@ -442,22 +452,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong)
                 self.privateCharger.append(custom)
             }
-            
-            //                name = privateCharger.chargerName!
-            //                lat = privateCharger.chargerLat!
-            //                long = privateCharger.chargerLong!
-            
-//            for each in self.privateCharger {
-//                print(each.chargerName!, each.chargerLat!, each.chargerLong!)
-//
-//            }
         }
     }
     
     func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double) {
-        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat, longitude: coordinateLong)) //, pinColor: UIColor.blue
-        //markerTintColor = UIColor.blue
+        
+        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong)) //, pinColor: UIColor.blue
         mapView.addAnnotation(privateChargerAnnotation)
+        print(chargerName, coordinateLat, coordinateLong)
     }
 }
 

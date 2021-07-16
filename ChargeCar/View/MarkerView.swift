@@ -11,14 +11,17 @@ class MarkerView: MKMarkerAnnotationView {
     override var annotation: MKAnnotation? {
         willSet {
             // 1
-            guard (newValue as? Charger) != nil else {
+            if (newValue as? Charger) != nil {
+                canShowCallout = true
+                rightCalloutAccessoryView = UIButton(type: .infoLight)
+            } else if (newValue as? PrivateChargerMap != nil) {
+                canShowCallout = true
+                rightCalloutAccessoryView = UIButton(type: .infoLight)
+                markerTintColor = UIColor.blue
+            } else {
                 return
             }
-            guard (newValue as? Charger) != nil else {
-                return
-            }
-            canShowCallout = true
-            rightCalloutAccessoryView = UIButton(type: .infoLight)
+            
         }
     }
 }

@@ -62,7 +62,7 @@ class Host: UIViewController, MKMapViewDelegate {
         self.coordinateLong = Double(chargerLong) ?? 0.0
         self.coordinateLat = Double(chargerLat) ?? 0.0
         
-        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLong)","chargerlong": "\(chargerLat)"])
+        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLat)","chargerlong": "\(chargerLong)"])
         
         let alert = UIAlertController(title: "Charger Added!", message: "You can set times for this to be schedualed in your account page by selecting your name from the menu.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: { (action) -> Void in

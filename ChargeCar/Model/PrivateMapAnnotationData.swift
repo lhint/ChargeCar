@@ -8,7 +8,7 @@
 import MapKit
 
 class PrivateChargerMap: NSObject, MKAnnotation {
-    let chargerName: String?
+    let title: String?
     let coordinate: CLLocationCoordinate2D
     //var pinColor: UIColor
     
@@ -16,7 +16,7 @@ class PrivateChargerMap: NSObject, MKAnnotation {
           coordinate: CLLocationCoordinate2D)
           //pinColor: UIColor)
     {
-        self.chargerName = chargerName
+        self.title = chargerName
         self.coordinate = coordinate
         //self.pinColor = pinColor
     }

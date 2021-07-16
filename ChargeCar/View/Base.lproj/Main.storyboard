@@ -27,14 +27,6 @@
                                     <segue destination="xcr-fY-lVg" kind="show" id="vyZ-DR-3E6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pUw-75-q6i">
-                                <rect key="frame" x="151" y="226" width="148" height="93"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Test"/>
-                                <connections>
-                                    <action selector="testing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LHB-wt-wO2"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -723,7 +715,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="vyZ-DR-3E6"/>
-        <segue reference="0qI-CJ-2G7"/>
+        <segue reference="ZIz-Kl-sJu"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="PngItem_2882247" width="461" height="238"/>
