@@ -433,7 +433,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             let long = each.chargerLong ?? ""
             //print(long)
             let longconvert = Double(long) ?? 0.0
-            self.addPrivateCharger(chargerName: each.chargerName ?? "", coordinateLat: latconvert, coordinateLong: longconvert)
+            self.addPrivateCharger(chargerName: each.chargerName ?? "", coordinateLat: latconvert, coordinateLong: longconvert,chargerConnector: each.chargerConnector ?? "", chargerKWh: each.chargerPowerKwh ?? "")
             print(each.chargerName ?? "", each.chargerLat ?? 0.0, each.chargerLong ?? 0.0)
             
         }
@@ -449,15 +449,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerName = snap.childSnapshot(forPath: "chargername").value as? String
                 let chargerLat = snap.childSnapshot(forPath: "chargerlat").value as? String
                 let chargerLong = snap.childSnapshot(forPath: "chargerlong").value as? String
-                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong)
+                let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
+                let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerhwh").value as? String
+                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector, chargerPowerKwh: chargerPowerKwh)
                 self.privateCharger.append(custom)
             }
         }
     }
     
-    func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double) {
+    func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double, chargerConnector: String, chargerKWh: String) {
         
-        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong)) //, pinColor: UIColor.blue
+        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: "", chargerKW1: "")
         mapView.addAnnotation(privateChargerAnnotation)
         print(chargerName, coordinateLat, coordinateLong)
     }

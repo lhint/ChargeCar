@@ -23,5 +23,8 @@ class Global {
     var returnedChargerLong: String = ""
     var currentLat: String = ""
     var currentLong: String = ""
+    var privateChargerName: String = ""
+    var privateChargerConnector: String = ""
+    var privateChargerKWH: String = ""
     public static let shared = Global()
 }

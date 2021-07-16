@@ -10,14 +10,20 @@ import MapKit
 class PrivateChargerMap: NSObject, MKAnnotation {
     let title: String?
     let coordinate: CLLocationCoordinate2D
-    //var pinColor: UIColor
+    let chargerConnector1: String
+    let chargerKW1: String
+   
     
     init( chargerName: String?,
-          coordinate: CLLocationCoordinate2D)
-          //pinColor: UIColor)
+          coordinate: CLLocationCoordinate2D,
+          chargerConnector1: String,
+          chargerKW1: String)
+          
     {
         self.title = chargerName
         self.coordinate = coordinate
-        //self.pinColor = pinColor
+        self.chargerConnector1 = chargerConnector1
+        self.chargerKW1 = chargerKW1
+     
     }
 }
