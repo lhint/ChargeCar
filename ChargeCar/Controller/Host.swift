@@ -12,20 +12,22 @@ import MapKit
 
 class Host: UIViewController, MKMapViewDelegate {
     
+    
     @IBOutlet weak var chargerName: UITextField!
     @IBOutlet weak var chargerLatitude: UITextField!
     @IBOutlet weak var chargerLongitude: UITextField!
     @IBOutlet weak var addChargerButton: UIButton!
     @IBOutlet weak var connector: UITextField!
     @IBOutlet weak var powerKWH: UITextField!
-    @IBOutlet weak var picker: UIPickerView!
-    
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     let home = HomeViewController()
     var coordinateLat = 0.0
     var coordinateLong = 0.0
     var chargerValueName = ""
+    
+    fileprivate let pickerView = ToolbarPickerView()
+    fileprivate let titles = ["Type2", "CCS", "CHAdeMO"]
     
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
@@ -40,7 +42,26 @@ class Host: UIViewController, MKMapViewDelegate {
         self.chargerLongitude.placeholder = String(Global.shared.returnedChargerLong)
         self.connector.placeholder = String(Global.shared.privateChargerConnector)
         self.powerKWH.placeholder = String(Global.shared.privateChargerKWH)
+        
+        let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+        
+        //picker.isHidden = true
+        addChargerButton.isUserInteractionEnabled = false
+        addChargerButton.backgroundColor = UIColor.gray
+        
+        
+        self.connector.inputView = self.pickerView
+        self.connector.inputAccessoryView = self.pickerView.toolbar
+
+        self.pickerView.dataSource = self
+        self.pickerView.delegate = self
+        self.pickerView.toolbarDelegate = self
+
+        self.pickerView.reloadAllComponents()
+        
     }
+
     
     @IBAction func useMyLocation(_ sender: Any) {
         self.chargerLatitude.text = Global.shared.currentLat
@@ -56,7 +77,6 @@ class Host: UIViewController, MKMapViewDelegate {
             addChargerButton.isUserInteractionEnabled = true
             addChargerButton.backgroundColor = UIColor.systemGreen
         }
-        
     }
     
     //Add Charger Button
@@ -79,6 +99,40 @@ class Host: UIViewController, MKMapViewDelegate {
                 
             }))
         present(alert, animated: true)
+    }
+}
+
+extension Host: UIPickerViewDelegate, UIPickerViewDataSource {
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.titles.count
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.titles[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.connector.text = self.titles[row]
+    }
+}
+
+extension Host: ToolbarPickerViewDelegate {
+
+    func didTapDone() {
+        let row = self.pickerView.selectedRow(inComponent: 0)
+        self.pickerView.selectRow(row, inComponent: 0, animated: false)
+        self.connector.text = self.titles[row]
+        self.connector.resignFirstResponder()
+    }
+
+    func didTapCancel() {
+        self.connector.text = nil
+        self.connector.resignFirstResponder()
     }
 }
 

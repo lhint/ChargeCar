@@ -10,6 +10,7 @@
 		B730FCCC269E0065002EF4BA /* PrivateMapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */; };
 		B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCD269E0276002EF4BA /* PrivateChargers.swift */; };
 		B73536BE2694959D009C8A81 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73536BD2694959D009C8A81 /* Global.swift */; };
+		B7500C5226A2D5480088C610 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7500C5126A2D5480088C610 /* PickerView.swift */; };
 		B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */; };
 		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
 		B766C5F9268C82540043B7CD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766C5F8268C82540043B7CD /* Login.swift */; };
@@ -41,6 +42,7 @@
 		B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMapAnnotationData.swift; sourceTree = "<group>"; };
 		B730FCCD269E0276002EF4BA /* PrivateChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChargers.swift; sourceTree = "<group>"; };
 		B73536BD2694959D009C8A81 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		B7500C5126A2D5480088C610 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationData.swift; sourceTree = "<group>"; };
 		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		B766C5F8268C82540043B7CD /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				B7D2041F26926C2F0037BE70 /* SignOut.swift */,
 				B7DFB56B268BAF4A00E6298B /* Menu.swift */,
 				B77FADAB269C5FC600C4CC97 /* Host.swift */,
+				B7500C5126A2D5480088C610 /* PickerView.swift */,
 				B77FADAD269C600800C4CC97 /* Account.swift */,
 				B77FADAF269C602100C4CC97 /* Help.swift */,
 				B7E5F69525F0FC080084073C /* LocationManager.swift */,
@@ -294,6 +297,7 @@
 				B77FADB0269C602100C4CC97 /* Help.swift in Sources */,
 				B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */,
 				B77FADAC269C5FC600C4CC97 /* Host.swift in Sources */,
+				B7500C5226A2D5480088C610 /* PickerView.swift in Sources */,
 				B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */,
 				B7E5F69925F11AA20084073C /* PublicChargerData.swift in Sources */,
 				B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */,

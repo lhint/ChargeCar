@@ -427,7 +427,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     @objc func addPrivateChargerToMap() {
         for each in privateCharger {
-            let lat = each.chargerLat!
+            let lat = each.chargerLat ?? ""
             //print(lat)
             let latconvert = Double(lat) ?? 0.0
             let long = each.chargerLong ?? ""
@@ -451,7 +451,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerLong = snap.childSnapshot(forPath: "chargerlong").value as? String
                 let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
                 let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerhwh").value as? String
-                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector, chargerPowerKwh: chargerPowerKwh)
+                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "")
                 self.privateCharger.append(custom)
             }
         }
