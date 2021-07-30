@@ -121,8 +121,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     }
                 })
                 
+                //Get charger name
                 self.ref.child("\(Global.shared.userUid)").child("chargername").observeSingleEvent(of: .value, with: { (snapshot) in
-                    // Get item value
                     
                     if snapshot.exists() {
                         
@@ -135,7 +135,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     }
                 })
                 
-                //Get username for signed in user to display in menu
+                //Get cooridnate latitude
                 self.ref.child("\(Global.shared.userUid)").child("chargerlat").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get item value
                     if snapshot.exists() {
@@ -149,7 +149,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     }
                 })
                 
-                //get car reg
+                //get coordinate longitude
                 self.ref.child("\(Global.shared.userUid)").child("chargerlong").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get item value
                     
@@ -400,7 +400,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Code from: https://stackoverflow.com/questions/51091590/swift-storyboard-creating-a-segue-in-mapview-using-calloutaccessorycontroltapp
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        //performSegue(withIdentifier: "chargerInfo", sender: nil)
+        
         guard let annotationTitle = view.annotation?.title else
         {
             print("Unable to retrieve details")
@@ -410,17 +410,21 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
 
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let home = storyBoard.instantiateViewController(withIdentifier: "ChargerInfo") as! ChargerInfo
+        let chargerInfo = storyBoard.instantiateViewController(withIdentifier: "ChargerInfo") as! ChargerInfo
         let annotation = view.annotation as? Charger
-        home.name = annotationTitle!
-        home.s1 = annotation?.chargerStatus1 ?? 0
-        home.c1 = annotation?.chargerConnector1 ?? 0
-        home.k1 = annotation?.chargerKW1 ?? 0
-        home.s2 = annotation?.chargerStatus2 ?? 0
-        home.c2 = annotation?.chargerConnector2 ?? 0
-        home.k2 = annotation?.chargerKW2 ?? 0
-        home.f1 = annotation?.chargerFee1 ?? ""
-        navigationController?.pushViewController(home, animated: true)
+        let privateAnnotation = view.annotation as? PrivateChargerMap
+        chargerInfo.name = annotationTitle!
+        chargerInfo.s1 = annotation?.chargerStatus1 ?? 0
+        chargerInfo.c1 = annotation?.chargerConnector1 ?? 0
+        chargerInfo.k1 = annotation?.chargerKW1 ?? 0
+        chargerInfo.s2 = annotation?.chargerStatus2 ?? 0
+        chargerInfo.c2 = annotation?.chargerConnector2 ?? 0
+        chargerInfo.k2 = annotation?.chargerKW2 ?? 0
+        chargerInfo.f1 = annotation?.chargerFee1 ?? ""
+        chargerInfo.privateName = privateAnnotation?.title ?? ""
+        chargerInfo.privateConnector = privateAnnotation?.chargerConnector1 ?? ""
+        chargerInfo.privateKW = privateAnnotation?.chargerKW1 ?? ""
+        navigationController?.pushViewController(chargerInfo, animated: true)
     
     }
     
@@ -450,7 +454,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerLat = snap.childSnapshot(forPath: "chargerlat").value as? String
                 let chargerLong = snap.childSnapshot(forPath: "chargerlong").value as? String
                 let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
-                let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerhwh").value as? String
+                let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerkwh").value as? String
                 let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "")
                 self.privateCharger.append(custom)
             }
@@ -459,7 +463,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double, chargerConnector: String, chargerKWh: String) {
         
-        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: "", chargerKW1: "")
+        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh)
         mapView.addAnnotation(privateChargerAnnotation)
         print(chargerName, coordinateLat, coordinateLong)
     }

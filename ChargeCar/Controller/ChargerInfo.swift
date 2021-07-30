@@ -34,19 +34,34 @@ class ChargerInfo: UIViewController {
     public var k2 = 0.0
     public var f1 = ""
     
+    public var privateName = ""
+    public var privateConnector = ""
+    public var privateKW = ""
+    
     override func viewDidLoad() {
         
-        self.title = name
-        SVProgressHUD.dismiss()
-        showCharger2(k2: k2)
-        self.status1.text = checkKey(value: s1)
-        self.connector1.text = checkKey(value: c1)
-        self.kw1.text = kwCheck(kw: k1)
-        self.status2.text = checkKey(value: s2)
-        self.connector2.text = checkKey(value: c2)
-        self.kw2.text = kwCheck(kw: k2)
-        self.price1.text = f1
-        self.price2.text = f1
+        if privateName != "" {
+            //Private Chargers
+            self.status1.text = "" //Will be changed depending on the schedule host has set.
+            self.connector1.text = self.privateConnector
+            self.kw1.text = self.privateKW
+            self.price1.text = "" //Create in database and pull in.
+            
+        } else {
+            //Public Chargers
+            self.title = name
+            SVProgressHUD.dismiss()
+            showCharger2(k2: k2)
+            self.status1.text = checkKey(value: s1)
+            self.connector1.text = checkKey(value: c1)
+            self.kw1.text = kwCheck(kw: k1)
+            self.status2.text = checkKey(value: s2)
+            self.connector2.text = checkKey(value: c2)
+            self.kw2.text = kwCheck(kw: k2)
+            self.price1.text = f1
+            self.price2.text = f1
+            
+        }
     }
     
     func showCharger2(k2: Double) {
@@ -82,6 +97,10 @@ class ChargerInfo: UIViewController {
             answer = "Not Operational"
         }
         return answer
+    }
+    
+    func privateConvertKey() {
+        
     }
     
     func kwCheck(kw: Double) -> String {
