@@ -13,17 +13,20 @@ class PrivateChargers {
     var chargerLong: String?
     var chargerConnector: String?
     var chargerPowerKwh: String?
+    var price: String?
     
     init( chargerName: String?,
           chargerLat: String?,
           chargerLong: String?,
           chargerConnector: String?,
-          chargerPowerKwh: String?)
+          chargerPowerKwh: String?,
+          price: String)
     {
         self.chargerName = chargerName
         self.chargerLat = chargerLat
         self.chargerLong = chargerLong
         self.chargerConnector = chargerConnector
         self.chargerPowerKwh = chargerPowerKwh
+        self.price = price
     }
 }

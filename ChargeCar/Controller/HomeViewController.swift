@@ -66,6 +66,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         
         // Return signed in user details
         if Global.shared.signedIn == true {
+            self.callAllPrivateChargers()
+            let _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.addPrivateChargerToMap), userInfo: nil, repeats: false)
             
             DispatchQueue.global(qos: .default).async {
 
@@ -172,6 +174,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
               DispatchQueue.main.async {
     
               }
+
             }
             
             //Get user email address to check if created
@@ -193,8 +196,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
-        callAllPrivateChargers()
-        let _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.addPrivateChargerToMap), userInfo: nil, repeats: false)
         
     } //End of viewDidLoad
 
@@ -424,6 +425,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         chargerInfo.privateName = privateAnnotation?.title ?? ""
         chargerInfo.privateConnector = privateAnnotation?.chargerConnector1 ?? ""
         chargerInfo.privateKW = privateAnnotation?.chargerKW1 ?? ""
+        chargerInfo.price = privateAnnotation?.price ?? "0.00"
         navigationController?.pushViewController(chargerInfo, animated: true)
     
     }
@@ -437,7 +439,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             let long = each.chargerLong ?? ""
             //print(long)
             let longconvert = Double(long) ?? 0.0
-            self.addPrivateCharger(chargerName: each.chargerName ?? "", coordinateLat: latconvert, coordinateLong: longconvert,chargerConnector: each.chargerConnector ?? "", chargerKWh: each.chargerPowerKwh ?? "")
+            self.addPrivateCharger(chargerName: each.chargerName ?? "", coordinateLat: latconvert, coordinateLong: longconvert,chargerConnector: each.chargerConnector ?? "", chargerKWh: each.chargerPowerKwh ?? "", price: each.price ?? "0.00")
             print(each.chargerName ?? "", each.chargerLat ?? 0.0, each.chargerLong ?? 0.0)
             
         }
@@ -455,17 +457,18 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerLong = snap.childSnapshot(forPath: "chargerlong").value as? String
                 let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
                 let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerkwh").value as? String
-                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "")
+                let price = snap.childSnapshot(forPath: "price").value as? String
+                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                 self.privateCharger.append(custom)
             }
         }
     }
     
-    func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double, chargerConnector: String, chargerKWh: String) {
+    func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double, chargerConnector: String, chargerKWh: String, price: String) {
         
-        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh)
+        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh, price: price )
         mapView.addAnnotation(privateChargerAnnotation)
-        print(chargerName, coordinateLat, coordinateLong)
+        print(chargerName, coordinateLat, coordinateLong)g
     }
 }
 

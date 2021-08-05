@@ -37,6 +37,7 @@ class ChargerInfo: UIViewController {
     public var privateName = ""
     public var privateConnector = ""
     public var privateKW = ""
+    public var price = ""
     
     override func viewDidLoad() {
         
@@ -45,7 +46,8 @@ class ChargerInfo: UIViewController {
             self.status1.text = "" //Will be changed depending on the schedule host has set.
             self.connector1.text = self.privateConnector
             self.kw1.text = self.privateKW
-            self.price1.text = "" //Create in database and pull in.
+            self.price1.text = "£\(self.price) per hour"
+            showCharger2(k2: 1.0)
             
         } else {
             //Public Chargers

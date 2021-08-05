@@ -26,5 +26,6 @@ class Global {
     var privateChargerName: String = ""
     var privateChargerConnector: String = ""
     var privateChargerKWH: String = ""
+    var privateChargerPrice: String = ""
     public static let shared = Global()
 }

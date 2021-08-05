@@ -463,7 +463,7 @@
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXy-IM-3T4">
-                                <rect key="frame" x="130" y="573" width="144" height="58"/>
+                                <rect key="frame" x="135" y="611" width="144" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <state key="normal" title="Add!"/>
@@ -472,6 +472,19 @@
                                     <action selector="loginButton:" destination="vQW-MO-jnW" eventType="touchUpInside" id="B2w-rO-so2"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="£0.00" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jJC-Qq-EFJ">
+                                <rect key="frame" x="178" y="544" width="197" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" textContentType="tel"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price per Hour:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEw-kJ-NPy">
+                                <rect key="frame" x="41" y="549" width="132" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LgR-pZ-Lc7"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -484,6 +497,7 @@
                         <outlet property="chargerName" destination="Cn9-xr-KJL" id="cO2-3R-j7S"/>
                         <outlet property="connector" destination="mfc-JF-bij" id="nhf-bb-DRD"/>
                         <outlet property="powerKWH" destination="Zsr-fu-HGC" id="hgA-RN-fAG"/>
+                        <outlet property="price" destination="jJC-Qq-EFJ" id="p8J-fD-BiN"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="home2" id="ZIz-Kl-sJu"/>
                     </connections>
                 </viewController>
@@ -499,13 +513,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xo-Yi-WhJ">
-                                <rect key="frame" x="64" y="534" width="87" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1W-Qn-xVH">
                                 <rect key="frame" x="135" y="197" width="144" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -513,6 +520,7 @@
                                 <state key="normal" title="Schedule"/>
                                 <connections>
                                     <action selector="loginButton:" destination="vQW-MO-jnW" eventType="touchUpInside" id="fMv-jR-vvq"/>
+                                    <action selector="scheduleButton:" destination="qaF-Wp-UbG" eventType="touchUpInside" id="Qe8-bg-jmW"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Schedule when you would like to share your charger or choose to always share it" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNK-hm-iMp">
@@ -525,6 +533,9 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-qN-5qf">
                                 <rect key="frame" x="243" y="280" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="ShareToggle:" destination="qaF-Wp-UbG" eventType="valueChanged" id="jY7-l6-3qW"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Always share:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saW-qb-oW9">
                                 <rect key="frame" x="78" y="259" width="164" height="72"/>
@@ -573,6 +584,7 @@
                                 <state key="normal" title="Update!"/>
                                 <connections>
                                     <action selector="loginButton:" destination="vQW-MO-jnW" eventType="touchUpInside" id="Udk-Xj-gLj"/>
+                                    <action selector="updateButton:" destination="qaF-Wp-UbG" eventType="touchUpInside" id="feU-qO-eyu"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1B-nF-t6s">
@@ -608,11 +620,27 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xo-Yi-WhJ">
+                                <rect key="frame" x="60" y="581" width="87" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UWF-20-bvO"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="O9M-Pi-HbC"/>
+                    <connections>
+                        <outlet property="carRegField" destination="UaV-zO-M2m" id="xxj-Qi-gCD"/>
+                        <outlet property="nameField" destination="YMH-Ft-jTO" id="V1L-wb-71u"/>
+                        <outlet property="noMatch" destination="YIW-JC-jKP" id="bwv-ek-8kv"/>
+                        <outlet property="password2Field" destination="DgB-0u-09p" id="ebP-0c-zkx"/>
+                        <outlet property="passwordField" destination="tBd-8c-VLx" id="zwB-ss-X8d"/>
+                        <outlet property="shareToggle" destination="SjQ-qN-5qf" id="O7C-jr-Y35"/>
+                        <outlet property="updateButton" destination="IT7-NH-dBr" id="TJz-sJ-equ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HhQ-Mx-la0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -641,7 +669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEK-5R-oid" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7480" y="-511"/>
+            <point key="canvasLocation" x="7493" y="-577"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="KoD-eW-ve9">

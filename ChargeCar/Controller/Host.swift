@@ -19,6 +19,8 @@ class Host: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var addChargerButton: UIButton!
     @IBOutlet weak var connector: UITextField!
     @IBOutlet weak var powerKWH: UITextField!
+    @IBOutlet weak var price: UITextField!
+    
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     let home = HomeViewController()
@@ -36,6 +38,7 @@ class Host: UIViewController, MKMapViewDelegate {
         chargerLongitude.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         connector.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         powerKWH.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        price.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         
         self.chargerName.placeholder = Global.shared.returnedChargerName
         self.chargerLatitude.placeholder = String(Global.shared.returnedChargerLat)
@@ -90,8 +93,9 @@ class Host: UIViewController, MKMapViewDelegate {
         self.coordinateLat = Double(chargerLat) ?? 0.0
         Global.shared.privateChargerConnector = connector.text!
         Global.shared.privateChargerKWH = powerKWH.text!
+        Global.shared.privateChargerPrice = price.text!
         
-        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLat)","chargerlong": "\(chargerLong)","chargerconnector": "\(Global.shared.privateChargerConnector)", "chargerpowerkwh": "\(Global.shared.privateChargerKWH)"])
+        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLat)","chargerlong": "\(chargerLong)","chargerconnector": "\(Global.shared.privateChargerConnector)", "chargerpowerkwh": "\(Global.shared.privateChargerKWH)", "price": "\(Global.shared.privateChargerPrice)"])
         
         let alert = UIAlertController(title: "Charger Added!", message: "You can set times for this to be schedualed in your account page by selecting your name from the menu.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: { (action) -> Void in

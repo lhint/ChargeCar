@@ -12,18 +12,21 @@ class PrivateChargerMap: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     let chargerConnector1: String
     let chargerKW1: String
+    let price: String
    
     
     init( chargerName: String?,
           coordinate: CLLocationCoordinate2D,
           chargerConnector1: String,
-          chargerKW1: String)
+          chargerKW1: String,
+          price: String)
           
     {
         self.title = chargerName
         self.coordinate = coordinate
         self.chargerConnector1 = chargerConnector1
         self.chargerKW1 = chargerKW1
+        self.price = price
      
     }
 }

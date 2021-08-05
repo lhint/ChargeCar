@@ -13,5 +13,6 @@ class PrivateChargerData: NSObject {
     var chargerLong: String?
     var chargerConnector1: String?
     var chargerKW1: String?
+    var price: String?
 
 }
