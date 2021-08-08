@@ -458,8 +458,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
                 let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerkwh").value as? String
                 let price = snap.childSnapshot(forPath: "price").value as? String
+                let hostCharger = snap.childSnapshot(forPath: "showCharger").value as? Bool
+                if hostCharger == true {
                 let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                 self.privateCharger.append(custom)
+                }
             }
         }
     }
@@ -468,7 +471,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         
         let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh, price: price )
         mapView.addAnnotation(privateChargerAnnotation)
-        print(chargerName, coordinateLat, coordinateLong)g
+        print(chargerName, coordinateLat, coordinateLong)
     }
 }
 

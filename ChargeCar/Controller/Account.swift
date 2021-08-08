@@ -41,12 +41,9 @@ class Account: UIViewController {
         
     }
     
-    @IBAction func scheduleButton(_ sender: Any) {
-        //Direct to schdule view
-    }
-    
     @IBAction func ShareToggle(_ sender: Any) {
-        //Removes fron the map
+        //Removes fron the map - Sets the showCharger parameter in firbase to true.
+        
     }
     
     @IBAction func updateButton(_ sender: Any) {
