@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class Schedule: UIViewController {
     
@@ -31,6 +32,8 @@ class Schedule: UIViewController {
     @IBOutlet weak var fridayShare: UISwitch!
     @IBOutlet weak var saturdayShare: UISwitch!
     @IBOutlet weak var sundayShare: UISwitch!
+    
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
     override func viewDidLoad() {
         
@@ -69,7 +72,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        mondayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        mondayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["mondaystart": "\(time)"])
         
         self.mondayEnd.becomeFirstResponder()
     }
@@ -82,7 +87,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        mondayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        mondayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["mondayend": "\(time)"])
         
         self.tuesdayStart.becomeFirstResponder()
     }
@@ -95,7 +102,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        tuesdayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        tuesdayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["tuesdaystart": "\(time)"])
         
         self.tuesdayEnd.becomeFirstResponder()
     }
@@ -108,7 +117,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        tuesdayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        tuesdayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayEnd": "\(time)"])
         
         self.wednesdayStart.becomeFirstResponder()
     }
@@ -121,7 +132,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        wednesdayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        wednesdayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["wednesdaystart": "\(time)"])
         
         self.wednesdayEnd.becomeFirstResponder()
     }
@@ -134,7 +147,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        wednesdayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        wednesdayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayEnd": "\(time)"])
         
         self.thursdayStart.becomeFirstResponder()
     }
@@ -147,7 +162,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        thursdayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        thursdayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["thursdaystart": "\(time)"])
         
         self.thursdayEnd.becomeFirstResponder()
     }
@@ -160,7 +177,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        thursdayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        mondayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["thursdayend": "\(time)"])
         
         self.fridayStart.becomeFirstResponder()
     }
@@ -173,7 +192,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        fridayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        fridayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["fridaystart": "\(time)"])
         
         self.fridayEnd.becomeFirstResponder()
     }
@@ -186,7 +207,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        fridayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        fridayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["fridayend": "\(time)"])
         
         self.saturdayStart.becomeFirstResponder()
     }
@@ -199,7 +222,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        saturdayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        saturdayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["saturdaystart": "\(time)"])
         
         self.saturdayEnd.becomeFirstResponder()
     }
@@ -212,7 +237,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        saturdayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        saturdayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["saturdayend": "\(time)"])
         
         self.sundayStart.becomeFirstResponder()
         
@@ -226,7 +253,9 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        sundayStart.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        sundayStart.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["sundaystart": "\(time)"])
         
         self.sundayEnd.becomeFirstResponder()
     }
@@ -239,31 +268,68 @@ class Schedule: UIViewController {
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        sundayEnd.text = "\(hour) : \(minute)"
+        let time = "\(hour) : \(minute)"
+        sundayEnd.text = time
+        self.ref.child(Global.shared.userUid).updateChildValues(["sundayend": "\(time)"])
         
         self.sundayEnd.resignFirstResponder()
     }
     
     
-    @IBAction func mondayShareAction(_ sender: Any) {
+    @IBAction func mondayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["mondayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["mondayshare": "true"])
+        }
     }
     
-    @IBAction func tuesdayShareAction(_ sender: Any) {
+    @IBAction func tuesdayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayshare": "true"])
+        }
     }
     
-    @IBAction func wednesdayShareAction(_ sender: Any) {
+    @IBAction func wednesdayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayshare": "true"])
+        }
     }
     
-    @IBAction func thursdayShareAction(_ sender: Any) {
+    @IBAction func thursdayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["thursdayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["thursdayshare": "true"])
+        }
     }
     
-    @IBAction func fridayShareAction(_ sender: Any) {
+    @IBAction func fridayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["fridayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["fridayshare": "true"])
+        }
     }
     
-    @IBAction func saturdayShareAction(_ sender: Any) {
+    @IBAction func saturdayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["saturdayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["saturdayshare": "true"])
+        }
     }
     
-    @IBAction func sundayShareAction(_ sender: Any) {
+    @IBAction func sundayShareAction(_ sender: UISwitch) {
+        if sender.isOn == false {
+            self.ref.child(Global.shared.userUid).updateChildValues(["sundayshare": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["sundayshare": "true"])
+        }
     }
     
 }

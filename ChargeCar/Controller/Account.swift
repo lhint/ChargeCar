@@ -48,7 +48,7 @@ class Account: UIViewController {
         self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "false"])
         } else {
             self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "true"])
-            print("is on")
+            //print("is on")
         }
     }
     
