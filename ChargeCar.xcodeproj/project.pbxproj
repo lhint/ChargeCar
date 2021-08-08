@@ -23,6 +23,7 @@
 		B7D2041E26925F4A0037BE70 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7D2041D26925F4A0037BE70 /* GoogleService-Info.plist */; };
 		B7D2042026926C2F0037BE70 /* SignOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D2041F26926C2F0037BE70 /* SignOut.swift */; };
 		B7DDB5E126BDBAD80001E4F0 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DDB5E026BDBAD80001E4F0 /* Schedule.swift */; };
+		B7DDB5E326C020730001E4F0 /* TimepickerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DDB5E226C020730001E4F0 /* TimepickerExtension.swift */; };
 		B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFB56B268BAF4A00E6298B /* Menu.swift */; };
 		B7E16FF82691FEFC009A67FD /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E16FF72691FEFC009A67FD /* Register.swift */; };
 		B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F68025F0E6E10084073C /* AppDelegate.swift */; };
@@ -57,6 +58,7 @@
 		B7D2041D26925F4A0037BE70 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7D2041F26926C2F0037BE70 /* SignOut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOut.swift; sourceTree = "<group>"; };
 		B7DDB5E026BDBAD80001E4F0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		B7DDB5E226C020730001E4F0 /* TimepickerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimepickerExtension.swift; sourceTree = "<group>"; };
 		B7DFB56B268BAF4A00E6298B /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = ChargeCar/View/Menu.swift; sourceTree = SOURCE_ROOT; };
 		B7E16FF72691FEFC009A67FD /* Register.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		B7E5F67D25F0E6E10084073C /* ChargeCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChargeCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
 				B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */,
 				B7DDB5E026BDBAD80001E4F0 /* Schedule.swift */,
+				B7DDB5E226C020730001E4F0 /* TimepickerExtension.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */,
 				B77FADAC269C5FC600C4CC97 /* Host.swift in Sources */,
 				B7500C5226A2D5480088C610 /* PickerView.swift in Sources */,
+				B7DDB5E326C020730001E4F0 /* TimepickerExtension.swift in Sources */,
 				B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */,
 				B7E5F69925F11AA20084073C /* PublicChargerData.swift in Sources */,
 				B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */,

@@ -519,7 +519,7 @@
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <state key="normal" title="Schedule"/>
                                 <connections>
-                                    <segue destination="eC8-hq-ipu" kind="show" id="w0G-WR-bU7"/>
+                                    <action selector="scheduleButton:" destination="qaF-Wp-UbG" eventType="touchUpInside" id="j25-B9-rIE"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Schedule when you would like to share your charger or choose to always share it" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNK-hm-iMp">
@@ -532,6 +532,9 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SjQ-qN-5qf">
                                 <rect key="frame" x="243" y="280" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="ShareToggle:" destination="qaF-Wp-UbG" eventType="valueChanged" id="dOW-hA-P05"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Always share:" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="saW-qb-oW9">
                                 <rect key="frame" x="78" y="259" width="164" height="72"/>
@@ -636,6 +639,7 @@
                         <outlet property="passwordField" destination="tBd-8c-VLx" id="zwB-ss-X8d"/>
                         <outlet property="shareToggle" destination="SjQ-qN-5qf" id="O7C-jr-Y35"/>
                         <outlet property="updateButton" destination="IT7-NH-dBr" id="TJz-sJ-equ"/>
+                        <segue destination="eC8-hq-ipu" kind="show" identifier="schedule" id="lcK-jT-j30"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HhQ-Mx-la0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -767,7 +771,7 @@
         <!--Schedule-->
         <scene sceneID="jQ0-OY-wzp">
             <objects>
-                <viewController title="Schedule" id="eC8-hq-ipu" customClass="Schedule" sceneMemberID="viewController">
+                <viewController title="Schedule" id="eC8-hq-ipu" customClass="Schedule" customModule="ChargeCar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0BV-0O-647">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -864,7 +868,7 @@
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sunday:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGE-69-pD3">
-                                <rect key="frame" x="40" y="455" width="71" height="24"/>
+                                <rect key="frame" x="40" y="458" width="71" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -890,13 +894,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Asm-ok-GHU">
-                                <rect key="frame" x="159" y="227" width="76" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eOR-h6-uSf">
-                                <rect key="frame" x="250" y="227" width="76" height="34"/>
+                                <rect key="frame" x="159" y="222" width="76" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -950,13 +948,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UdR-Bs-8Tj">
-                                <rect key="frame" x="159" y="450" width="76" height="34"/>
+                                <rect key="frame" x="159" y="453" width="76" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCn-Ge-hKA">
-                                <rect key="frame" x="250" y="450" width="76" height="34"/>
+                                <rect key="frame" x="250" y="453" width="76" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -982,23 +980,21 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="PFq-cC-VQb">
-                                <rect key="frame" x="0.0" y="633" width="414" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="timePickerAction:" destination="eC8-hq-ipu" eventType="valueChanged" id="yBc-Bw-t8b"/>
-                                </connections>
-                            </datePicker>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eOR-h6-uSf">
+                                <rect key="frame" x="250" y="222" width="76" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Raa-Qq-nEP"/>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="ftI-e8-Tzy"/>
                     <connections>
-                        <outlet property="WednesdayStart" destination="ft0-vC-N2i" id="STA-UE-Mw0"/>
                         <outlet property="fridayEnd" destination="c14-Li-diG" id="Hut-ec-u2a"/>
                         <outlet property="fridayShare" destination="GBB-oT-znY" id="VBe-IQ-zp7"/>
-                        <outlet property="fridayStart" destination="c14-Li-diG" id="moJ-Ad-O6L"/>
+                        <outlet property="fridayStart" destination="FCD-Ad-9g4" id="Kcr-Kh-gp3"/>
                         <outlet property="mondayEnd" destination="Ubb-eO-YK2" id="Z39-8M-g6M"/>
                         <outlet property="mondayShare" destination="x2L-B2-fs0" id="xta-KA-kba"/>
                         <outlet property="mondayStart" destination="C0G-AQ-Gqr" id="PbT-I9-Umy"/>
@@ -1011,12 +1007,12 @@
                         <outlet property="thursdayEnd" destination="6c6-wz-DIc" id="vRh-Fp-6p9"/>
                         <outlet property="thursdayShare" destination="Owe-Kz-E5U" id="mN0-8Y-NQi"/>
                         <outlet property="thursdayStart" destination="boU-so-d8D" id="o9Y-zI-W6K"/>
-                        <outlet property="timePicker" destination="PFq-cC-VQb" id="OY8-MU-t8d"/>
                         <outlet property="tuesdayEnd" destination="eOR-h6-uSf" id="ltZ-T4-INq"/>
                         <outlet property="tuesdayShare" destination="XMx-hw-DSm" id="rrI-aL-7PW"/>
                         <outlet property="tuesdayStart" destination="Asm-ok-GHU" id="rdJ-My-RgM"/>
                         <outlet property="wednesdayEnd" destination="ft0-vC-N2i" id="uxh-wh-DK6"/>
                         <outlet property="wednesdayShare" destination="Pk1-S6-tA4" id="NPH-N4-QT7"/>
+                        <outlet property="wednesdayStart" destination="wwb-ba-QPz" id="qiQ-I9-zVM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="McK-5k-swz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

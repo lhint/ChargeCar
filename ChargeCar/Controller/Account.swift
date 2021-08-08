@@ -41,9 +41,15 @@ class Account: UIViewController {
         
     }
     
-    @IBAction func ShareToggle(_ sender: Any) {
-        //Removes fron the map - Sets the showCharger parameter in firbase to true.
+    @IBAction func ShareToggle(_ sender: UISwitch) {
+        //Removes from the map - Sets the showCharger parameter in firbase to true.
         
+        if sender.isOn == false {
+        self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "false"])
+        } else {
+            self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "true"])
+            print("is on")
+        }
     }
     
     @IBAction func updateButton(_ sender: Any) {
@@ -77,6 +83,11 @@ class Account: UIViewController {
         alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true)
     }
+    
+    @IBAction func scheduleButton(_ sender: Any) {
+        performSegue(withIdentifier: "schedule", sender: self)
+    }
+    
     
     //Validates the text field before the register button can be pressed
     @objc func validation() {
