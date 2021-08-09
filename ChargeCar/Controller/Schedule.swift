@@ -394,4 +394,10 @@ class Schedule: UIViewController {
         }
     }
     
+    func calculateSchedule() {
+        //Check if days are enabled
+        //check if its within the time
+        // if yes sharechar
+    }
+    
 }

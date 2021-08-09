@@ -48,5 +48,6 @@ class Global {
     var saturdayEnd: String = ""
     var sundayStart: String = ""
     var sundayEnd: String = ""
+    var shareChargerOverride = ""
     public static let shared = Global()
 }

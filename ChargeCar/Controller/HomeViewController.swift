@@ -23,6 +23,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     var signedInUsername = ""
     var privateCharger = [PrivateChargers]()
     var scheduledDays = [String]()
+    var hostCharger: Bool = false
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -447,9 +448,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    
     func callAllPrivateChargers() {
-
+        schedulePrivateCharger()
+        
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
             for child in snapshot.children {
@@ -460,13 +461,85 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
                 let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerkwh").value as? String
                 let price = snap.childSnapshot(forPath: "price").value as? String
-                let hostCharger = snap.childSnapshot(forPath: "showCharger").value as? Bool
-                if hostCharger == true {
-                let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
-                self.privateCharger.append(custom)
+                let override = snap.childSnapshot(forPath: "sharechargeroverride").value as? String
+                if override!.contains("false") {
+                    print("override false: \(override ?? "none")")
+                } else {
+                    //many if day == current day
+                    //Get day name
+                    let date = Date()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat  = "EEEE" // "EE" to get short style
+                    let dayInWeek = dateFormatter.string(from: date)
+                    //get current time
+                    
+                    let now = Date()
+                    let formatter = DateFormatter()
+                        formatter.timeZone = TimeZone.current
+                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                        formatter.timeStyle = .short
+                    let currentTime = formatter.string(from: now)
+                    print("Date: \(dayInWeek) Time: \(currentTime)")
+                    //Schedule date check
+                    if dayInWeek == "Monday" {
+                        print("Monday Showing")
+                        print("MondayStartTime \(Global.shared.mondayStart)")
+                        print("MondayEndTime \(Global.shared.mondayEnd)")
+                        //Schedule time check
+                        if currentTime >= Global.shared.mondayStart && currentTime <= Global.shared.mondayEnd {
+                            print("MondayTimeWorking")
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        } else {
+                            print("MondayTimeWrong")
+                            print("MondayStartTime \(Global.shared.mondayStart)")
+                            print("MondayEndTime \(Global.shared.mondayEnd)")
+                        }
+                    } else if dayInWeek == "Tuesday" {
+                        print("Tuesday Showing")
+                        print("TuesdayStartTime \(Global.shared.tuesdayStart)")
+                        print("TuesdayEndTime \(Global.shared.tuesdayEnd)")
+                        if currentTime > Global.shared.tuesdayStart && currentTime < Global.shared.tuesdayEnd {
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        } else {
+                            
+                        }
+                    } else if dayInWeek == "Wednesday" {
+                        print("Wednesday Showing")
+                        if currentTime > Global.shared.wednesdayStart && currentTime < Global.shared.wednesdayEnd {
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        }
+                    } else if dayInWeek == "Thursday" {
+                        print("Thursday Showing")
+                        if currentTime > Global.shared.thursdayStart && currentTime < Global.shared.thursdayEnd {
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        }
+                    } else if dayInWeek == "Friday" {
+                        print("Friday Showing")
+                        if currentTime > Global.shared.fridayStart && currentTime < Global.shared.fridayEnd {
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        }
+                    } else if dayInWeek == "Saturday" {
+                        print("Saturday Showing")
+                        if currentTime > Global.shared.saturdayStart && currentTime < Global.shared.saturdayEnd {
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        }
+                    } else if dayInWeek == "Sunday" {
+                        print("Sunday Showing")
+                        if currentTime > Global.shared.sundayStart && currentTime < Global.shared.sundayEnd {
+                            let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
+                            self.privateCharger.append(custom)
+                        }
+                    }
                 }
             }
         }
+        let _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.addPrivateChargerToMap), userInfo: nil, repeats: false)
     }
     
     func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double, chargerConnector: String, chargerKWh: String, price: String) {
@@ -489,14 +562,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let fridayCharger = snap.childSnapshot(forPath: "fridayshare").value as? String
                 let saturdayCharger = snap.childSnapshot(forPath: "saturdayshare").value as? String
                 let sundayCharger = snap.childSnapshot(forPath: "sundayshare").value as? String
+                let mondayStart = snap.childSnapshot(forPath: "mondaystart").value as? String ?? ""
+                let mondayEnd = snap.childSnapshot(forPath: "mondayend").value as? String ?? ""
+                let tuesdayStart = snap.childSnapshot(forPath: "tuesdaystart").value as? String ?? ""
+                let tuesdayEnd = snap.childSnapshot(forPath: "tuesdayend").value as? String ?? ""
                 
                 if ((mondayCharger?.contains("true")) != nil) {
                     self.scheduledDays.append("\(mondayCharger ?? "false")")
                     Global.shared.mondayCharger = mondayCharger ?? "false"
+                    Global.shared.mondayStart = mondayStart
+                    Global.shared.mondayEnd = mondayEnd
                 }
                 if ((tuesdayCharger?.contains("true")) != nil) {
                     self.scheduledDays.append("\(tuesdayCharger ?? "false")")
                     Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
+                    Global.shared.tuesdayStart = tuesdayStart
+                    Global.shared.tuesdayEnd = tuesdayEnd
                 }
                 if ((wednesdayCharger?.contains("true")) != nil) {
                     self.scheduledDays.append("\(wednesdayCharger ?? "false")")
@@ -521,6 +602,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    @IBAction func updateView(_ sender: Any) {
+        privateCharger.removeAll()
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+        currentLocation()
+        if Global.shared.signedIn == true {
+            self.callAllPrivateChargers()
+        }
+    }
+    
     @IBAction func test(_ sender: Any) {
         for i in scheduledDays {
             print(i)

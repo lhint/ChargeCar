@@ -21,12 +21,12 @@ class Account: UIViewController {
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     var name = Global.shared.username
     var carReg = Global.shared.userReg
+    var home = HomeViewController()
     
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
         updateButton.isEnabled = false
         updateButton.backgroundColor = UIColor.gray
-        shareToggle.isOn = false
         nameField.placeholder = name
         carRegField.placeholder = carReg
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
@@ -39,6 +39,11 @@ class Account: UIViewController {
             password2Field.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         }
         
+        if Global.shared.shareChargerOverride.contains("true") {
+            shareToggle.isOn = true
+        } else {
+            shareToggle.isOn = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -265,6 +270,15 @@ class Account: UIViewController {
             self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "true"])
             //print("is on")
         }
+//        let alert = UIAlertController(title: "Info", message: "You have either switched your host on or off. To see this change on the map please choose restart, to see the change later press close.", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: NSLocalizedString("Restart", comment: "Default action"), style: .default, handler: { (action) -> Void in
+//            if let navController = self.navigationController {
+//                navController.popViewController(animated: true)
+//            }
+//
+//        }))
+//        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+//        present(alert, animated: true)
     }
     
     @IBAction func updateButton(_ sender: Any) {

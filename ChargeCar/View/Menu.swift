@@ -10,9 +10,43 @@ import Firebase
 
 class Menu: UITableViewController {
     
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Charge Car"
+        
+        
+        DispatchQueue.global(qos: .default).async {
+
+          // 2
+          let group = DispatchGroup()
+            
+            group.enter()
+            
+            self.ref.child("\(Global.shared.userUid)").child("sharechargeroverride").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    Global.shared.shareChargerOverride = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+        
+            group.leave()
+            
+            group.wait()
+
+          // 6
+          DispatchQueue.main.async {
+
+          }
+
+        }
     }
     
     var menu1: [String] = ["Login", "Register"]
