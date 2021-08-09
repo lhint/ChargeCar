@@ -22,6 +22,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     var retrivedEmail = ""
     var signedInUsername = ""
     var privateCharger = [PrivateChargers]()
+    var scheduledDays = [String]()
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -165,7 +166,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         
                     }
                 })
-                
+            
                 group.leave()
                 
                 group.wait()
@@ -196,6 +197,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
+        schedulePrivateCharger()
         
     } //End of viewDidLoad
 
@@ -473,7 +475,59 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotation(privateChargerAnnotation)
         print(chargerName, coordinateLat, coordinateLong)
     }
+
+    func schedulePrivateCharger() {
+        
+        self.ref.observeSingleEvent(of: .value) { (snapshot) in
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let mondayCharger = snap.childSnapshot(forPath: "mondayshare").value as? String
+                let tuesdayCharger = snap.childSnapshot(forPath: "tuesdayshare").value as? String
+                let wednesdayCharger = snap.childSnapshot(forPath: "wednesdayshare").value as? String
+                let thursdayCharger = snap.childSnapshot(forPath: "thursdayshare").value as? String
+                let fridayCharger = snap.childSnapshot(forPath: "fridayshare").value as? String
+                let saturdayCharger = snap.childSnapshot(forPath: "saturdayshare").value as? String
+                let sundayCharger = snap.childSnapshot(forPath: "sundayshare").value as? String
+                
+                if ((mondayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(mondayCharger ?? "false")")
+                    Global.shared.mondayCharger = mondayCharger ?? "false"
+                }
+                if ((tuesdayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(tuesdayCharger ?? "false")")
+                    Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
+                }
+                if ((wednesdayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(wednesdayCharger ?? "false")")
+                    Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
+                }
+                if ((thursdayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(thursdayCharger ?? "false")")
+                    Global.shared.thursdayCharger = thursdayCharger ?? "false"
+                }
+                if ((fridayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(fridayCharger ?? "false")")
+                    Global.shared.fridayCharger = fridayCharger ?? "false"
+                }
+                if ((saturdayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(saturdayCharger ?? "false")")
+                    Global.shared.saturdayCharger = saturdayCharger ?? "false"
+                }
+                if ((sundayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.append("\(sundayCharger ?? "false")")
+                    Global.shared.sundayCharger = sundayCharger ?? "false"
+                }
+            }
+        }
+    }
+    @IBAction func test(_ sender: Any) {
+        for i in scheduledDays {
+            print(i)
+        }
+    }
 }
+
 
 //Extension for map location data
 private extension MKMapView {

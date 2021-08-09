@@ -36,18 +36,9 @@ class Schedule: UIViewController {
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
     override func viewDidLoad() {
-        
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         
-        mondayShare.isOn = false
-        tuesdayShare.isOn = false
-        wednesdayShare.isOn = false
-        thursdayShare.isOn = false
-        fridayShare.isOn = false
-        saturdayShare.isOn = false
-        sundayShare.isOn = false
-
         mondayStart.setTimePickerAsInputViewFor(target: self, selector: #selector(mondayStartSelected))
         mondayEnd.setTimePickerAsInputViewFor(target: self, selector: #selector(mondayEndSelected))
         tuesdayStart.setTimePickerAsInputViewFor(target: self, selector: #selector(tuesdayStartSelected))
@@ -62,17 +53,114 @@ class Schedule: UIViewController {
         saturdayEnd.setTimePickerAsInputViewFor(target: self, selector: #selector(saturdayEndSelected))
         sundayStart.setTimePickerAsInputViewFor(target: self, selector: #selector(sundayStartSelected))
         sundayEnd.setTimePickerAsInputViewFor(target: self, selector: #selector(sundayEndSelected))
+        
+        callShareValues()
+        
+        mondayStart.placeholder = Global.shared.mondayStart
+        mondayEnd.placeholder = Global.shared.mondayEnd
+        tuesdayStart.placeholder = Global.shared.tuesdayStart
+        tuesdayEnd.placeholder = Global.shared.tuesdayEnd
+        wednesdayStart.placeholder = Global.shared.wednesdayStart
+        wednesdayEnd.placeholder = Global.shared.wednesdayEnd
+        thursdayStart.placeholder = Global.shared.thursdayStart
+        thursdayEnd.placeholder = Global.shared.thursdayEnd
+        fridayStart.placeholder = Global.shared.fridayStart
+        fridayEnd.placeholder = Global.shared.fridayEnd
+        saturdayStart.placeholder = Global.shared.saturdayStart
+        saturdayEnd.placeholder = Global.shared.saturdayEnd
+        sundayStart.placeholder = Global.shared.sundayStart
+        sundayEnd.placeholder = Global.shared.sundayEnd
+        
+    }
+    
+    func callShareValues() {
+        self.ref.observeSingleEvent(of: .value) { (snapshot) in
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let mondayCharger = snap.childSnapshot(forPath: "mondayshare").value as? String
+                let tuesdayCharger = snap.childSnapshot(forPath: "tuesdayshare").value as? String
+                let wednesdayCharger = snap.childSnapshot(forPath: "wednesdayshare").value as? String
+                let thursdayCharger = snap.childSnapshot(forPath: "thursdayshare").value as? String
+                let fridayCharger = snap.childSnapshot(forPath: "fridayshare").value as? String
+                let saturdayCharger = snap.childSnapshot(forPath: "saturdayshare").value as? String
+                let sundayCharger = snap.childSnapshot(forPath: "sundayshare").value as? String
+                
+                if ((mondayCharger?.contains("true")) != nil) {
+                    Global.shared.mondayCharger = mondayCharger ?? "false"
+                }
+                if ((tuesdayCharger?.contains("true")) != nil) {
+                    Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
+                }
+                if ((wednesdayCharger?.contains("true")) != nil) {
+                    Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
+                }
+                if ((thursdayCharger?.contains("true")) != nil) {
+                    Global.shared.thursdayCharger = thursdayCharger ?? "false"
+                }
+                if ((fridayCharger?.contains("true")) != nil) {
+                    Global.shared.fridayCharger = fridayCharger ?? "false"
+                }
+                if ((saturdayCharger?.contains("true")) != nil) {
+                    Global.shared.saturdayCharger = saturdayCharger ?? "false"
+                }
+                if ((sundayCharger?.contains("true")) != nil) {
+                    Global.shared.sundayCharger = sundayCharger ?? "false"
+                }
+            }
+        }
+        checkShareValues()
+    }
+    
+    func checkShareValues() {
+        
+        print("Check \(Global.shared.mondayCharger)")
+        if Global.shared.mondayCharger.contains("true") {
+            //print("MondayShare \(Global.shared.mondayCharger)")
+            self.mondayShare.isOn = true
+        } else {
+            self.mondayShare.isOn = false
+            //print("notCalledMondayShare \(Global.shared.mondayCharger)")
+        }
+        if Global.shared.tuesdayCharger.contains("true") {
+            self.tuesdayShare.isOn = true
+        } else {
+            self.tuesdayShare.isOn = false
+        }
+        if Global.shared.wednesdayCharger.contains("true") {
+            self.wednesdayShare.isOn = true
+        } else {
+            self.wednesdayShare.isOn = false
+        }
+        if Global.shared.thursdayCharger.contains("true") {
+            self.thursdayShare.isOn = true
+        } else {
+            self.thursdayShare.isOn = false
+        }
+        if Global.shared.fridayCharger.contains("true") {
+            self.fridayShare.isOn = true
+        } else {
+            self.fridayShare.isOn = false
+        }
+        if Global.shared.saturdayCharger.contains("true") {
+            self.saturdayShare.isOn = true
+        } else {
+            self.saturdayShare.isOn = false
+        }
+        if Global.shared.sundayCharger.contains("true") {
+            self.sundayShare.isOn = true
+        } else {
+            self.sundayShare.isOn = false
+        }
     }
     
     @objc func mondayStartSelected() {
         
         
         let timePicker = mondayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         mondayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["mondaystart": "\(time)"])
         
@@ -83,11 +171,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = mondayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         mondayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["mondayend": "\(time)"])
         
@@ -98,11 +184,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = tuesdayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         tuesdayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["tuesdaystart": "\(time)"])
         
@@ -113,13 +197,11 @@ class Schedule: UIViewController {
         
         
         let timePicker = tuesdayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         tuesdayEnd.text = time
-        self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayEnd": "\(time)"])
+        self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayend": "\(time)"])
         
         self.wednesdayStart.becomeFirstResponder()
     }
@@ -128,11 +210,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = wednesdayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         wednesdayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["wednesdaystart": "\(time)"])
         
@@ -143,13 +223,11 @@ class Schedule: UIViewController {
         
         
         let timePicker = wednesdayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         wednesdayEnd.text = time
-        self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayEnd": "\(time)"])
+        self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayend": "\(time)"])
         
         self.thursdayStart.becomeFirstResponder()
     }
@@ -158,11 +236,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = thursdayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         thursdayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["thursdaystart": "\(time)"])
         
@@ -173,12 +249,10 @@ class Schedule: UIViewController {
         
         
         let timePicker = thursdayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
-        mondayEnd.text = time
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
+        thursdayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["thursdayend": "\(time)"])
         
         self.fridayStart.becomeFirstResponder()
@@ -188,11 +262,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = fridayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         fridayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["fridaystart": "\(time)"])
         
@@ -203,11 +275,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = fridayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         fridayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["fridayend": "\(time)"])
         
@@ -218,11 +288,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = saturdayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         saturdayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["saturdaystart": "\(time)"])
         
@@ -233,11 +301,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = saturdayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         saturdayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["saturdayend": "\(time)"])
         
@@ -249,11 +315,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = sundayStart.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         sundayStart.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["sundaystart": "\(time)"])
         
@@ -264,11 +328,9 @@ class Schedule: UIViewController {
         
         
         let timePicker = sundayEnd.inputView as? UIDatePicker
-        let date = (timePicker?.date)!
-        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-        let hour = components.hour!
-        let minute = components.minute!
-        let time = "\(hour) : \(minute)"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: timePicker!.date)
         sundayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["sundayend": "\(time)"])
         
