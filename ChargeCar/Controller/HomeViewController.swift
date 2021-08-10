@@ -22,7 +22,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     var retrivedEmail = ""
     var signedInUsername = ""
     var privateCharger = [PrivateChargers]()
-    var scheduledDays = [String]()
+    var scheduledDays = [String : String]()
     var hostCharger: Bool = false
     
     //Global veriables
@@ -198,8 +198,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
-        schedulePrivateCharger()
-        
     } //End of viewDidLoad
 
     //Hides navigation bar at the top of screen
@@ -449,11 +447,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     }
     
     func callAllPrivateChargers() {
-        schedulePrivateCharger()
         
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
             for child in snapshot.children {
+                self.scheduledDays.removeAll()
                 let snap = child as! DataSnapshot
                 let chargerName = snap.childSnapshot(forPath: "chargername").value as? String
                 let chargerLat = snap.childSnapshot(forPath: "chargerlat").value as? String
@@ -461,7 +459,65 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 let chargerConnector = snap.childSnapshot(forPath: "chargerconnector").value as? String
                 let chargerPowerKwh = snap.childSnapshot(forPath: "chargerpowerkwh").value as? String
                 let price = snap.childSnapshot(forPath: "price").value as? String
+                let mondayCharger = snap.childSnapshot(forPath: "mondayshare").value as? String
+                let tuesdayCharger = snap.childSnapshot(forPath: "tuesdayshare").value as? String
+                let wednesdayCharger = snap.childSnapshot(forPath: "wednesdayshare").value as? String
+                let thursdayCharger = snap.childSnapshot(forPath: "thursdayshare").value as? String
+                let fridayCharger = snap.childSnapshot(forPath: "fridayshare").value as? String
+                let saturdayCharger = snap.childSnapshot(forPath: "saturdayshare").value as? String
+                let sundayCharger = snap.childSnapshot(forPath: "sundayshare").value as? String
+                Global.shared.mondayStart = snap.childSnapshot(forPath: "mondaystart").value as? String ?? ""
+                Global.shared.mondayEnd = snap.childSnapshot(forPath: "mondayend").value as? String ?? ""
+                Global.shared.tuesdayStart = snap.childSnapshot(forPath: "tuesdaystart").value as? String ?? ""
+                Global.shared.tuesdayEnd = snap.childSnapshot(forPath: "tuesdayend").value as? String ?? ""
+                Global.shared.wednesdayStart = snap.childSnapshot(forPath: "wednesdaystart").value as? String ?? ""
+                Global.shared.wednesdayEnd = snap.childSnapshot(forPath: "wednesdayend").value as? String ?? ""
+                Global.shared.thursdayStart = snap.childSnapshot(forPath: "thursdaystart").value as? String ?? ""
+                Global.shared.thursdayEnd = snap.childSnapshot(forPath: "thursdayend").value as? String ?? ""
+                Global.shared.fridayStart = snap.childSnapshot(forPath: "fridaystart").value as? String ?? ""
+                Global.shared.fridayEnd = snap.childSnapshot(forPath: "fridayend").value as? String ?? ""
+                Global.shared.saturdayStart = snap.childSnapshot(forPath: "saturdaystart").value as? String ?? ""
+                Global.shared.saturdayEnd = snap.childSnapshot(forPath: "saturdayend").value as? String ?? ""
+                Global.shared.sundayStart = snap.childSnapshot(forPath: "sundaystart").value as? String ?? ""
+                Global.shared.sundayEnd = snap.childSnapshot(forPath: "sundayend").value as? String ?? ""
                 let override = snap.childSnapshot(forPath: "sharechargeroverride").value as? String
+                
+                if ((mondayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.updateValue("\(mondayCharger ?? "false")", forKey: "Monday")
+                    Global.shared.mondayCharger = mondayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(mondayCharger ?? "false")", forKey: "Monday")
+                    Global.shared.mondayCharger = mondayCharger ?? "false"
+                }
+                if ((tuesdayCharger?.contains("true")) != nil) {
+                    self.scheduledDays.updateValue("\(tuesdayCharger ?? "false")", forKey: "Tuesday")
+                    Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(tuesdayCharger ?? "false")", forKey: "Tuesday")
+                    Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
+                }
+                if ((wednesdayCharger?.contains("true")) != nil) {
+                    //self.scheduledDays.append("\(wednesdayCharger ?? "false")")
+                    Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
+                }
+                if ((thursdayCharger?.contains("true")) != nil) {
+                    //self.scheduledDays.append("\(thursdayCharger ?? "false")")
+                    Global.shared.thursdayCharger = thursdayCharger ?? "false"
+                }
+                if ((fridayCharger?.contains("true")) != nil) {
+                    //self.scheduledDays.append("\(fridayCharger ?? "false")")
+                    Global.shared.fridayCharger = fridayCharger ?? "false"
+                }
+                if ((saturdayCharger?.contains("true")) != nil) {
+                    //self.scheduledDays.append("\(saturdayCharger ?? "false")")
+                    Global.shared.saturdayCharger = saturdayCharger ?? "false"
+                }
+                if ((sundayCharger?.contains("true")) != nil) {
+                    //self.scheduledDays.append("\(sundayCharger ?? "false")")
+                    Global.shared.sundayCharger = sundayCharger ?? "false"
+                }
+                
+                
                 if override!.contains("false") {
                     print("override false: \(override ?? "none")")
                 } else {
@@ -490,20 +546,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                             print("MondayTimeWorking")
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
-                        } else {
-                            print("MondayTimeWrong")
-                            print("MondayStartTime \(Global.shared.mondayStart)")
-                            print("MondayEndTime \(Global.shared.mondayEnd)")
                         }
-                    } else if dayInWeek == "Tuesday" {
+                    } else if dayInWeek == "Tuesday" && Global.shared.tuesdayCharger.contains("true") {
                         print("Tuesday Showing")
                         print("TuesdayStartTime \(Global.shared.tuesdayStart)")
                         print("TuesdayEndTime \(Global.shared.tuesdayEnd)")
                         if currentTime > Global.shared.tuesdayStart && currentTime < Global.shared.tuesdayEnd {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
-                        } else {
-                            
                         }
                     } else if dayInWeek == "Wednesday" {
                         print("Wednesday Showing")
@@ -547,60 +597,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh, price: price )
         mapView.addAnnotation(privateChargerAnnotation)
         print(chargerName, coordinateLat, coordinateLong)
-    }
-
-    func schedulePrivateCharger() {
-        
-        self.ref.observeSingleEvent(of: .value) { (snapshot) in
-            
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let mondayCharger = snap.childSnapshot(forPath: "mondayshare").value as? String
-                let tuesdayCharger = snap.childSnapshot(forPath: "tuesdayshare").value as? String
-                let wednesdayCharger = snap.childSnapshot(forPath: "wednesdayshare").value as? String
-                let thursdayCharger = snap.childSnapshot(forPath: "thursdayshare").value as? String
-                let fridayCharger = snap.childSnapshot(forPath: "fridayshare").value as? String
-                let saturdayCharger = snap.childSnapshot(forPath: "saturdayshare").value as? String
-                let sundayCharger = snap.childSnapshot(forPath: "sundayshare").value as? String
-                let mondayStart = snap.childSnapshot(forPath: "mondaystart").value as? String ?? ""
-                let mondayEnd = snap.childSnapshot(forPath: "mondayend").value as? String ?? ""
-                let tuesdayStart = snap.childSnapshot(forPath: "tuesdaystart").value as? String ?? ""
-                let tuesdayEnd = snap.childSnapshot(forPath: "tuesdayend").value as? String ?? ""
-                
-                if ((mondayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(mondayCharger ?? "false")")
-                    Global.shared.mondayCharger = mondayCharger ?? "false"
-                    Global.shared.mondayStart = mondayStart
-                    Global.shared.mondayEnd = mondayEnd
-                }
-                if ((tuesdayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(tuesdayCharger ?? "false")")
-                    Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
-                    Global.shared.tuesdayStart = tuesdayStart
-                    Global.shared.tuesdayEnd = tuesdayEnd
-                }
-                if ((wednesdayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(wednesdayCharger ?? "false")")
-                    Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
-                }
-                if ((thursdayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(thursdayCharger ?? "false")")
-                    Global.shared.thursdayCharger = thursdayCharger ?? "false"
-                }
-                if ((fridayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(fridayCharger ?? "false")")
-                    Global.shared.fridayCharger = fridayCharger ?? "false"
-                }
-                if ((saturdayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(saturdayCharger ?? "false")")
-                    Global.shared.saturdayCharger = saturdayCharger ?? "false"
-                }
-                if ((sundayCharger?.contains("true")) != nil) {
-                    self.scheduledDays.append("\(sundayCharger ?? "false")")
-                    Global.shared.sundayCharger = sundayCharger ?? "false"
-                }
-            }
-        }
     }
     
     @IBAction func updateView(_ sender: Any) {

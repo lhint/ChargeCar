@@ -49,6 +49,7 @@ class Account: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         callShareValues()
         callTimeValues()
+        callUserShareValues()
     }
     
     func callTimeValues() {
@@ -353,6 +354,125 @@ class Account: UIViewController {
                     Global.shared.sundayCharger = sundayCharger ?? "false"
                 }
             }
+        }
+    }
+    
+    func callUserShareValues() {
+        
+        DispatchQueue.global(qos: .default).async {
+
+          // 2
+          let group = DispatchGroup()
+            
+            group.enter()
+          
+            self.ref.child("\(Global.shared.userUid)").child("mondayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    Global.shared.userMondayShare = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+              //Get username for signed in user to display in menu
+             self.ref.child("\(Global.shared.userUid)").child("tuesdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                 // Get item value
+              var value = ""
+
+                 if snapshot.exists() {
+
+                     value = snapshot.value as? String ?? ""
+                     Global.shared.userTuesdayShare = value
+                     
+                 } else {
+                     print("Error")
+
+                 }
+             })
+            
+            //get car reg
+            self.ref.child("\(Global.shared.userUid)").child("wednesdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+             var value = ""
+
+                if snapshot.exists() {
+
+                    value = snapshot.value as? String ?? ""
+                    Global.shared.userWednesdayShare = value
+                    print("User Wednesday Share: \(Global.shared.userWednesdayShare)")
+                } else {
+                    print("Error")
+
+                }
+            })
+            
+            //Get charger name
+            self.ref.child("\(Global.shared.userUid)").child("thursdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if snapshot.exists() {
+                    
+                    Global.shared.userThursdayShare = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            //Get cooridnate latitude
+            self.ref.child("\(Global.shared.userUid)").child("fridayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    Global.shared.userFridayShare = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            //get coordinate longitude
+            self.ref.child("\(Global.shared.userUid)").child("saturdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    Global.shared.userSaturdayShare = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            //get coordinate longitude
+            self.ref.child("\(Global.shared.userUid)").child("sundayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    Global.shared.userSundayShare = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+        
+            group.leave()
+            
+            group.wait()
+
+          // 6
+          DispatchQueue.main.async {
+            
+          }
+
         }
     }
     

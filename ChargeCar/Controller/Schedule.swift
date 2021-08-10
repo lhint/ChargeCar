@@ -54,7 +54,7 @@ class Schedule: UIViewController {
         sundayStart.setTimePickerAsInputViewFor(target: self, selector: #selector(sundayStartSelected))
         sundayEnd.setTimePickerAsInputViewFor(target: self, selector: #selector(sundayEndSelected))
         
-        callShareValues()
+        checkShareValues()
         
         mondayStart.placeholder = Global.shared.mondayStart
         mondayEnd.placeholder = Global.shared.mondayEnd
@@ -73,81 +73,43 @@ class Schedule: UIViewController {
         
     }
     
-    func callShareValues() {
-        self.ref.observeSingleEvent(of: .value) { (snapshot) in
-            
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                let mondayCharger = snap.childSnapshot(forPath: "mondayshare").value as? String
-                let tuesdayCharger = snap.childSnapshot(forPath: "tuesdayshare").value as? String
-                let wednesdayCharger = snap.childSnapshot(forPath: "wednesdayshare").value as? String
-                let thursdayCharger = snap.childSnapshot(forPath: "thursdayshare").value as? String
-                let fridayCharger = snap.childSnapshot(forPath: "fridayshare").value as? String
-                let saturdayCharger = snap.childSnapshot(forPath: "saturdayshare").value as? String
-                let sundayCharger = snap.childSnapshot(forPath: "sundayshare").value as? String
-                
-                if ((mondayCharger?.contains("true")) != nil) {
-                    Global.shared.mondayCharger = mondayCharger ?? "false"
-                }
-                if ((tuesdayCharger?.contains("true")) != nil) {
-                    Global.shared.tuesdayCharger = tuesdayCharger ?? "false"
-                }
-                if ((wednesdayCharger?.contains("true")) != nil) {
-                    Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
-                }
-                if ((thursdayCharger?.contains("true")) != nil) {
-                    Global.shared.thursdayCharger = thursdayCharger ?? "false"
-                }
-                if ((fridayCharger?.contains("true")) != nil) {
-                    Global.shared.fridayCharger = fridayCharger ?? "false"
-                }
-                if ((saturdayCharger?.contains("true")) != nil) {
-                    Global.shared.saturdayCharger = saturdayCharger ?? "false"
-                }
-                if ((sundayCharger?.contains("true")) != nil) {
-                    Global.shared.sundayCharger = sundayCharger ?? "false"
-                }
-            }
-        }
-        checkShareValues()
-    }
-    
     func checkShareValues() {
         
-        print("Check \(Global.shared.mondayCharger)")
-        if Global.shared.mondayCharger.contains("true") {
-            //print("MondayShare \(Global.shared.mondayCharger)")
+        if Global.shared.userMondayShare.contains("true") {
+            //print("MondayShare \(Global.shared.userMondayShare)")
             self.mondayShare.isOn = true
         } else {
             self.mondayShare.isOn = false
-            //print("notCalledMondayShare \(Global.shared.mondayCharger)")
+            //print("notCalledMondayShare \(Global.shared.userMondayShare)")
         }
-        if Global.shared.tuesdayCharger.contains("true") {
+        if Global.shared.userTuesdayShare.contains("true") {
             self.tuesdayShare.isOn = true
+            print("User Tuesday Share \(Global.shared.userTuesdayShare)")
         } else {
             self.tuesdayShare.isOn = false
+            print("Not Called User Tuesday Share \(Global.shared.userTuesdayShare)")
         }
-        if Global.shared.wednesdayCharger.contains("true") {
+        if Global.shared.userWednesdayShare.contains("true") {
             self.wednesdayShare.isOn = true
         } else {
             self.wednesdayShare.isOn = false
         }
-        if Global.shared.thursdayCharger.contains("true") {
+        if Global.shared.userThursdayShare.contains("true") {
             self.thursdayShare.isOn = true
         } else {
             self.thursdayShare.isOn = false
         }
-        if Global.shared.fridayCharger.contains("true") {
+        if Global.shared.userFridayShare.contains("true") {
             self.fridayShare.isOn = true
         } else {
             self.fridayShare.isOn = false
         }
-        if Global.shared.saturdayCharger.contains("true") {
+        if Global.shared.userSaturdayShare.contains("true") {
             self.saturdayShare.isOn = true
         } else {
             self.saturdayShare.isOn = false
         }
-        if Global.shared.sundayCharger.contains("true") {
+        if Global.shared.userSundayShare.contains("true") {
             self.sundayShare.isOn = true
         } else {
             self.sundayShare.isOn = false
