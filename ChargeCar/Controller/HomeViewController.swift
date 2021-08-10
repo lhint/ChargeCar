@@ -542,32 +542,32 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         print("MondayStartTime \(Global.shared.mondayStart)")
                         print("MondayEndTime \(Global.shared.mondayEnd)")
                         //Schedule time check
-                        if currentTime >= Global.shared.mondayStart && currentTime <= Global.shared.mondayEnd {
-                            print("MondayTimeWorking")
+                        if currentTime >= Global.shared.mondayStart && Global.shared.mondayCharger.contains("true") {
+                            //print("MondayTimeWorking")
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
                         }
                     } else if dayInWeek == "Tuesday" && Global.shared.tuesdayCharger.contains("true") {
-                        print("Tuesday Showing")
-                        print("TuesdayStartTime \(Global.shared.tuesdayStart)")
-                        print("TuesdayEndTime \(Global.shared.tuesdayEnd)")
+                        //print("Tuesday Showing")
+                        //print("TuesdayStartTime \(Global.shared.tuesdayStart)")
+                        //print("TuesdayEndTime \(Global.shared.tuesdayEnd)")
                         if currentTime > Global.shared.tuesdayStart && currentTime < Global.shared.tuesdayEnd {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
                         }
-                    } else if dayInWeek == "Wednesday" {
+                    } else if dayInWeek == "Wednesday" && Global.shared.wednesdayCharger.contains("true"){
                         print("Wednesday Showing")
                         if currentTime > Global.shared.wednesdayStart && currentTime < Global.shared.wednesdayEnd {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
                         }
-                    } else if dayInWeek == "Thursday" {
+                    } else if dayInWeek == "Thursday" && Global.shared.thursdayCharger.contains("true") {
                         print("Thursday Showing")
                         if currentTime > Global.shared.thursdayStart && currentTime < Global.shared.thursdayEnd {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
                         }
-                    } else if dayInWeek == "Friday" {
+                    } else if dayInWeek == "Friday" && Global.shared.fridayCharger.contains("true") {
                         print("Friday Showing")
                         if currentTime > Global.shared.fridayStart && currentTime < Global.shared.fridayEnd {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
@@ -575,13 +575,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         }
                     } else if dayInWeek == "Saturday" {
                         print("Saturday Showing")
-                        if currentTime > Global.shared.saturdayStart && currentTime < Global.shared.saturdayEnd {
+                        if currentTime > Global.shared.saturdayStart && Global.shared.saturdayCharger.contains("true") {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
                         }
                     } else if dayInWeek == "Sunday" {
                         print("Sunday Showing")
-                        if currentTime > Global.shared.sundayStart && currentTime < Global.shared.sundayEnd {
+                        if currentTime > Global.shared.sundayStart && Global.shared.sundayCharger.contains("true") {
                             let custom = PrivateChargers(chargerName: chargerName, chargerLat: chargerLat, chargerLong: chargerLong, chargerConnector: chargerConnector ?? "", chargerPowerKwh: chargerPowerKwh ?? "", price: price ?? "0.00")
                             self.privateCharger.append(custom)
                         }
@@ -606,12 +606,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         currentLocation()
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
-        }
-    }
-    
-    @IBAction func test(_ sender: Any) {
-        for i in scheduledDays {
-            print(i)
         }
     }
 }

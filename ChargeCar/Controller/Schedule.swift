@@ -116,6 +116,12 @@ class Schedule: UIViewController {
         }
     }
     
+    func validation(startTime: String, endTime: String, textField: UITextField) {
+        if startTime > endTime {
+            textField.text = "00:00"
+        }
+    }
+    
     @objc func mondayStartSelected() {
         
         
@@ -137,6 +143,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         mondayEnd.text = time
+        validation(startTime: mondayStart.text!, endTime: mondayEnd.text!, textField: mondayEnd)
+        
         self.ref.child(Global.shared.userUid).updateChildValues(["mondayend": "\(time)"])
         
         self.tuesdayStart.becomeFirstResponder()
