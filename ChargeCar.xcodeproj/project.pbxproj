@@ -34,6 +34,8 @@
 		B7E5F68D25F0E6E20084073C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68B25F0E6E20084073C /* LaunchScreen.storyboard */; };
 		B7E5F69625F0FC080084073C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69525F0FC080084073C /* LocationManager.swift */; };
 		B7E5F69925F11AA20084073C /* PublicChargerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69825F11AA20084073C /* PublicChargerData.swift */; };
+		B7FCAAFE26C3EA9000680426 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FCAAFD26C3EA9000680426 /* Dashboard.swift */; };
+		B7FCAB0026C3EAD300680426 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FCAAFF26C3EAD300680426 /* Book.swift */; };
 		E5DCCEECAA99C41458F52F33 /* Pods_ChargeCar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,8 @@
 		B7E5F68E25F0E6E20084073C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B7E5F69525F0FC080084073C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		B7E5F69825F11AA20084073C /* PublicChargerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargerData.swift; sourceTree = "<group>"; };
+		B7FCAAFD26C3EA9000680426 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		B7FCAAFF26C3EAD300680426 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,8 @@
 				B7E5F68225F0E6E10084073C /* SceneDelegate.swift */,
 				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
 				B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */,
+				B7FCAAFD26C3EA9000680426 /* Dashboard.swift */,
+				B7FCAAFF26C3EAD300680426 /* Book.swift */,
 				B7DDB5E026BDBAD80001E4F0 /* Schedule.swift */,
 				B7DDB5E226C020730001E4F0 /* TimepickerExtension.swift */,
 			);
@@ -164,9 +170,9 @@
 		B7E5F67F25F0E6E10084073C /* ChargeCar */ = {
 			isa = PBXGroup;
 			children = (
-				B7957D32267E03DA0066E3DB /* Controller */,
-				B7957D31267E03D50066E3DB /* View */,
 				B7957D30267E03C50066E3DB /* Model */,
+				B7957D31267E03D50066E3DB /* View */,
+				B7957D32267E03DA0066E3DB /* Controller */,
 			);
 			path = ChargeCar;
 			sourceTree = "<group>";
@@ -308,6 +314,7 @@
 				B7DDB5E326C020730001E4F0 /* TimepickerExtension.swift in Sources */,
 				B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */,
 				B7E5F69925F11AA20084073C /* PublicChargerData.swift in Sources */,
+				B7FCAAFE26C3EA9000680426 /* Dashboard.swift in Sources */,
 				B7DFB56C268BAF4A00E6298B /* Menu.swift in Sources */,
 				B73536BE2694959D009C8A81 /* Global.swift in Sources */,
 				B7E5F68525F0E6E10084073C /* HomeViewController.swift in Sources */,
@@ -315,6 +322,7 @@
 				B77FADAE269C600800C4CC97 /* Account.swift in Sources */,
 				B766C5F9268C82540043B7CD /* Login.swift in Sources */,
 				B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */,
+				B7FCAB0026C3EAD300680426 /* Book.swift in Sources */,
 				B730FCCC269E0065002EF4BA /* PrivateMapAnnotationData.swift in Sources */,
 				B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */,
 				B7A5B1C026A084D800552DAA /* PrivateChargerData.swift in Sources */,

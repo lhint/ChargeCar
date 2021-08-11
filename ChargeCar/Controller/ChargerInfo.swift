@@ -23,7 +23,7 @@ class ChargerInfo: UIViewController {
     @IBOutlet weak var connectorLabel: UILabel!
     @IBOutlet weak var kwhLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    
+    @IBOutlet weak var book: UIButton!
     
     public var name = ""
     public var s1 = 0.0
@@ -38,7 +38,7 @@ class ChargerInfo: UIViewController {
     public var privateConnector = ""
     public var privateKW = ""
     public var price = ""
-    
+   
     override func viewDidLoad() {
         
         if privateName != "" {
@@ -46,8 +46,13 @@ class ChargerInfo: UIViewController {
             self.status1.text = "" //Will be changed depending on the schedule host has set.
             self.connector1.text = self.privateConnector
             self.kw1.text = self.privateKW
-            self.price1.text = "£\(self.price) per hour"
+            if Global.shared.free.contains("true") {
+                self.price1.text = "Free"
+            } else {
+                self.price1.text = "£\(self.price) per hour"
+            }
             showCharger2(k2: 1.0)
+            book.isHidden = false
             
         } else {
             //Public Chargers
@@ -62,7 +67,7 @@ class ChargerInfo: UIViewController {
             self.kw2.text = kwCheck(kw: k2)
             self.price1.text = f1
             self.price2.text = f1
-            
+            book.isHidden = true
         }
     }
     
@@ -124,4 +129,9 @@ class ChargerInfo: UIViewController {
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
         present(alert, animated: true)
     }
+    
+    @IBAction func book(_ sender: Any) {
+        performSegue(withIdentifier: "book", sender: self)
+    }
+    
 }

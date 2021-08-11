@@ -167,6 +167,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         
                     }
                 })
+                
+                self.ref.child("\(Global.shared.userUid)").child("free").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+                    
+                    if snapshot.exists() {
+                        
+                        Global.shared.free = snapshot.value as? String ?? ""
+                        
+                    } else {
+                        print("Error")
+                        
+                    }
+                })
             
                 group.leave()
                 

@@ -20,6 +20,7 @@ class Host: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var connector: UITextField!
     @IBOutlet weak var powerKWH: UITextField!
     @IBOutlet weak var price: UITextField!
+    @IBOutlet weak var free: UISwitch!
     
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
@@ -63,6 +64,16 @@ class Host: UIViewController, MKMapViewDelegate {
 
         self.pickerView.reloadAllComponents()
         
+        if Global.shared.free.contains("true") {
+            free.isOn = true
+            price.isEnabled = false
+            price.backgroundColor = .gray
+        } else {
+            free.isOn = false
+            price.isEnabled = true
+            price.backgroundColor = .white
+        }
+        
     }
 
     
@@ -95,7 +106,7 @@ class Host: UIViewController, MKMapViewDelegate {
         Global.shared.privateChargerKWH = powerKWH.text!
         Global.shared.privateChargerPrice = price.text!
         
-        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLat)","chargerlong": "\(chargerLong)","chargerconnector": "\(Global.shared.privateChargerConnector)", "chargerpowerkwh": "\(Global.shared.privateChargerKWH)", "price": "\(Global.shared.privateChargerPrice)"])
+        self.ref.child("\(Global.shared.userUid)").updateChildValues(["chargername": chargerValueName,"chargerlat": "\(chargerLat)","chargerlong": "\(chargerLong)","chargerconnector": "\(Global.shared.privateChargerConnector)", "chargerpowerkwh": "\(Global.shared.privateChargerKWH)", "price": "\(Global.shared.privateChargerPrice)","free": "\(Global.shared.free)"])
         
         let alert = UIAlertController(title: "Charger Added!", message: "You can set times for this to be schedualed in your account page by selecting your name from the menu.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: { (action) -> Void in
@@ -104,6 +115,20 @@ class Host: UIViewController, MKMapViewDelegate {
             }))
         present(alert, animated: true)
     }
+    
+    @IBAction func free(_ sender: Any) {
+        if free.isOn == true {
+            Global.shared.free = "true"
+            price.isEnabled = false
+            price.backgroundColor = .gray
+        } else {
+            Global.shared.free = "false"
+            price.isEnabled = true
+            price.backgroundColor = .white
+        }
+        self.ref.child("\(Global.shared.userUid)").updateChildValues(["free": "\(Global.shared.free)"])
+    }
+    
 }
 
 extension Host: UIPickerViewDelegate, UIPickerViewDataSource {

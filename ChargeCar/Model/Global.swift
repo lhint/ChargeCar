@@ -56,5 +56,7 @@ class Global {
     var userFridayShare: String = ""
     var userSaturdayShare: String = ""
     var userSundayShare: String = ""
+    var free: String = ""
+    var bookings: Array = [""]
     public static let shared = Global()
 }
