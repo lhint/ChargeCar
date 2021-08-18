@@ -494,6 +494,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 Global.shared.sundayStart = snap.childSnapshot(forPath: "sundaystart").value as? String ?? ""
                 Global.shared.sundayEnd = snap.childSnapshot(forPath: "sundayend").value as? String ?? ""
                 let override = snap.childSnapshot(forPath: "sharechargeroverride").value as? String
+                Global.shared.privateChargerUid = snap.childSnapshot(forPath: "uid").value as? String ?? ""
                 
                 if ((mondayCharger?.contains("true")) != nil) {
                     self.scheduledDays.updateValue("\(mondayCharger ?? "false")", forKey: "Monday")

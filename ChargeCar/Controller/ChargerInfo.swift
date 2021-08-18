@@ -40,7 +40,7 @@ class ChargerInfo: UIViewController {
     public var price = ""
    
     override func viewDidLoad() {
-        
+        SVProgressHUD.dismiss()
         if privateName != "" {
             //Private Chargers
             self.status1.text = "" //Will be changed depending on the schedule host has set.
@@ -104,10 +104,6 @@ class ChargerInfo: UIViewController {
             answer = "Not Operational"
         }
         return answer
-    }
-    
-    func privateConvertKey() {
-        
     }
     
     func kwCheck(kw: Double) -> String {
