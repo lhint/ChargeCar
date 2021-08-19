@@ -29,8 +29,9 @@ class Book: UIViewController, UITextFieldDelegate {
     var bookingStart4 = ""
     var bookingEnd4 = ""
     var totalBookings = 0
-    var selectStartTime = ""
+    var selectedStartTime = ""
     var selectedEndTime = ""
+    var bookedDay = ""
    
     
     override func viewDidLoad() {
@@ -47,7 +48,6 @@ class Book: UIViewController, UITextFieldDelegate {
 
         self.pickerView.reloadAllComponents()
         
-        
         //Set start and end time from Global parameters.
         startTimeField.placeholder = Global.shared.hostStartTimeDay
         endTimeField.placeholder = Global.shared.hostEndTimeDay
@@ -55,8 +55,6 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
         
     }
-    
-
     
     @IBAction func update(_ sender: AnyObject) {
         print("reloaded")
@@ -72,6 +70,7 @@ class Book: UIViewController, UITextFieldDelegate {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         startTimeField.text = time
+        self.selectedStartTime = time
         self.endTimeField.becomeFirstResponder()
     }
     
@@ -88,19 +87,19 @@ class Book: UIViewController, UITextFieldDelegate {
     
     func allocateBookings(start: String, end: String) -> Int {
         var bookingNumber = 0
-        if totalBookings == 0 {
+        if totalBookings == 0 && bookingStart1.contains("") {
             bookingStart1 = start
             bookingEnd1 = end
             bookingNumber = 1
-        } else if totalBookings == 1 {
+        } else if totalBookings == 1 && bookingStart2.contains("") {
             bookingStart2 = start
             bookingEnd2 = end
             bookingNumber = 2
-        } else if totalBookings == 3 {
+        } else if totalBookings == 3 && bookingStart3.contains("") {
             bookingStart3 = start
             bookingEnd3 = end
             bookingNumber = 3
-        } else if totalBookings == 4 {
+        } else if totalBookings == 4 && bookingStart4.contains("") {
             bookingStart4 = start
             bookingEnd4 = end
             bookingNumber = 4
@@ -109,21 +108,30 @@ class Book: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func book(_ sender: Any) {
-    
-        self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectStartTime, end: selectedEndTime))": "\(selectStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguid" : "\(Global.shared.userUid)"])
         
-        let alert = UIAlertController(title: "Booked", message: "You have now booked. Start time \(self.selectStartTime), End time: \(self.selectedEndTime)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+        self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguid" : "\(Global.shared.userUid)"])
+        bookedDay = selectDay.text ?? ""
+        totalBookings = totalBookings + 1
+        Global.shared.confirmedBookings.append("\(Global.shared.username) has booked for \(bookedDay) starting at: \(self.bookingStart1) and ending at: \(self.bookingEnd1)")
+        
+        let alert = UIAlertController(title: "Booked", message: "You have now booked. Start time: \(self.selectedStartTime), End time: \(self.selectedEndTime)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: { (action) -> Void in
+            self.startTimeField.text = ""
+            self.endTimeField.text = ""
+            self.selectDay.text = ""
+            
+        }))
         present(alert, animated: true)
         
-        //Only show days set by host. Collect and add to the array.
         //Add if statement to homeViewController to check the booked time and gray out green booking for that time.
-        //Validate that if that time, or any of the choosen time presents a UIAlert and stops them booking it.
+        
+        //Check trello notes
+        //When booking finishes clear start and end times (check this works in if statement)
+        //Create text to display booking info for dashboard and save to confirmed bookings array - How to save this to the database? Store locally and then do a check to see if the booking still exists?
         
     }
     
     func dayCheck(day: String) {
-        //if selectDay.text?.lowercased() == "\(day)" {
             print("dayCheck Called")
             let lowerday = day.lowercased()
             self.startTimeDay = "\(lowerday)start"
@@ -175,7 +183,6 @@ class Book: UIViewController, UITextFieldDelegate {
               }
             }
         }
-    //}
 }
 
 extension Book: UIPickerViewDelegate, UIPickerViewDataSource {

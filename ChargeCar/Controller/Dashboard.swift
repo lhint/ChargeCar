@@ -31,6 +31,12 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
         
+        for i in Global.shared.confirmedBookings {
+            print("Confirmed Bookings: \(i)")
+        }
+        
+        //Check why blank row is created?\
+        //Get text to fill entire row
         
         //Download all bookstarttime1 etc bookendtime1 etc
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
@@ -53,31 +59,27 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.bookerUid = snap.childSnapshot(forPath: "uid").value as? String ?? ""
             }
         }
-    }
-    
-    //Check uid against username and download
-    func uidUserNameCheck() {
-        
-    }
-    
-    //Add this date to the string shown and save to Global.shared.bookings array
-    //Create a string with username, userStart & userEnd time booked. Save to firebase - download from firebase and save to the global bookings array.
-    func convertToStringAndSave() {
-        
+        bookingTable.delegate = self
+        bookingTable.dataSource = self
     }
 
     //In the dashboard table, display bookings array value in table.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return Global.shared.confirmedBookings.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        //tableView.register(UINib(nibName: "YourCellXibName", bundle: nil), forCellReuseIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        //let list = array[indexPath.row]
-        //cell.textLabel?.text = list
+        cell.textLabel?.text = Global.shared.confirmedBookings[indexPath.row]
         return cell
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
