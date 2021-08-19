@@ -64,6 +64,8 @@ extension UITextField {
     var minDateComponent = calendar.dateComponents([.hour], from: Date())
     let first2start = Int(Global.shared.hostStartTimeDay.prefix(2))
     minDateComponent.hour = first2start // Start time
+    let last2start = Int(Global.shared.hostStartTimeDay.suffix(2))
+    minDateComponent.minute = last2start
         
     let formatter = DateFormatter()
     formatter.dateFormat = "h:mma"
@@ -73,6 +75,8 @@ extension UITextField {
     var maxDateComponent = calendar.dateComponents([.hour], from: Date())
     let first2end = Int(Global.shared.hostEndTimeDay.prefix(2))
     maxDateComponent.hour = first2end //EndTime
+    let last2end = Int(Global.shared.hostEndTimeDay.suffix(2))
+    minDateComponent.minute = last2end
 
     let maxDate = calendar.date(from: maxDateComponent)
     print(" max date : \(formatter.string(from: maxDate!))")

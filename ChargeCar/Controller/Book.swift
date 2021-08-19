@@ -31,6 +31,7 @@ class Book: UIViewController, UITextFieldDelegate {
     var totalBookings = 0
     var selectStartTime = ""
     var selectedEndTime = ""
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,12 +47,16 @@ class Book: UIViewController, UITextFieldDelegate {
 
         self.pickerView.reloadAllComponents()
         
+        
         //Set start and end time from Global parameters.
         startTimeField.placeholder = Global.shared.hostStartTimeDay
         endTimeField.placeholder = Global.shared.hostEndTimeDay
         startTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(startTimeSelected))
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
+        
     }
+    
+
     
     @IBAction func update(_ sender: AnyObject) {
         print("reloaded")
@@ -176,7 +181,7 @@ class Book: UIViewController, UITextFieldDelegate {
 extension Book: UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.titles.count
+        return Global.shared.bookings.count
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -184,11 +189,11 @@ extension Book: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.titles[row]
+        return Global.shared.bookings[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.selectDay.text = self.titles[row]
+        self.selectDay.text = Global.shared.bookings[row]
         Global.shared.hostSelectedDay = self.selectDay.text!
         dayCheck(day: "\(Global.shared.hostSelectedDay)")
     }

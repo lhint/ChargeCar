@@ -7,6 +7,7 @@
 
 import UIKit
 import SVProgressHUD
+import Firebase 
 
 class ChargerInfo: UIViewController {
     
@@ -25,19 +26,22 @@ class ChargerInfo: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var book: UIButton!
     
-    public var name = ""
-    public var s1 = 0.0
-    public var c1 = 0.0
-    public var k1 = 0.0
-    public var s2 = 0.0
-    public var c2 = 0.0
-    public var k2 = 0.0
-    public var f1 = ""
+    var name = ""
+    var s1 = 0.0
+    var c1 = 0.0
+    var k1 = 0.0
+    var s2 = 0.0
+    var c2 = 0.0
+    var k2 = 0.0
+    var f1 = ""
     
-    public var privateName = ""
-    public var privateConnector = ""
-    public var privateKW = ""
-    public var price = ""
+    var privateName = ""
+    var privateConnector = ""
+    var privateKW = ""
+    var price = ""
+    var privateHostUid = Global.shared.userUid
+    var mondayShareDay = "", tuesdayShareDay = "", wednesdayShareDay = "", thursdayShareDay = "", fridayShareDay = "", saturdayShareDay = "", sundayShareDay = ""
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
    
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
@@ -69,6 +73,8 @@ class ChargerInfo: UIViewController {
             self.price2.text = f1
             book.isHidden = true
         }
+        Global.shared.bookings.removeAll()
+        getShareDays()
     }
     
     func showCharger2(k2: Double) {
@@ -130,4 +136,127 @@ class ChargerInfo: UIViewController {
         performSegue(withIdentifier: "book", sender: self)
     }
     
+    func getShareDays() {
+        DispatchQueue.global(qos: .default).async {
+
+          // 2
+          let group = DispatchGroup()
+            
+            group.enter()
+          
+            self.ref.child("\(self.privateHostUid)").child("mondayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.mondayShareDay = snapshot.value as? String ?? ""
+                    if (self.mondayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Monday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(self.privateHostUid)").child("tuesdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.tuesdayShareDay = snapshot.value as? String ?? ""
+                    if (self.tuesdayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Tuesday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(self.privateHostUid)").child("wednesdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.wednesdayShareDay = snapshot.value as? String ?? ""
+                    if (self.wednesdayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Wednesday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(self.privateHostUid)").child("thursdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.thursdayShareDay = snapshot.value as? String ?? ""
+                    if (self.thursdayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Thursday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(self.privateHostUid)").child("fridayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.fridayShareDay = snapshot.value as? String ?? ""
+                    if (self.fridayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Friday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(self.privateHostUid)").child("saturdayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.saturdayShareDay = snapshot.value as? String ?? ""
+                    if (self.saturdayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Saturday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(self.privateHostUid)").child("sundayshare").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                
+                if snapshot.exists() {
+                    
+                    self.sundayShareDay = snapshot.value as? String ?? ""
+                    if (self.sundayShareDay.contains("true")) {
+                        Global.shared.bookings.append("Sunday")
+                    }
+                } else {
+                    print("Error")
+                    
+                }
+            })
+        
+            group.leave()
+            
+            group.wait()
+            
+
+          // 6
+          DispatchQueue.main.async {
+          }
+        }
+    }
 }

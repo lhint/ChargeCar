@@ -41,6 +41,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         currentLocation()
         Global.shared.signedIn = defaults.bool(forKey: "SignedIn")
         Global.shared.newSaveEmail = defaults.bool(forKey: "NewSaveEmail")
+        Global.shared.bookings.removeAll()
         
         if Global.shared.newSaveEmail == true {
         Global.shared.signinUserEmail = defaults.string(forKey: "signedinUserEmail") ?? "none"
@@ -513,21 +514,37 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 if ((wednesdayCharger?.contains("true")) != nil) {
                     //self.scheduledDays.append("\(wednesdayCharger ?? "false")")
                     Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(wednesdayCharger ?? "false")", forKey: "Wednesday")
+                    Global.shared.wednesdayCharger = wednesdayCharger ?? "false"
                 }
                 if ((thursdayCharger?.contains("true")) != nil) {
                     //self.scheduledDays.append("\(thursdayCharger ?? "false")")
                     Global.shared.thursdayCharger = thursdayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(thursdayCharger ?? "false")", forKey: "Thursday")
+                    Global.shared.thursdayCharger = thursdayCharger ?? "false"
                 }
                 if ((fridayCharger?.contains("true")) != nil) {
                     //self.scheduledDays.append("\(fridayCharger ?? "false")")
+                    print("Friday Charger Value: \(fridayCharger ?? "None")")
+                    Global.shared.fridayCharger = fridayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(fridayCharger ?? "false")", forKey: "Friday")
                     Global.shared.fridayCharger = fridayCharger ?? "false"
                 }
                 if ((saturdayCharger?.contains("true")) != nil) {
                     //self.scheduledDays.append("\(saturdayCharger ?? "false")")
                     Global.shared.saturdayCharger = saturdayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(saturdayCharger ?? "false")", forKey: "Saturday")
+                    Global.shared.saturdayCharger = saturdayCharger ?? "false"
                 }
                 if ((sundayCharger?.contains("true")) != nil) {
                     //self.scheduledDays.append("\(sundayCharger ?? "false")")
+                    Global.shared.sundayCharger = sundayCharger ?? "false"
+                } else {
+                    self.scheduledDays.updateValue("\(sundayCharger ?? "false")", forKey: "Sunday")
                     Global.shared.sundayCharger = sundayCharger ?? "false"
                 }
                 
@@ -611,10 +628,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh, price: price )
         mapView.addAnnotation(privateChargerAnnotation)
         print(chargerName, coordinateLat, coordinateLong)
+        for i in Global.shared.bookings {
+            print("Bookings Days: \(i)")
+        }
     }
     
     @IBAction func updateView(_ sender: Any) {
         privateCharger.removeAll()
+        Global.shared.bookings.removeAll()
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
         currentLocation()
