@@ -17,17 +17,13 @@ class Book: UIViewController, UITextFieldDelegate {
     fileprivate let pickerView = ToolbarPickerView()
     fileprivate let titles = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] //Replace with set host days
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
-    var privateHostUid = Global.shared.userUid
+    var privateHostUid = Global.shared.privateChargerUid
     var startTimeDay = ""
     var endTimeDay = ""
-    var bookingStart1 = ""
-    var bookingEnd1 = ""
-    var bookingStart2 = ""
-    var bookingEnd2 = ""
-    var bookingStart3 = ""
-    var bookingEnd3 = ""
-    var bookingStart4 = ""
-    var bookingEnd4 = ""
+    var bookingStart1 = "", bookingEnd1 = ""
+    var bookingStart2 = "", bookingEnd2 = ""
+    var bookingStart3 = "", bookingEnd3 = ""
+    var bookingStart4 = "", bookingEnd4 = ""
     var totalBookings = 0
     var selectedStartTime = ""
     var selectedEndTime = ""
@@ -86,34 +82,67 @@ class Book: UIViewController, UITextFieldDelegate {
     }
     
     func allocateBookings(start: String, end: String) -> Int {
-        var bookingNumber = 0
-        if totalBookings == 0 && bookingStart1.contains("") {
-            bookingStart1 = start
-            bookingEnd1 = end
+        var bookingNumber = 1
+        if Global.shared.bookingTimeStamp1.isEmpty  {
+            self.bookingStart1 = start
+            self.bookingEnd1 = end
             bookingNumber = 1
-        } else if totalBookings == 1 && bookingStart2.contains("") {
-            bookingStart2 = start
-            bookingEnd2 = end
+        } else if Global.shared.bookingTimeStamp2.isEmpty {
+            self.bookingStart2 = start
+            self.bookingEnd2 = end
             bookingNumber = 2
-        } else if totalBookings == 3 && bookingStart3.contains("") {
-            bookingStart3 = start
-            bookingEnd3 = end
+        } else if Global.shared.bookingTimeStamp3.isEmpty {
+            self.bookingStart3 = start
+            self.bookingEnd3 = end
             bookingNumber = 3
-        } else if totalBookings == 4 && bookingStart4.contains("") {
-            bookingStart4 = start
-            bookingEnd4 = end
+        } else if Global.shared.bookingTimeStamp4.isEmpty {
+            self.bookingStart4 = start
+            self.bookingEnd4 = end
             bookingNumber = 4
+        } else if Global.shared.bookingTimeStamp5.isEmpty {
+            self.bookingStart4 = start
+            self.bookingEnd4 = end
+           bookingNumber = 5
         }
         return bookingNumber
     }
     
+    func createDateStampName(bookingNumber: Int) -> String {
+        var output = ""
+        if bookingNumber == 1 {
+            output = "bookingDateStamp1"
+        } else if bookingNumber == 2 {
+            output = "bookingDateStamp2"
+        } else if bookingNumber == 3 {
+            output = "bookingDateStamp3"
+        } else if bookingNumber == 4 {
+            output = "bookingDateStamp4"
+        } else if bookingNumber == 5 {
+            output = "bookingDateStamp5"
+        }
+        return "\(output)"
+    }
+    
     @IBAction func book(_ sender: Any) {
         
-        self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguid" : "\(Global.shared.userUid)"])
         bookedDay = selectDay.text ?? ""
-        totalBookings = totalBookings + 1
-        Global.shared.confirmedBookings.append("\(Global.shared.username) has booked for \(bookedDay) starting at: \(self.bookingStart1) and ending at: \(self.bookingEnd1)")
         
+        //let futureDate = setFutureDate(chosenDay: "\(Global.shared.hostSelectedDay)")
+            
+            //addFutureDate(chosenDay:"\(Global.shared.hostSelectedDay)")
+        
+        //rint("hostSelectedDay: \(Global.shared.hostSelectedDay)")
+        
+        Global.shared.chosenDate = setFutureDate(chosenDay: selectDay.text!)
+        
+        print("SetFutureDate \(setFutureDate(chosenDay: selectDay.text!))")
+        
+        self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)"])
+        
+        
+        totalBookings = totalBookings + 1
+        
+        //UI Alert to confirm booking
         let alert = UIAlertController(title: "Booked", message: "You have now booked. Start time: \(self.selectedStartTime), End time: \(self.selectedEndTime)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: { (action) -> Void in
             self.startTimeField.text = ""
@@ -123,12 +152,93 @@ class Book: UIViewController, UITextFieldDelegate {
         }))
         present(alert, animated: true)
         
+        
         //Add if statement to homeViewController to check the booked time and gray out green booking for that time.
         
         //Check trello notes
         //When booking finishes clear start and end times (check this works in if statement)
         //Create text to display booking info for dashboard and save to confirmed bookings array - How to save this to the database? Store locally and then do a check to see if the booking still exists?
         
+    }
+    
+    //Works out date for future selected days
+    func setFutureDate(chosenDay: String) -> String {
+        let setDate = String(DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none))
+        let dateFormatter = DateFormatter()
+        //dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let date = dateFormatter.date(from:setDate)!
+        print("Todays Date: \(setDate)")
+        let thisDay = getDayOfWeek(date: "\(setDate)")
+        print("Todays day is \(thisDay)")
+        
+        var dayDelta = 0
+        
+        switch thisDay {
+        
+        case "Monday":
+            print("Monday selected")
+           // dayDeltaCheck(day: "Monday")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 0)
+        case "Tuesday":
+            print("Tuesday selected")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 6)
+        case "Wednesday":
+            print("Wednesday selected")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 5)
+        case "Thursday":
+            print("Thursday selected")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 4)
+        case "Friday":
+            print("Friday selected")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 3)
+        case "Saturday":
+            print("Saturday selected")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 2)
+        case "Sunday":
+            print("Sunday selected")
+            dayDelta = dayDeltaCheck(chosenDay: chosenDay, day: thisDay, dayDeltaStart: 1)
+        default:
+            print("No date")
+        }
+        let newDate =  date.addingTimeInterval(60*60*24*Double(dayDelta))
+        let newDateFormatted = dateFormatter.string(from:newDate)
+        print("newDateFormatted \(newDateFormatted)")
+        print("dayDelta: \(dayDelta)")
+        return "\(newDateFormatted)"
+    }
+    
+    func dayDeltaCheck(chosenDay: String, day: String, dayDeltaStart: Int) -> Int {
+        
+        var dayDelta = 0
+        if chosenDay.contains("Monday") {
+            dayDelta = dayDeltaStart
+        } else if chosenDay.contains("Tuesday") {
+            dayDelta = dayDeltaStart + 1
+        } else if chosenDay.contains("Wednesday") {
+            dayDelta = dayDeltaStart + 2
+        } else if chosenDay.contains("Thursday") {
+            dayDelta = dayDeltaStart + 3
+        } else if chosenDay.contains("Friday") {
+            dayDelta = dayDeltaStart + 4
+        } else if chosenDay.contains("Saturday") {
+            dayDelta = dayDeltaStart + 5
+        } else if chosenDay.contains("Sunday") {
+            dayDelta = dayDeltaStart + 6
+        }
+        return dayDelta
+    }
+    
+    func getDayOfWeek(date: String) -> String {
+        //Inspired from: https://stackoverflow.com/questions/24089999/how-do-you-create-a-swift-date-object
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let convertedDate = dateFormatter.date(from:date) ?? Date(timeIntervalSinceReferenceDate: -123456789.0) // Feb 2, 1997, 10:26 AM
+        
+        dateFormatter.dateFormat = "EEEE"
+        let day = dateFormatter.string(from: convertedDate)
+        print(dateFormatter.string(from: convertedDate))
+        return day
     }
     
     func dayCheck(day: String) {

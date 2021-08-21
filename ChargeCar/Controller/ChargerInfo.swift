@@ -73,7 +73,6 @@ class ChargerInfo: UIViewController {
             self.price2.text = f1
             book.isHidden = true
         }
-        Global.shared.bookings.removeAll()
         getShareDays()
     }
     

@@ -25,12 +25,20 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     var scheduledDays = [String : String]()
     var hostCharger: Bool = false
     
+    var name1 = "", name2 = "", name3 = "", name4 = "", name5 = ""
+    var bookedStartTime1 = "", bookedEndTime1 = ""
+    var bookedStartTime2 = "", bookedEndTime2 = ""
+    var bookedStartTime3 = "", bookedEndTime3 = ""
+    var bookedStartTime4 = "", bookedEndTime4 = ""
+    var bookedStartTime5 = "", bookedEndTime5 = ""
+    
     //Global veriables
     public var lat = 0.0, long = 0.0
     
     //viewdidload - To load at startup
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //Mapview code from https://developer.apple.com/
         self.mapView.delegate = self
        mapView.register(
@@ -71,6 +79,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
             let _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.addPrivateChargerToMap), userInfo: nil, repeats: false)
+            callAllPrivateuidForThisHost()
+            let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
+            let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
             
             DispatchQueue.global(qos: .default).async {
 
@@ -562,9 +573,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     
                     let now = Date()
                     let formatter = DateFormatter()
-                        formatter.timeZone = TimeZone.current
-                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                        formatter.timeStyle = .short
+                    formatter.timeZone = TimeZone.current
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                    formatter.timeStyle = .short
                     let currentTime = formatter.string(from: now)
                     print("Date: \(dayInWeek) Time: \(currentTime)")
                     //Schedule date check
@@ -633,6 +644,436 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func callAllPrivateuidForThisHost() {
+        //Gets all bookings for this host
+        //Download all booker UID's stored within the hosts UID.
+        
+        DispatchQueue.global(qos: .default).async {
+
+          // 2
+          let group = DispatchGroup()
+            
+            group.enter()
+          
+            self.ref.child("\(Global.shared.userUid)").child("bookinguseruid1").observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if snapshot.exists() {
+                    
+                    Global.shared.bookinguid1 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+              //Get username for signed in user to display in menu
+             self.ref.child("\(Global.shared.userUid)").child("bookinguseruid2").observeSingleEvent(of: .value, with: { (snapshot) in
+
+                 if snapshot.exists() {
+
+                    Global.shared.bookinguid2 = snapshot.value as? String ?? ""
+
+                 } else {
+                     print("Error")
+
+                 }
+             })
+
+            self.ref.child("\(Global.shared.userUid)").child("bookinguseruid3").observeSingleEvent(of: .value, with: { (snapshot) in
+
+                if snapshot.exists() {
+
+                    Global.shared.bookinguid3 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+
+            self.ref.child("\(Global.shared.userUid)").child("bookinguseruid4").observeSingleEvent(of: .value, with: { (snapshot) in
+
+                if snapshot.exists() {
+
+                    Global.shared.bookinguid4 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+
+            self.ref.child("\(Global.shared.userUid)").child("bookinguseruid5").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+
+                    Global.shared.bookinguid5 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+            
+            
+        
+            group.leave()
+            
+            group.wait()
+
+          // 6
+          DispatchQueue.main.async {
+
+          }
+
+        }
+    }
+    
+    @objc  func callAllPrivateBookingsForThisHost() {
+        
+        DispatchQueue.global(qos: .default).async {
+            
+            // 2
+            let group = DispatchGroup()
+            
+            group.enter()
+            
+            //Get usernames for each UID
+            
+            self.ref.child("\(Global.shared.bookinguid1)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.name1 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            if Global.shared.bookinguid2.isEmpty {
+                
+            } else {
+                
+            
+            self.ref.child("\(Global.shared.bookinguid2)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+
+                    self.name2 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+                
+            }
+            
+            if Global.shared.bookinguid3.isEmpty {
+                
+            } else {
+
+            self.ref.child("\(Global.shared.bookinguid3)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+
+                    self.name3 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+            }
+            
+            if Global.shared.bookinguid4.isEmpty {
+                
+            } else {
+
+            self.ref.child("\(Global.shared.bookinguid4)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+
+                    self.name4 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+            }
+            
+            if Global.shared.bookinguid5.isEmpty {
+                
+            } else {
+
+            self.ref.child("\(Global.shared.bookinguid5)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+
+                    self.name5 = snapshot.value as? String ?? ""
+
+                } else {
+                    print("Error")
+
+                }
+            })
+            }
+
+            self.ref.child("\(Global.shared.userUid)").child("bookingdatestamp1").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    Global.shared.bookingTimeStamp1 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookingdatestamp2").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    Global.shared.bookingTimeStamp2 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookingdatestamp3").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    Global.shared.bookingTimeStamp3 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookingdatestamp4").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    Global.shared.bookingTimeStamp4 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookingdatestamp5").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    Global.shared.bookingTimeStamp5 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedStartTime1").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedStartTime1 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedEndTime1").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedEndTime1 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedStartTime2").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedStartTime2 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedEndTime2").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedEndTime2 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedStartTime3").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedStartTime3 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedEndTime3").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedEndTime3 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedStartTime4").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedStartTime4 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedEndTime4").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedEndTime4 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedStartTime5").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedStartTime5 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            self.ref.child("\(Global.shared.userUid)").child("bookedEndTime5").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get item value
+                if snapshot.exists() {
+                    
+                    self.bookedEndTime5 = snapshot.value as? String ?? ""
+                    
+                } else {
+                    print("Error")
+                    
+                }
+            })
+            
+            
+            print("user uid: \(Global.shared.userUid)")
+            print("booking1 userID: \(Global.shared.bookinguid1)")
+            
+            group.leave()
+            
+            group.wait()
+            
+            // 6
+            DispatchQueue.main.async {
+                
+            }
+            
+        }
+    }
+    
+    func bookingStillAlive() {
+        let currentDate = String(DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none))
+        
+        if currentDate > Global.shared.bookingTimeStamp1 {
+            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime1":"","bookedEndTime1":"","bookingdatestamp1":"","bookinguseruid1":""])
+        } else if currentDate > Global.shared.bookingTimeStamp2 {
+            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime2":"","bookedEndTime2":"","bookingdatestamp2":"","bookinguseruid2":""])
+        } else if currentDate > Global.shared.bookingTimeStamp3 {
+            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime3":"","bookedEndTime3":"","bookingdatestamp3":"","bookinguseruid3":""])
+        } else if currentDate > Global.shared.bookingTimeStamp4 {
+            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime4":"","bookedEndTime4":"","bookingdatestamp4":"","bookinguseruid4":""])
+        } else if currentDate > Global.shared.bookingTimeStamp5 {
+            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime5":"","bookedEndTime5":"","bookingdatestamp5":"","bookinguseruid5":""])
+        } //Call this function = Test if it works. Test that privateChargerUid is that of the host
+    }
+    
+    @objc func dashboardString() {
+        
+        print("name1: \(self.name1)")
+        print("BookingDateStamp1: \(Global.shared.bookingTimeStamp1)")
+        
+        if name1.isEmpty {
+            
+        } else {
+            Global.shared.confirmedBookings.append("\(self.name1) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp1)) on \(Global.shared.bookingTimeStamp1) starting at: \(bookedStartTime1) and ending at: \(bookedEndTime1)")
+        }
+        if name2.isEmpty {
+            
+        } else {
+            Global.shared.confirmedBookings.append("\(self.name2) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp2)) on \(Global.shared.bookingTimeStamp2) starting at: \(bookedStartTime2) and ending at: \(bookedEndTime2)")
+        }
+        if name3.isEmpty {
+            
+        } else {
+            Global.shared.confirmedBookings.append("\(self.name3) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp3)) on \(Global.shared.bookingTimeStamp3) starting at: \(bookedStartTime3) and ending at: \(bookedEndTime3)")
+        }
+        if name4.isEmpty {
+            
+        } else {
+            Global.shared.confirmedBookings.append("\(self.name4) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp4)) on \(Global.shared.bookingTimeStamp4) starting at: \(bookedStartTime4) and ending at: \(bookedEndTime4)")
+        }
+        if name5.isEmpty {
+            
+        } else {
+            Global.shared.confirmedBookings.append("\(self.name5) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp5)) on \(Global.shared.bookingTimeStamp5) starting at: \(bookedStartTime5) and ending at: \(bookedEndTime5)")
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        Global.shared.confirmedBookings.removeAll()
+        Global.shared.bookings.removeAll()
+        callAllPrivateuidForThisHost()
+        let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
+        let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
+    }
+    
     @IBAction func updateView(_ sender: Any) {
         privateCharger.removeAll()
         Global.shared.bookings.removeAll()
@@ -642,6 +1083,18 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
         }
+    }
+    
+    func getDayOfWeek(date: String) -> String {
+        //Inspired from: https://stackoverflow.com/questions/24089999/how-do-you-create-a-swift-date-object
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let convertedDate = dateFormatter.date(from:date) ?? Date(timeIntervalSinceReferenceDate: -123456789.0) // Feb 2, 1997, 10:26 AM
+        
+        dateFormatter.dateFormat = "EEEE"
+        let day = dateFormatter.string(from: convertedDate)
+        print(dateFormatter.string(from: convertedDate))
+        return day
     }
 }
 

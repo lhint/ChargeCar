@@ -61,6 +61,7 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         bookingTable.delegate = self
         bookingTable.dataSource = self
+        bookingTable.tableFooterView = UIView()
     }
 
     //In the dashboard table, display bookings array value in table.
@@ -73,6 +74,7 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
         //tableView.register(UINib(nibName: "YourCellXibName", bundle: nil), forCellReuseIdentifier: "Cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         
+        cell.textLabel?.numberOfLines = 3
         cell.textLabel?.text = Global.shared.confirmedBookings[indexPath.row]
         return cell
         
