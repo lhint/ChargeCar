@@ -57,7 +57,7 @@ class Global {
     var userSaturdayShare: String = ""
     var userSundayShare: String = ""
     var free: String = ""
-    var bookings: Array = [""]
+    var bookings: Array = [String]()
     var confirmedBookings: Array = [String]()
     var hostStartTimeDay: String = ""
     var hostEndTimeDay: String = ""

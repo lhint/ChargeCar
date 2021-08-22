@@ -49,7 +49,6 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.placeholder = Global.shared.hostEndTimeDay
         startTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(startTimeSelected))
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
-        
     }
     
     @IBAction func update(_ sender: AnyObject) {
@@ -131,8 +130,13 @@ class Book: UIViewController, UITextFieldDelegate {
         
         print("SetFutureDate \(setFutureDate(chosenDay: selectDay.text!))")
         
-        self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)"])
-        
+        if alreadyBooked() {
+            let alert = UIAlertController(title: "Already Booked", message: "This date is already booked!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+            present(alert, animated: true)
+            } else {
+                self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)"])
+            }
         
         totalBookings = totalBookings + 1
         
@@ -153,6 +157,27 @@ class Book: UIViewController, UITextFieldDelegate {
         //When booking finishes clear start and end times (check this works in if statement)
         //Create text to display booking info for dashboard and save to confirmed bookings array - How to save this to the database? Store locally and then do a check to see if the booking still exists?
         
+    }
+    
+    func alreadyBooked() -> Bool {
+        print("BookedDay: \(bookedDay)")
+        print("getDayOfWeek:")
+        print(getDayOfWeek(date: "\(Global.shared.bookingTimeStamp1)"))
+        if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp1)") == bookedDay {
+            return true
+        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp1)") == bookedDay {
+            return true
+        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp2)") == bookedDay {
+            return true
+        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp3)") == bookedDay {
+            return true
+        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp4)") == bookedDay {
+            return true
+        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp5)") == bookedDay {
+            return true
+        } else {
+            return false
+        }
     }
     
     //Works out date for future selected days

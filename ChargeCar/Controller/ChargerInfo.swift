@@ -58,6 +58,13 @@ class ChargerInfo: UIViewController {
             showCharger2(k2: 1.0)
             book.isHidden = false
             
+//            if Global.shared.bookingTimeStamp1.contains("") || Global.shared.bookingTimeStamp2.contains("") || Global.shared.bookingTimeStamp3.contains("") || Global.shared.bookingTimeStamp4.contains("") || Global.shared.bookingTimeStamp5.contains("") {
+//
+//            } else {
+//                book.backgroundColor = .gray
+//                book.isEnabled = false
+//            }
+            
         } else {
             //Public Chargers
             self.title = name
