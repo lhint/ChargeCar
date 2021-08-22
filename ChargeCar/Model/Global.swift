@@ -59,7 +59,6 @@ class Global {
     var free: String = ""
     var bookings: Array = [""]
     var confirmedBookings: Array = [String]()
-    var privateChargerUid: String = ""
     var hostStartTimeDay: String = ""
     var hostEndTimeDay: String = ""
     var hostSelectedDay: String = ""
@@ -69,6 +68,6 @@ class Global {
     var bookinguid4: String = ""
     var bookinguid5: String = ""
     var bookingTimeStamp1 = "", bookingTimeStamp2 = "", bookingTimeStamp3 = "", bookingTimeStamp4 = "", bookingTimeStamp5 = ""
-    var chosenDate: String = ""Global.shared.userUidhos
+    var chosenDate: String = ""
     public static let shared = Global()
 }

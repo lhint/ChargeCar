@@ -17,7 +17,7 @@ class Book: UIViewController, UITextFieldDelegate {
     fileprivate let pickerView = ToolbarPickerView()
     fileprivate let titles = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] //Replace with set host days
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
-    var privateHostUid = Global.shared.privateChargerUid
+    var privateHostUid = Global.shared.userUid
     var startTimeDay = ""
     var endTimeDay = ""
     var bookingStart1 = "", bookingEnd1 = ""
@@ -126,12 +126,6 @@ class Book: UIViewController, UITextFieldDelegate {
     @IBAction func book(_ sender: Any) {
         
         bookedDay = selectDay.text ?? ""
-        
-        //let futureDate = setFutureDate(chosenDay: "\(Global.shared.hostSelectedDay)")
-            
-            //addFutureDate(chosenDay:"\(Global.shared.hostSelectedDay)")
-        
-        //rint("hostSelectedDay: \(Global.shared.hostSelectedDay)")
         
         Global.shared.chosenDate = setFutureDate(chosenDay: selectDay.text!)
         

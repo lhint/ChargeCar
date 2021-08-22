@@ -16,7 +16,6 @@ class Menu: UITableViewController {
         super.viewDidLoad()
         self.title = "Charge Car"
         
-        
         DispatchQueue.global(qos: .default).async {
 
           // 2

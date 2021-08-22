@@ -79,9 +79,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
             let _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(self.addPrivateChargerToMap), userInfo: nil, repeats: false)
-            callAllPrivateuidForThisHost()
-            let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
-            let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
+            Global.shared.confirmedBookings.removeAll()
+            Global.shared.bookings.removeAll()
+
             
             DispatchQueue.global(qos: .default).async {
 
@@ -236,6 +236,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        Global.shared.confirmedBookings.removeAll()
+        Global.shared.bookings.removeAll()
+        callAllPrivateuidForThisHost()
+        let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
+        let _ = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(bookingStillAlive), userInfo: nil, repeats: false)
+        Global.shared.confirmedBookings.removeAll()
+        let _ = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
+        let _ = Timer.scheduledTimer(timeInterval: 6.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
+    }
+    
     
     //Array to store returned public charger information
     
@@ -506,7 +519,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 Global.shared.sundayStart = snap.childSnapshot(forPath: "sundaystart").value as? String ?? ""
                 Global.shared.sundayEnd = snap.childSnapshot(forPath: "sundayend").value as? String ?? ""
                 let override = snap.childSnapshot(forPath: "sharechargeroverride").value as? String
-                Global.shared.privateChargerUid = snap.childSnapshot(forPath: "uid").value as? String ?? ""
                 
                 if ((mondayCharger?.contains("true")) != nil) {
                     self.scheduledDays.updateValue("\(mondayCharger ?? "false")", forKey: "Monday")
@@ -636,7 +648,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     func addPrivateCharger(chargerName: String, coordinateLat: Double, coordinateLong: Double, chargerConnector: String, chargerKWh: String, price: String) {
         
-        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh, price: price )
+        let privateChargerAnnotation = PrivateChargerMap(chargerName: chargerName, coordinate: CLLocationCoordinate2D(latitude: coordinateLat,  longitude: coordinateLong), chargerConnector1: chargerConnector, chargerKW1: chargerKWh, price: price)
         mapView.addAnnotation(privateChargerAnnotation)
         print(chargerName, coordinateLat, coordinateLong)
         for i in Global.shared.bookings {
@@ -714,8 +726,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
 
                 }
             })
-            
-            
         
             group.leave()
             
@@ -729,7 +739,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    @objc  func callAllPrivateBookingsForThisHost() {
+    @objc func callAllPrivateBookingsForThisHost() {
         
         DispatchQueue.global(qos: .default).async {
             
@@ -739,6 +749,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             group.enter()
             
             //Get usernames for each UID
+            
+            if Global.shared.bookinguid1.isEmpty {
+                
+            } else {
             
             self.ref.child("\(Global.shared.bookinguid1)").child("name").observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get item value
@@ -751,6 +765,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     
                 }
             })
+                
+            }
             
             if Global.shared.bookinguid2.isEmpty {
                 
@@ -1018,19 +1034,30 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func bookingStillAlive() {
+   @objc func bookingStillAlive() {
         let currentDate = String(DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none))
-        
+            print("TimeStamp1: \(Global.shared.bookingTimeStamp1)")
         if currentDate > Global.shared.bookingTimeStamp1 {
-            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime1":"","bookedEndTime1":"","bookingdatestamp1":"","bookinguseruid1":""])
-        } else if currentDate > Global.shared.bookingTimeStamp2 {
-            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime2":"","bookedEndTime2":"","bookingdatestamp2":"","bookinguseruid2":""])
-        } else if currentDate > Global.shared.bookingTimeStamp3 {
-            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime3":"","bookedEndTime3":"","bookingdatestamp3":"","bookinguseruid3":""])
+            print("CurrentDate: \(currentDate)")
+            print("stillAliveBookingTimeStamp1: \(Global.shared.bookingTimeStamp1)")
+            print("PrivateChargerUid \(Global.shared.userUid)")
+            self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime1":"","bookedEndTime1":"","bookingdatestamp1":"","bookinguseruid1":""])
+            Global.shared.confirmedBookings.removeAll()
+        } else {
+            //Gray out green book button on that host
+        }
+        
+        if currentDate > Global.shared.bookingTimeStamp2 {
+            self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime2":"","bookedEndTime2":"","bookingdatestamp2":"","bookinguseruid2":""])
+        } else {
+            //Gray out green book button on that host
+        }
+        if currentDate > Global.shared.bookingTimeStamp3 {
+            self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime3":"","bookedEndTime3":"","bookingdatestamp3":"","bookinguseruid3":""])
         } else if currentDate > Global.shared.bookingTimeStamp4 {
-            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime4":"","bookedEndTime4":"","bookingdatestamp4":"","bookinguseruid4":""])
+            self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime4":"","bookedEndTime4":"","bookingdatestamp4":"","bookinguseruid4":""])
         } else if currentDate > Global.shared.bookingTimeStamp5 {
-            self.ref.child(Global.shared.privateChargerUid).updateChildValues(["bookedStartTime5":"","bookedEndTime5":"","bookingdatestamp5":"","bookinguseruid5":""])
+            self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime5":"","bookedEndTime5":"","bookingdatestamp5":"","bookinguseruid5":""])
         } //Call this function = Test if it works. Test that privateChargerUid is that of the host
     }
     
@@ -1039,39 +1066,31 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         print("name1: \(self.name1)")
         print("BookingDateStamp1: \(Global.shared.bookingTimeStamp1)")
         
-        if name1.isEmpty {
+        if Global.shared.bookingTimeStamp1.isEmpty {
             
         } else {
             Global.shared.confirmedBookings.append("\(self.name1) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp1)) on \(Global.shared.bookingTimeStamp1) starting at: \(bookedStartTime1) and ending at: \(bookedEndTime1)")
         }
-        if name2.isEmpty {
+        if Global.shared.bookingTimeStamp2.isEmpty {
             
         } else {
             Global.shared.confirmedBookings.append("\(self.name2) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp2)) on \(Global.shared.bookingTimeStamp2) starting at: \(bookedStartTime2) and ending at: \(bookedEndTime2)")
         }
-        if name3.isEmpty {
+        if Global.shared.bookingTimeStamp3.isEmpty {
             
         } else {
             Global.shared.confirmedBookings.append("\(self.name3) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp3)) on \(Global.shared.bookingTimeStamp3) starting at: \(bookedStartTime3) and ending at: \(bookedEndTime3)")
         }
-        if name4.isEmpty {
+        if Global.shared.bookingTimeStamp4.isEmpty {
             
         } else {
             Global.shared.confirmedBookings.append("\(self.name4) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp4)) on \(Global.shared.bookingTimeStamp4) starting at: \(bookedStartTime4) and ending at: \(bookedEndTime4)")
         }
-        if name5.isEmpty {
+        if Global.shared.bookingTimeStamp5.isEmpty {
             
         } else {
             Global.shared.confirmedBookings.append("\(self.name5) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp5)) on \(Global.shared.bookingTimeStamp5) starting at: \(bookedStartTime5) and ending at: \(bookedEndTime5)")
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        Global.shared.confirmedBookings.removeAll()
-        Global.shared.bookings.removeAll()
-        callAllPrivateuidForThisHost()
-        let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
-        let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
     }
     
     @IBAction func updateView(_ sender: Any) {
