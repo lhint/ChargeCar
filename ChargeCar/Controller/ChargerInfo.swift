@@ -39,18 +39,22 @@ class ChargerInfo: UIViewController {
     var privateConnector = ""
     var privateKW = ""
     var price = ""
-    var privateHostUid = Global.shared.userUid
+    var privateHostUid = ""
+    var free = ""
     var mondayShareDay = "", tuesdayShareDay = "", wednesdayShareDay = "", thursdayShareDay = "", fridayShareDay = "", saturdayShareDay = "", sundayShareDay = ""
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
    
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
+        print("chargerInfo free \(free)")
         if privateName != "" {
             //Private Chargers
             self.status1.text = "" //Will be changed depending on the schedule host has set.
             self.connector1.text = self.privateConnector
             self.kw1.text = self.privateKW
-            if Global.shared.free.contains("true") {
+            print("privateHostUID: \(privateHostUid)")
+            print("Free: \(free)")
+            if free.contains("true") {
                 self.price1.text = "Free"
             } else {
                 self.price1.text = "£\(self.price) per hour"

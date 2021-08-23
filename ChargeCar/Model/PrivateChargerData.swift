@@ -14,5 +14,7 @@ class PrivateChargerData: NSObject {
     var chargerConnector1: String?
     var chargerKW1: String?
     var price: String?
+    var hostUid: String?
+    var free: String?
 
 }

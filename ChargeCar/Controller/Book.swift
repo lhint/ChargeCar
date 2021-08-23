@@ -15,9 +15,9 @@ class Book: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var endTimeField: UITextField!
     
     fileprivate let pickerView = ToolbarPickerView()
-    fileprivate let titles = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] //Replace with set host days
+    fileprivate let titles = Global.shared.bookings //Replace with set host days
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
-    var privateHostUid = Global.shared.userUid
+    var privateHostUid = Global.shared.hostUid
     var startTimeDay = ""
     var endTimeDay = ""
     var bookingStart1 = "", bookingEnd1 = ""
@@ -28,12 +28,14 @@ class Book: UIViewController, UITextFieldDelegate {
     var selectedStartTime = ""
     var selectedEndTime = ""
     var bookedDay = ""
+    
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
+        callhostDateStamps()
         
         self.selectDay.inputView = self.pickerView
         self.selectDay.inputAccessoryView = self.pickerView.toolbar
@@ -49,6 +51,7 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.placeholder = Global.shared.hostEndTimeDay
         startTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(startTimeSelected))
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
+        
     }
     
     @IBAction func update(_ sender: AnyObject) {
@@ -125,6 +128,7 @@ class Book: UIViewController, UITextFieldDelegate {
     @IBAction func book(_ sender: Any) {
         
         bookedDay = selectDay.text ?? ""
+        print("BookedDay: \(bookedDay)")
         
         Global.shared.chosenDate = setFutureDate(chosenDay: selectDay.text!)
         
@@ -135,7 +139,7 @@ class Book: UIViewController, UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
             present(alert, animated: true)
             } else {
-                self.ref.child(self.privateHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)"])
+                self.ref.child(Global.shared.tempHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)", "hostuid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : self.privateHostUid])
             }
         
         totalBookings = totalBookings + 1
@@ -159,25 +163,70 @@ class Book: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    
     func alreadyBooked() -> Bool {
+        print("TEMPHOSTUID")
+        print(Global.shared.tempHostUid)
         print("BookedDay: \(bookedDay)")
-        print("getDayOfWeek:")
-        print(getDayOfWeek(date: "\(Global.shared.bookingTimeStamp1)"))
-        if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp1)") == bookedDay {
-            return true
-        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp1)") == bookedDay {
-            return true
-        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp2)") == bookedDay {
-            return true
-        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp3)") == bookedDay {
-            return true
-        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp4)") == bookedDay {
-            return true
-        } else if getDayOfWeek(date: "\(Global.shared.bookingTimeStamp5)") == bookedDay {
-            return true
-        } else {
+        
+        print("getDayOfWeek1:")
+        print(getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp1)"))
+        print("getDayOfWeek2:")
+        print(getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp2)"))
+        print("getDayOfWeek3:")
+        print(getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp3)"))
+        print("getDayOfWeek4:")
+        print(getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp4)"))
+        print("getDayOfWeek5:")
+        print(getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp5)"))
+        print("END")
+        
+        
+        if Global.shared.hostBookingDateStamp1.isEmpty {
             return false
+        } else {
+            
+            if getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp1)") == bookedDay {
+                
+                return true
+            }
         }
+        
+        if Global.shared.hostBookingDateStamp2.isEmpty {
+            return false
+        } else {
+            if getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp2)") == bookedDay {
+                return true
+            }
+        }
+        
+        if Global.shared.hostBookingDateStamp3.isEmpty {
+            return false
+        } else {
+    
+            if getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp3)") == bookedDay {
+                return true
+            }
+        }
+        
+        if Global.shared.hostBookingDateStamp4.isEmpty {
+            return false
+        } else {
+            
+            if getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp4)") == bookedDay {
+                return true
+            }
+        }
+        if Global.shared.hostBookingDateStamp5.isEmpty {
+            return false
+        } else {
+            
+            if getDayOfWeek(date: "\(Global.shared.hostBookingDateStamp5)")  == bookedDay {
+                return true
+            }
+        }
+        return false
     }
     
     //Works out date for future selected days
@@ -275,7 +324,11 @@ class Book: UIViewController, UITextFieldDelegate {
                 
                 group.enter()
               
-                self.ref.child("\(self.privateHostUid)").child("\(self.startTimeDay)").observeSingleEvent(of: .value, with: { (snapshot) in
+                if self.privateHostUid.contains("") {
+                    
+                } else {
+                
+                    self.ref.child(self.privateHostUid).child("\(self.startTimeDay)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get item value
                     
                     if snapshot.exists() {
@@ -288,7 +341,7 @@ class Book: UIViewController, UITextFieldDelegate {
                     }
                 })
                 
-                self.ref.child("\(self.privateHostUid)").child("\(self.endTimeDay)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    self.ref.child(self.privateHostUid).child("\(self.endTimeDay)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get item value
                     
                     if snapshot.exists() {
@@ -301,6 +354,8 @@ class Book: UIViewController, UITextFieldDelegate {
                         
                     }
                 })
+                    
+                }
             
                 group.leave()
                 
@@ -312,6 +367,89 @@ class Book: UIViewController, UITextFieldDelegate {
               }
             }
         }
+}
+
+func callhostDateStamps() {
+    let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
+    DispatchQueue.global(qos: .default).async {
+        
+        // 2
+        let group = DispatchGroup()
+        
+        group.enter()
+
+
+        ref.child("\(Global.shared.tempHostUid )").child("bookingdatestamp1").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get item value
+            if snapshot.exists() {
+
+                Global.shared.hostBookingDateStamp1 = snapshot.value as? String ?? ""
+
+            } else {
+                print("Error")
+
+            }
+        })
+            
+        ref.child("\(Global.shared.tempHostUid )").child("bookingdatestamp2").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get item value
+            if snapshot.exists() {
+
+                Global.shared.hostBookingDateStamp2 = snapshot.value as? String ?? ""
+
+            } else {
+                print("Error")
+
+            }
+        })
+
+        ref.child("\(Global.shared.tempHostUid )").child("bookingdatestamp3").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get item value
+            if snapshot.exists() {
+
+                Global.shared.hostBookingDateStamp3 = snapshot.value as? String ?? ""
+
+            } else {
+                print("Error")
+
+            }
+        })
+
+        ref.child("\(Global.shared.tempHostUid )").child("bookingdatestamp4").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get item value
+            if snapshot.exists() {
+
+                Global.shared.hostBookingDateStamp4 = snapshot.value as? String ?? ""
+
+            } else {
+                print("Error")
+
+            }
+        })
+
+        ref.child("\(Global.shared.tempHostUid)").child("bookingdatestamp5").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get item value
+            if snapshot.exists() {
+
+                Global.shared.hostBookingDateStamp5 = snapshot.value as? String ?? ""
+                print("hostbookingdatestamp5fromdatabase \(Global.shared.hostBookingDateStamp5)")
+
+            } else {
+                print("Error")
+
+            }
+        })
+
+        
+        group.leave()
+        
+        group.wait()
+        
+        // 6
+        DispatchQueue.main.async {
+            
+        }
+    }
 }
 
 extension Book: UIPickerViewDelegate, UIPickerViewDataSource {

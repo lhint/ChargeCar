@@ -27,6 +27,7 @@ class Global {
     var privateChargerConnector: String = ""
     var privateChargerKWH: String = ""
     var privateChargerPrice: String = ""
+    var hostUid: String = ""
     var mondayCharger: String = ""
     var tuesdayCharger: String = ""
     var wednesdayCharger: String = ""
@@ -68,6 +69,9 @@ class Global {
     var bookinguid4: String = ""
     var bookinguid5: String = ""
     var bookingTimeStamp1 = "", bookingTimeStamp2 = "", bookingTimeStamp3 = "", bookingTimeStamp4 = "", bookingTimeStamp5 = ""
+    var hostUid1 = "", hostUid2 = "", hostUid3 = "", hostUid4 = "", hostUid5 = ""
+    var tempHostUid = ""
     var chosenDate: String = ""
+    var hostBookingDateStamp1 = "", hostBookingDateStamp2 = "", hostBookingDateStamp3 = "", hostBookingDateStamp4 = "", hostBookingDateStamp5 = ""
     public static let shared = Global()
 }
