@@ -32,6 +32,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     var bookedStartTime3 = "", bookedEndTime3 = ""
     var bookedStartTime4 = "", bookedEndTime4 = ""
     var bookedStartTime5 = "", bookedEndTime5 = ""
+    var databaseInit = true
     
     //Global veriables
     public var lat = 0.0, long = 0.0
@@ -243,11 +244,18 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         Global.shared.confirmedBookings.removeAll()
         Global.shared.bookings.removeAll()
         callAllPrivateuidForThisHost()
+        if self.databaseInit == true {
         let _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
         let _ = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(bookingStillAlive), userInfo: nil, repeats: false)
         Global.shared.confirmedBookings.removeAll()
         let _ = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
         let _ = Timer.scheduledTimer(timeInterval: 6.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
+            self.databaseInit = false
+        } else {
+        Global.shared.confirmedBookings.removeAll()
+        let _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(callAllPrivateBookingsForThisHost), userInfo: nil, repeats: false)
+        let _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(dashboardString), userInfo: nil, repeats: false)
+        }
     }
     
     
@@ -872,7 +880,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 // Get item value
                 if snapshot.exists() {
 
-                    Global.shared.bookingTimeStamp1 = snapshot.value as? String ?? ""
+                    Global.shared.bookingDateStamp1 = snapshot.value as? String ?? ""
 
                 } else {
                     print("Error")
@@ -884,7 +892,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 // Get item value
                 if snapshot.exists() {
 
-                    Global.shared.bookingTimeStamp2 = snapshot.value as? String ?? ""
+                    Global.shared.bookingDateStamp2 = snapshot.value as? String ?? ""
 
                 } else {
                     print("Error")
@@ -896,7 +904,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 // Get item value
                 if snapshot.exists() {
 
-                    Global.shared.bookingTimeStamp3 = snapshot.value as? String ?? ""
+                    Global.shared.bookingDateStamp3 = snapshot.value as? String ?? ""
 
                 } else {
                     print("Error")
@@ -908,7 +916,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 // Get item value
                 if snapshot.exists() {
 
-                    Global.shared.bookingTimeStamp4 = snapshot.value as? String ?? ""
+                    Global.shared.bookingDateStamp4 = snapshot.value as? String ?? ""
 
                 } else {
                     print("Error")
@@ -920,7 +928,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 // Get item value
                 if snapshot.exists() {
 
-                    Global.shared.bookingTimeStamp5 = snapshot.value as? String ?? ""
+                    Global.shared.bookingDateStamp5 = snapshot.value as? String ?? ""
 
                 } else {
                     print("Error")
@@ -1077,10 +1085,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let date = dateFormatter.date(from: setDate)
         
-        if Global.shared.bookingTimeStamp1.isEmpty {
+        if Global.shared.bookingDateStamp1.isEmpty {
         } else {
             
-            let bookingTimeStamp1 = dateFormatter.date(from: Global.shared.bookingTimeStamp1)!
+            let bookingTimeStamp1 = dateFormatter.date(from: Global.shared.bookingDateStamp1)!
             if date! > bookingTimeStamp1 {
                 print("CurrentDate: \(String(describing: date))")
                 print("stillAliveBookingTimeStamp1: \(bookingTimeStamp1)")
@@ -1092,9 +1100,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             }
         }
         
-        if Global.shared.bookingTimeStamp2.isEmpty {
+        if Global.shared.bookingDateStamp2.isEmpty {
         } else {
-            let bookingTimeStamp2 = dateFormatter.date(from: Global.shared.bookingTimeStamp2)!
+            let bookingTimeStamp2 = dateFormatter.date(from: Global.shared.bookingDateStamp2)!
             
             if date! > bookingTimeStamp2 {
                 print("CurrentDate: \(String(describing: date))")
@@ -1107,10 +1115,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             }
         }
         
-        if Global.shared.bookingTimeStamp3.isEmpty {
+        if Global.shared.bookingDateStamp3.isEmpty {
         } else {
             
-            let bookingTimeStamp3 = dateFormatter.date(from: Global.shared.bookingTimeStamp3)!
+            let bookingTimeStamp3 = dateFormatter.date(from: Global.shared.bookingDateStamp3)!
             
             if date! > bookingTimeStamp3 {
                 print("CurrentDate: \(String(describing: date))")
@@ -1123,9 +1131,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             }
         }
         
-        if Global.shared.bookingTimeStamp4.isEmpty {
+        if Global.shared.bookingDateStamp4.isEmpty {
         } else {
-            let bookingTimeStamp4 = dateFormatter.date(from: Global.shared.bookingTimeStamp4)!
+            let bookingTimeStamp4 = dateFormatter.date(from: Global.shared.bookingDateStamp4)!
             if date! > bookingTimeStamp4 {
                 print("CurrentDate: \(String(describing: date))")
                 print("stillAliveBookingTimeStamp1: \(bookingTimeStamp4)")
@@ -1137,9 +1145,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
             }
         }
         
-        if Global.shared.bookingTimeStamp5.isEmpty {
+        if Global.shared.bookingDateStamp5.isEmpty {
         } else {
-            let bookingTimeStamp5 = dateFormatter.date(from: Global.shared.bookingTimeStamp5)!
+            let bookingTimeStamp5 = dateFormatter.date(from: Global.shared.bookingDateStamp5)!
             if date! > bookingTimeStamp5 {
                 print("CurrentDate: \(String(describing: date))")
                 print("stillAliveBookingTimeStamp1: \(bookingTimeStamp5)")
@@ -1157,32 +1165,32 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     @objc func dashboardString() {
         
         print("name1: \(self.name1)")
-        print("BookingDateStamp1: \(Global.shared.bookingTimeStamp1)")
+        print("BookingDateStamp1: \(Global.shared.bookingDateStamp1)")
         
-        if Global.shared.bookingTimeStamp1.isEmpty {
+        if Global.shared.bookingDateStamp1.isEmpty {
             
         } else {
-            Global.shared.confirmedBookings.append("\(self.name1) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp1)) on \(Global.shared.bookingTimeStamp1) starting at: \(bookedStartTime1) and ending at: \(bookedEndTime1)")
+            Global.shared.confirmedBookings.append("\(self.name1) has booked for \(getDayOfWeek(date: Global.shared.bookingDateStamp1)) on \(Global.shared.bookingDateStamp1) starting at: \(bookedStartTime1) and ending at: \(bookedEndTime1)")
         }
-        if Global.shared.bookingTimeStamp2.isEmpty {
+        if Global.shared.bookingDateStamp2.isEmpty {
             
         } else {
-            Global.shared.confirmedBookings.append("\(self.name2) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp2)) on \(Global.shared.bookingTimeStamp2) starting at: \(bookedStartTime2) and ending at: \(bookedEndTime2)")
+            Global.shared.confirmedBookings.append("\(self.name2) has booked for \(getDayOfWeek(date: Global.shared.bookingDateStamp2)) on \(Global.shared.bookingDateStamp2) starting at: \(bookedStartTime2) and ending at: \(bookedEndTime2)")
         }
-        if Global.shared.bookingTimeStamp3.isEmpty {
+        if Global.shared.bookingDateStamp3.isEmpty {
             
         } else {
-            Global.shared.confirmedBookings.append("\(self.name3) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp3)) on \(Global.shared.bookingTimeStamp3) starting at: \(bookedStartTime3) and ending at: \(bookedEndTime3)")
+            Global.shared.confirmedBookings.append("\(self.name3) has booked for \(getDayOfWeek(date: Global.shared.bookingDateStamp3)) on \(Global.shared.bookingDateStamp3) starting at: \(bookedStartTime3) and ending at: \(bookedEndTime3)")
         }
-        if Global.shared.bookingTimeStamp4.isEmpty {
+        if Global.shared.bookingDateStamp4.isEmpty {
             
         } else {
-            Global.shared.confirmedBookings.append("\(self.name4) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp4)) on \(Global.shared.bookingTimeStamp4) starting at: \(bookedStartTime4) and ending at: \(bookedEndTime4)")
+            Global.shared.confirmedBookings.append("\(self.name4) has booked for \(getDayOfWeek(date: Global.shared.bookingDateStamp4)) on \(Global.shared.bookingDateStamp4) starting at: \(bookedStartTime4) and ending at: \(bookedEndTime4)")
         }
-        if Global.shared.bookingTimeStamp5.isEmpty {
+        if Global.shared.bookingDateStamp5.isEmpty {
             
         } else {
-            Global.shared.confirmedBookings.append("\(self.name5) has booked for \(getDayOfWeek(date: Global.shared.bookingTimeStamp5)) on \(Global.shared.bookingTimeStamp5) starting at: \(bookedStartTime5) and ending at: \(bookedEndTime5)")
+            Global.shared.confirmedBookings.append("\(self.name5) has booked for \(getDayOfWeek(date: Global.shared.bookingDateStamp5)) on \(Global.shared.bookingDateStamp5) starting at: \(bookedStartTime5) and ending at: \(bookedEndTime5)")
         }
     }
     

@@ -147,7 +147,7 @@ class Schedule: UIViewController {
         
         self.ref.child(Global.shared.userUid).updateChildValues(["mondayend": "\(time)"])
         
-        self.tuesdayStart.becomeFirstResponder()
+        self.mondayEnd.resignFirstResponder()
     }
     
     @objc func tuesdayStartSelected() {
@@ -173,7 +173,7 @@ class Schedule: UIViewController {
         tuesdayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayend": "\(time)"])
         
-        self.wednesdayStart.becomeFirstResponder()
+        self.tuesdayEnd.resignFirstResponder()
     }
     
     @objc func wednesdayStartSelected() {
@@ -199,7 +199,7 @@ class Schedule: UIViewController {
         wednesdayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayend": "\(time)"])
         
-        self.thursdayStart.becomeFirstResponder()
+        self.wednesdayEnd.resignFirstResponder()
     }
     
     @objc func thursdayStartSelected() {
@@ -225,7 +225,7 @@ class Schedule: UIViewController {
         thursdayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["thursdayend": "\(time)"])
         
-        self.fridayStart.becomeFirstResponder()
+        self.thursdayEnd.resignFirstResponder()
     }
     
     @objc func fridayStartSelected() {
@@ -251,7 +251,7 @@ class Schedule: UIViewController {
         fridayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["fridayend": "\(time)"])
         
-        self.saturdayStart.becomeFirstResponder()
+        self.fridayEnd.resignFirstResponder()
     }
     
     @objc func saturdayStartSelected() {
@@ -277,7 +277,7 @@ class Schedule: UIViewController {
         saturdayEnd.text = time
         self.ref.child(Global.shared.userUid).updateChildValues(["saturdayend": "\(time)"])
         
-        self.sundayStart.becomeFirstResponder()
+        self.saturdayEnd.resignFirstResponder()
         
     }
     

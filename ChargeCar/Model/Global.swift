@@ -68,7 +68,7 @@ class Global {
     var bookinguid3: String = ""
     var bookinguid4: String = ""
     var bookinguid5: String = ""
-    var bookingTimeStamp1 = "", bookingTimeStamp2 = "", bookingTimeStamp3 = "", bookingTimeStamp4 = "", bookingTimeStamp5 = ""
+    var bookingDateStamp1 = "", bookingDateStamp2 = "", bookingDateStamp3 = "", bookingDateStamp4 = "", bookingDateStamp5 = ""
     var hostUid1 = "", hostUid2 = "", hostUid3 = "", hostUid4 = "", hostUid5 = ""
     var tempHostUid = ""
     var chosenDate: String = ""

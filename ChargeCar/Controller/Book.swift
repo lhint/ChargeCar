@@ -85,23 +85,24 @@ class Book: UIViewController, UITextFieldDelegate {
     
     func allocateBookings(start: String, end: String) -> Int {
         var bookingNumber = 1
-        if Global.shared.bookingTimeStamp1.isEmpty  {
+        print("datestamps \(Global.shared.hostBookingDateStamp1) -  \(Global.shared.hostBookingDateStamp2)  -  \(Global.shared.hostBookingDateStamp3) - \(Global.shared.hostBookingDateStamp4)  -  \(Global.shared.hostBookingDateStamp5)")
+        if Global.shared.hostBookingDateStamp1.isEmpty  {
             self.bookingStart1 = start
             self.bookingEnd1 = end
             bookingNumber = 1
-        } else if Global.shared.bookingTimeStamp2.isEmpty {
+        } else if Global.shared.hostBookingDateStamp2.isEmpty {
             self.bookingStart2 = start
             self.bookingEnd2 = end
             bookingNumber = 2
-        } else if Global.shared.bookingTimeStamp3.isEmpty {
+        } else if Global.shared.hostBookingDateStamp3.isEmpty {
             self.bookingStart3 = start
             self.bookingEnd3 = end
             bookingNumber = 3
-        } else if Global.shared.bookingTimeStamp4.isEmpty {
+        } else if Global.shared.hostBookingDateStamp4.isEmpty {
             self.bookingStart4 = start
             self.bookingEnd4 = end
             bookingNumber = 4
-        } else if Global.shared.bookingTimeStamp5.isEmpty {
+        } else if Global.shared.hostBookingDateStamp5.isEmpty {
             self.bookingStart4 = start
             self.bookingEnd4 = end
            bookingNumber = 5
@@ -141,6 +142,8 @@ class Book: UIViewController, UITextFieldDelegate {
             } else {
                 self.ref.child(Global.shared.tempHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)", "hostuid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : self.privateHostUid])
             }
+        
+        callhostDateStamps()
         
         totalBookings = totalBookings + 1
         
@@ -324,12 +327,14 @@ class Book: UIViewController, UITextFieldDelegate {
                 
                 group.enter()
               
-                if self.privateHostUid.contains("") {
+                if self.privateHostUid.isEmpty {
                     
                 } else {
                 
                     self.ref.child(self.privateHostUid).child("\(self.startTimeDay)").observeSingleEvent(of: .value, with: { (snapshot) in
                     // Get item value
+                        print("privateHostID: \(self.privateHostUid)")
+                        print("StartTimeDay \(self.startTimeDay)")
                     
                     if snapshot.exists() {
                         
