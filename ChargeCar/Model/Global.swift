@@ -73,5 +73,8 @@ class Global {
     var tempHostUid = ""
     var chosenDate: String = ""
     var hostBookingDateStamp1 = "", hostBookingDateStamp2 = "", hostBookingDateStamp3 = "", hostBookingDateStamp4 = "", hostBookingDateStamp5 = ""
+    var userFree: String = ""
+    var userConnector: String = ""
+    var userKWH: String = ""
     public static let shared = Global()
 }

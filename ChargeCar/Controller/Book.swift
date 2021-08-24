@@ -339,7 +339,7 @@ class Book: UIViewController, UITextFieldDelegate {
                     if snapshot.exists() {
                         
                         Global.shared.hostStartTimeDay = snapshot.value as? String ?? ""
-                        self.startTimeField.placeholder = Global.shared.hostStartTimeDay
+                        self.startTimeField.text = Global.shared.hostStartTimeDay
                     } else {
                         print("Error")
                         
@@ -352,7 +352,7 @@ class Book: UIViewController, UITextFieldDelegate {
                     if snapshot.exists() {
                         
                         Global.shared.hostEndTimeDay = snapshot.value as? String ?? ""
-                        self.endTimeField.placeholder = Global.shared.hostEndTimeDay
+                        self.endTimeField.text = Global.shared.hostEndTimeDay
                         
                     } else {
                         print("Error")

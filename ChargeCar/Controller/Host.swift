@@ -44,8 +44,16 @@ class Host: UIViewController, MKMapViewDelegate {
         self.chargerName.placeholder = Global.shared.returnedChargerName
         self.chargerLatitude.placeholder = String(Global.shared.returnedChargerLat)
         self.chargerLongitude.placeholder = String(Global.shared.returnedChargerLong)
-        self.connector.placeholder = String(Global.shared.privateChargerConnector)
-        self.powerKWH.placeholder = String(Global.shared.privateChargerKWH)
+        print("private charger connector: \(Global.shared.userConnector)")
+        self.connector.placeholder = String(Global.shared.userConnector)
+        self.powerKWH.placeholder = String(Global.shared.userKWH)
+        
+        print("FREE: \(Global.shared.userFree)")
+        if Global.shared.userFree.contains("true") {
+            free.isOn = true
+        } else {
+            free.isOn = false
+        }
         
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
@@ -64,7 +72,7 @@ class Host: UIViewController, MKMapViewDelegate {
 
         self.pickerView.reloadAllComponents()
         
-        if Global.shared.free.contains("true") {
+        if Global.shared.userFree.contains("true") {
             free.isOn = true
             price.isEnabled = false
             price.backgroundColor = .gray
@@ -75,7 +83,6 @@ class Host: UIViewController, MKMapViewDelegate {
         }
         
     }
-
     
     @IBAction func useMyLocation(_ sender: Any) {
         self.chargerLatitude.text = Global.shared.currentLat
@@ -118,15 +125,15 @@ class Host: UIViewController, MKMapViewDelegate {
     
     @IBAction func free(_ sender: Any) {
         if free.isOn == true {
-            Global.shared.free = "true"
+            Global.shared.userFree = "true"
             price.isEnabled = false
             price.backgroundColor = .gray
         } else {
-            Global.shared.free = "false"
+            Global.shared.userFree = "false"
             price.isEnabled = true
             price.backgroundColor = .white
         }
-        self.ref.child("\(Global.shared.userUid)").updateChildValues(["free": "\(Global.shared.free)"])
+        self.ref.child("\(Global.shared.userUid)").updateChildValues(["free": "\(Global.shared.userFree)"])
     }
     
 }

@@ -47,29 +47,8 @@ class ChargerInfo: UIViewController {
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
         print("chargerInfo free \(free)")
-        if privateName != "" {
-            //Private Chargers
-            self.status1.text = "" //Will be changed depending on the schedule host has set.
-            self.connector1.text = self.privateConnector
-            self.kw1.text = self.privateKW
-            print("privateHostUID: \(privateHostUid)")
-            print("Free: \(free)")
-            if free.contains("true") {
-                self.price1.text = "Free"
-            } else {
-                self.price1.text = "£\(self.price) per hour"
-            }
-            showCharger2(k2: 1.0)
-            book.isHidden = false
+        if privateName.isEmpty {
             
-//            if Global.shared.bookingTimeStamp1.contains("") || Global.shared.bookingTimeStamp2.contains("") || Global.shared.bookingTimeStamp3.contains("") || Global.shared.bookingTimeStamp4.contains("") || Global.shared.bookingTimeStamp5.contains("") {
-//
-//            } else {
-//                book.backgroundColor = .gray
-//                book.isEnabled = false
-//            }
-            
-        } else {
             //Public Chargers
             self.title = name
             SVProgressHUD.dismiss()
@@ -83,8 +62,26 @@ class ChargerInfo: UIViewController {
             self.price1.text = f1
             self.price2.text = f1
             book.isHidden = true
+            
+        } else {
+            
+            //Private Chargers
+            self.status1.text = "" //Will be changed depending on the schedule host has set.
+            self.connector1.text = self.privateConnector
+            self.kw1.text = self.privateKW
+            print("privateHostUID: \(privateHostUid)")
+            print("Free: \(free)")
+            if free.contains("true") {
+                self.price1.text = "Free"
+            } else {
+                self.price1.text = "£\(self.price) per hour"
+            }
+            showCharger2(k2: 1.0)
+            book.isHidden = false
+            getShareDays()
         }
-        getShareDays()
+            
+        
     }
     
     func showCharger2(k2: Double) {

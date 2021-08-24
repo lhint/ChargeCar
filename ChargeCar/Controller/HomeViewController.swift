@@ -182,19 +182,47 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                     }
                 })
                 
-//                self.ref.child("\(Global.shared.userUid)").child("free").observeSingleEvent(of: .value, with: { (snapshot) in
-//                    // Get item value
-//
-//                    if snapshot.exists() {
-//
-//                        Global.shared.free = snapshot.value as? String ?? ""
-//
-//                    } else {
-//                        print("Error")
-//
-//                    }
-//                })
-//
+                self.ref.child("\(Global.shared.userUid)").child("free").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+
+                    if snapshot.exists() {
+
+                        Global.shared.userFree = snapshot.value as? String ?? ""
+
+                    } else {
+                        print("Error")
+
+                    }
+                })
+                
+                self.ref.child("\(Global.shared.userUid)").child("chargerconnector").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+
+                    if snapshot.exists() {
+
+                        Global.shared.userConnector = snapshot.value as? String ?? ""
+
+                    } else {
+                        print("Error")
+
+                    }
+                })
+                
+                self.ref.child("\(Global.shared.userUid)").child("chargerpowerkwh").observeSingleEvent(of: .value, with: { (snapshot) in
+                    // Get item value
+
+                    if snapshot.exists() {
+
+                        Global.shared.userKWH = snapshot.value as? String ?? ""
+
+                    } else {
+                        print("Error")
+
+                    }
+                })
+                
+                
+                
                 group.leave()
                 
                 group.wait()

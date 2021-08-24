@@ -15,6 +15,7 @@ class Login: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var signInButton: UIButton!
     
+    
     let defaults = UserDefaults.standard
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
@@ -100,6 +101,36 @@ class Login: UIViewController, UITextFieldDelegate {
             signInButton.backgroundColor = UIColor.systemGreen
         }
     }
-    
-    
+
+    @IBAction func forgotPassword(_ sender: Any) {
+        var answer = ""
+        
+        Auth.auth().sendPasswordReset(withEmail: self.email.text!) { error in
+            
+            if error != nil {
+                // report error - Taken from: https://stackoverflow.com/questions/37449919/reading-firebase-auth-error-thrown-firebase-3-x-and-swift
+                // Presents the user with an error reason if the registration is unsuccesful.
+                if let errCode = AuthErrorCode(rawValue: error!._code) {
+                    
+                    switch errCode {
+                    case .invalidEmail:
+                        answer = "Email is not correct please follow format XXX@XXX.com."
+                    case .missingEmail:
+                        answer = "Please enter an email address."
+                    default:
+                        answer = "Please enter a vaild email address"
+            
+                    }
+                }
+                let alert = UIAlertController(title: "Whoops", message: "\(answer)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Continue...", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                let alert = UIAlertController(title: "Reset!", message: "Please check your email for the reset link.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Continue...", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        }
+        
+    }
 }
