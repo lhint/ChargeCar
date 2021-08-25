@@ -43,7 +43,6 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             for child in snapshot.children {
                 let snap = child as! DataSnapshot
-                self.bookingDay = snap.childSnapshot(forPath: "bookedday").value as? String ?? ""
                 self.totalBookings = snap.childSnapshot(forPath: "totalbookings").value as? String ?? ""
                 self.bookinguid1 = snap.childSnapshot(forPath: "totalbookings").value as? String ?? ""
                 self.bookingStart1 = snap.childSnapshot(forPath: "bookingstart1").value as? String ?? ""

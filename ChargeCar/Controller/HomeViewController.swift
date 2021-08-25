@@ -15,6 +15,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     
     //Map Outlet to view controller component
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var publicChargerToggle: UISwitch!
+    
     
     let defaults = UserDefaults.standard
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
@@ -312,7 +314,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 self.mapView.showsUserLocation = true
                 SVProgressHUD.show()
                 self.findPublicChargers(lat: self.lat, long: self.long)
+                if self.publicChargerToggle.isOn {
                 let _ = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(self.publicChargersOnMap), userInfo: nil, repeats: false)
+                }
             } else {
                 print("Get Location failed \(String(describing: getLocation.didFailWithError))")
             }
@@ -427,10 +431,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
     //Updates the charger data everytime the user navigates the map
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        SVProgressHUD.show()
-        scrolledLocation(mapView: mapView , regionDidChangeAnimated: true)
-        self.findPublicChargers(lat: self.lat, long: self.long)
-        let _ = Timer.scheduledTimer(timeInterval: 7.0, target: self, selector: #selector(self.publicChargersOnMap), userInfo: nil, repeats: false)
+        print("Toggle Value: \(publicChargerToggle.isOn)")
+        if publicChargerToggle.isOn {
+            SVProgressHUD.show()
+            scrolledLocation(mapView: mapView , regionDidChangeAnimated: true)
+            self.findPublicChargers(lat: self.lat, long: self.long)
+            let _ = Timer.scheduledTimer(timeInterval: 6.0, target: self, selector: #selector(self.publicChargersOnMap), userInfo: nil, repeats: false)
+            publicChargerToggle.isEnabled = false
+            let _ = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(reenableToggle), userInfo: nil, repeats: false)
+            
+            SVProgressHUD.dismiss()
+        }
+        
+    }
+    
+    @objc func reenableToggle() {
+        publicChargerToggle.isEnabled = true
     }
     
     //Test that the api data is being stored into the array
@@ -1227,7 +1243,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         Global.shared.bookings.removeAll()
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
+        if publicChargerToggle.isOn {
         currentLocation()
+        }
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
         }
@@ -1244,6 +1262,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         print(dateFormatter.string(from: convertedDate))
         return day
     }
+    
+    @IBAction func publicChargerToggleRefresh(_ sender: Any) {
+        privateCharger.removeAll()
+        Global.shared.bookings.removeAll()
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
+        if publicChargerToggle.isOn {
+        currentLocation()
+        }
+        if Global.shared.signedIn == true {
+            self.callAllPrivateChargers()
+        }
+        SVProgressHUD.dismiss()
+    }
+    
+    
 }
 
 

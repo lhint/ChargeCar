@@ -13,6 +13,8 @@ class Book: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var selectDay: UITextField!
     @IBOutlet weak var startTimeField: UITextField!
     @IBOutlet weak var endTimeField: UITextField!
+    @IBOutlet weak var bookButton: UIButton!
+    
     
     fileprivate let pickerView = ToolbarPickerView()
     fileprivate let titles = Global.shared.bookings //Replace with set host days
@@ -51,8 +53,24 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.placeholder = Global.shared.hostEndTimeDay
         startTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(startTimeSelected))
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
+        self.selectDay.text = Global.shared.bookings.first
+        dayCheck(day: Global.shared.bookings.first ?? "")
+        startTimeField.placeholder = Global.shared.hostStartTimeDay
+        endTimeField.placeholder = Global.shared.hostEndTimeDay
         
     }
+    
+    func validateBooking() {
+        
+    if selectDay.text! == self.selectDay.text! || startTimeField.text! == self.selectedStartTime || endTimeField.text! == self.selectedEndTime {
+        let alert = UIAlertController(title: "Whoops...", message: "Please select a start and end time.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true)
+    } else {
+        
+    }
+    
+   }
     
     @IBAction func update(_ sender: AnyObject) {
         print("reloaded")
@@ -80,6 +98,7 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.text = time
         self.selectedEndTime = time
         
+        
         self.endTimeField.resignFirstResponder()
     }
     
@@ -106,6 +125,10 @@ class Book: UIViewController, UITextFieldDelegate {
             self.bookingStart4 = start
             self.bookingEnd4 = end
            bookingNumber = 5
+        } else {
+            let alert = UIAlertController(title: "Limit Reached", message: "There is currently no avilable bookings with this host!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+            present(alert, animated: true)
         }
         return bookingNumber
     }
@@ -134,13 +157,23 @@ class Book: UIViewController, UITextFieldDelegate {
         Global.shared.chosenDate = setFutureDate(chosenDay: selectDay.text!)
         
         print("SetFutureDate \(setFutureDate(chosenDay: selectDay.text!))")
+        validateBooking()
         
-        if alreadyBooked() {
-            let alert = UIAlertController(title: "Already Booked", message: "This date is already booked!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
-            present(alert, animated: true)
+        if  selectedStartTime > selectedEndTime || alreadyBooked() {
+            
+            if selectedStartTime > selectedEndTime {
+                let alert = UIAlertController(title: "Whoops...", message: "Booking start time cannot exceed booking end time!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+                present(alert, animated: true)
+                
             } else {
-                self.ref.child(Global.shared.tempHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)", "bookedday": "\(selectDay.text?.lowercased() ?? "")","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)", "hostuid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : self.privateHostUid])
+                let alert = UIAlertController(title: "Already Booked", message: "This date is already booked!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+                present(alert, animated: true)
+            }
+           
+            } else {
+                self.ref.child(Global.shared.tempHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)", "hostuid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : self.privateHostUid])
             }
         
         callhostDateStamps()
@@ -339,7 +372,7 @@ class Book: UIViewController, UITextFieldDelegate {
                     if snapshot.exists() {
                         
                         Global.shared.hostStartTimeDay = snapshot.value as? String ?? ""
-                        self.startTimeField.text = Global.shared.hostStartTimeDay
+                        self.startTimeField.placeholder = Global.shared.hostStartTimeDay
                     } else {
                         print("Error")
                         
@@ -352,7 +385,7 @@ class Book: UIViewController, UITextFieldDelegate {
                     if snapshot.exists() {
                         
                         Global.shared.hostEndTimeDay = snapshot.value as? String ?? ""
-                        self.endTimeField.text = Global.shared.hostEndTimeDay
+                        self.endTimeField.placeholder = Global.shared.hostEndTimeDay
                         
                     } else {
                         print("Error")
