@@ -36,8 +36,6 @@ class Schedule: UIViewController {
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
     override func viewDidLoad() {
-        let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tap)
         
         mondayStart.setTimePickerAsInputViewFor(target: self, selector: #selector(mondayStartSelected))
         mondayEnd.setTimePickerAsInputViewFor(target: self, selector: #selector(mondayEndSelected))
@@ -116,9 +114,21 @@ class Schedule: UIViewController {
         }
     }
     
-    func validation(startTime: String, endTime: String, textField: UITextField) {
-        if startTime > endTime {
-            textField.text = "00:00"
+    func validation(startTime: String, startPlaceholder: String, endTime: String, textField: UITextField) {
+        if startTime.isEmpty {
+            if startPlaceholder > endTime {
+                textField.text = "23:59"
+            }
+        } else if startTime > endTime {
+            textField.text = "23:59"
+        }
+    }
+    
+    func validationStart(startTime: String, endPlaceholder: String, endTime: String, textField: UITextField) {
+        if startTime.isEmpty {
+            if endPlaceholder < startTime {
+                textField.text = "00:00"
+            }
         }
     }
     
@@ -143,8 +153,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         mondayEnd.text = time
-        validation(startTime: mondayStart.text!, endTime: mondayEnd.text!, textField: mondayEnd)
-        
+        validation(startTime: mondayStart.text!, startPlaceholder: mondayStart.placeholder!, endTime: mondayEnd.text!, textField: mondayEnd)
+        validationStart(startTime: mondayStart.text!, endPlaceholder: mondayEnd.placeholder!, endTime: mondayEnd.text!, textField: mondayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["mondayend": "\(time)"])
         
         self.mondayEnd.resignFirstResponder()
@@ -171,6 +181,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         tuesdayEnd.text = time
+        validation(startTime: tuesdayStart.text!, startPlaceholder: tuesdayStart.placeholder!, endTime: tuesdayEnd.text!, textField: tuesdayEnd)
+        validationStart(startTime: tuesdayStart.text!, endPlaceholder: tuesdayEnd.placeholder!, endTime: tuesdayEnd.text!, textField: tuesdayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["tuesdayend": "\(time)"])
         
         self.tuesdayEnd.resignFirstResponder()
@@ -197,6 +209,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         wednesdayEnd.text = time
+        validation(startTime: wednesdayStart.text!, startPlaceholder: wednesdayStart.placeholder!, endTime: wednesdayEnd.text!, textField: wednesdayEnd)
+        validationStart(startTime: wednesdayStart.text!, endPlaceholder: wednesdayEnd.placeholder!, endTime: wednesdayEnd.text!, textField: wednesdayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["wednesdayend": "\(time)"])
         
         self.wednesdayEnd.resignFirstResponder()
@@ -223,6 +237,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         thursdayEnd.text = time
+        validation(startTime: thursdayStart.text!, startPlaceholder: thursdayStart.placeholder!, endTime: thursdayEnd.text!, textField: thursdayEnd)
+        validationStart(startTime: thursdayStart.text!, endPlaceholder: thursdayEnd.placeholder!, endTime: thursdayEnd.text!, textField: thursdayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["thursdayend": "\(time)"])
         
         self.thursdayEnd.resignFirstResponder()
@@ -249,6 +265,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         fridayEnd.text = time
+        validation(startTime: fridayStart.text!, startPlaceholder: fridayStart.placeholder!, endTime: fridayEnd.text!, textField: fridayEnd)
+        validationStart(startTime: fridayStart.text!, endPlaceholder: fridayEnd.placeholder!, endTime: fridayEnd.text!, textField: fridayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["fridayend": "\(time)"])
         
         self.fridayEnd.resignFirstResponder()
@@ -275,6 +293,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         saturdayEnd.text = time
+        validation(startTime: saturdayStart.text!, startPlaceholder: saturdayStart.placeholder!, endTime: saturdayEnd.text!, textField: saturdayEnd)
+        validationStart(startTime: saturdayStart.text!, endPlaceholder: saturdayEnd.placeholder!, endTime: saturdayEnd.text!, textField: saturdayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["saturdayend": "\(time)"])
         
         self.saturdayEnd.resignFirstResponder()
@@ -302,6 +322,8 @@ class Schedule: UIViewController {
         formatter.timeStyle = .short
         let time = formatter.string(from: timePicker!.date)
         sundayEnd.text = time
+        validation(startTime: sundayStart.text!, startPlaceholder: sundayStart.placeholder!, endTime: sundayEnd.text!, textField: sundayEnd)
+        validationStart(startTime: sundayStart.text!, endPlaceholder: sundayEnd.placeholder!, endTime: sundayEnd.text!, textField: sundayStart)
         self.ref.child(Global.shared.userUid).updateChildValues(["sundayend": "\(time)"])
         
         self.sundayEnd.resignFirstResponder()

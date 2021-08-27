@@ -72,6 +72,24 @@ class Book: UIViewController, UITextFieldDelegate {
     
    }
     
+    func validation(startTime: String, startPlaceholder: String, endTime: String, textField: UITextField) {
+        if startTime.isEmpty {
+            if startPlaceholder > endTime {
+                textField.text = "23:59"
+            }
+        } else if startTime > endTime {
+            textField.text = "23:59"
+        }
+    }
+    
+    func validationStart(startTime: String, endPlaceholder: String, endTime: String, textField: UITextField) {
+        if startTime.isEmpty {
+            if endPlaceholder < startTime {
+                textField.text = "00:00"
+            }
+        }
+    }
+    
     @IBAction func update(_ sender: AnyObject) {
         print("reloaded")
         pickerView.reloadAllComponents()
