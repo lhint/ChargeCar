@@ -134,7 +134,7 @@ class ChargerInfo: UIViewController {
     }
     
     @IBAction func infoButton(_ sender: Any) {
-        let alert = UIAlertController(title: "Info", message: "Data maybe incomplete in showing actual number of chargers avilable.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Info", message: "Data maybe incomplete in showing actual number of chargers available.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
         present(alert, animated: true)
     }

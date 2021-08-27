@@ -1243,12 +1243,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         Global.shared.bookings.removeAll()
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
-        if publicChargerToggle.isOn {
-        currentLocation()
-        }
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
         }
+    }
+    
+    
+    @IBAction func relocate(_ sender: Any) {
+        currentLocation()
     }
     
     func getDayOfWeek(date: String) -> String {
@@ -1269,7 +1271,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         let allAnnotations = self.mapView.annotations
         self.mapView.removeAnnotations(allAnnotations)
         if publicChargerToggle.isOn {
-        currentLocation()
+        self.callAllPrivateChargers()
         }
         if Global.shared.signedIn == true {
             self.callAllPrivateChargers()
