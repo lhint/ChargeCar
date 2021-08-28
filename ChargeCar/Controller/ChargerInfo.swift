@@ -69,6 +69,7 @@ class ChargerInfo: UIViewController {
             self.status1.text = "" //Will be changed depending on the schedule host has set.
             self.connector1.text = self.privateConnector
             self.kw1.text = self.privateKW
+            self.title = privateName
             print("privateHostUID: \(privateHostUid)")
             print("Free: \(free)")
             if free.contains("true") {

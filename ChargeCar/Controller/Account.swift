@@ -22,6 +22,7 @@ class Account: UIViewController {
     var name = Global.shared.username
     var carReg = Global.shared.userReg
     var home = HomeViewController()
+    var error = false
     
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
@@ -29,15 +30,13 @@ class Account: UIViewController {
         updateButton.backgroundColor = UIColor.gray
         nameField.placeholder = name
         carRegField.placeholder = carReg
+        noMatch.isHidden = true
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
-        if passwordField.text == "" {
-            nameField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
-            carRegField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
-        } else {
-            passwordField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
-            password2Field.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
-        }
+        nameField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        carRegField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        passwordField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
+        password2Field.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         
         if Global.shared.shareChargerOverride.contains("true") {
             shareToggle.isOn = true
@@ -269,50 +268,59 @@ class Account: UIViewController {
         self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "false"])
         } else {
             self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "true"])
-            //print("is on")
         }
-//        let alert = UIAlertController(title: "Info", message: "You have either switched your host on or off. To see this change on the map please choose restart, to see the change later press close.", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: NSLocalizedString("Restart", comment: "Default action"), style: .default, handler: { (action) -> Void in
-//            if let navController = self.navigationController {
-//                navController.popViewController(animated: true)
-//            }
-//
-//        }))
-//        alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
-//        present(alert, animated: true)
     }
     
     @IBAction func updateButton(_ sender: Any) {
         //Updates username
-        if nameField.text == "" {
-            
+        if nameField.text!.isEmpty {
         } else {
             self.ref.child(Global.shared.userUid).updateChildValues(["name": nameField.text!])
             Global.shared.username = nameField.text!
+            let alert = UIAlertController(title: "Updated!", message: "Profile Information Updated.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true)
         }
         
-        if carRegField.text == "" {
-            
+        if carRegField.text!.isEmpty {
         } else {
             self.ref.child(Global.shared.userUid).updateChildValues(["carreg": carRegField.text!])
+            let alert = UIAlertController(title: "Updated!", message: "Profile Information Updated.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true)
         }
         
         //Updates car reg
-        
         //Updates user password
-        if passwordField.text == "" {
-        
+        if passwordField.text!.isEmpty {
         } else {
+            var answer = ""
+            
             Auth.auth().currentUser?.updatePassword(to: password2Field.text!) { error in
-                    let alert = UIAlertController(title: "Woops...", message: "Error", preferredStyle: .alert)
+                if error != nil {
+                    if let errCode = AuthErrorCode(rawValue: error!._code) {
+                        switch errCode {
+                        case .weakPassword:
+                            answer = "Your password is too weak. Please make it more complex."
+                        default:
+                            answer = "Your password is too weak. Please make it more complex."
+                            
+                        }
+                        let alert = UIAlertController(title: "Whoops...", message: "\(answer)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                    
+                } else {
+                    let alert = UIAlertController(title: "Updated!", message: "Profile Information Updated.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
                     self.present(alert, animated: true)
+                    return
                 }
             }
-        let alert = UIAlertController(title: "Updated!", message: "Profile Information Updated.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true)
+        }
     }
+
     
     @IBAction func scheduleButton(_ sender: Any) {
         performSegue(withIdentifier: "schedule", sender: self)
@@ -480,15 +488,21 @@ class Account: UIViewController {
     @objc func validation() {
         //Text Field Validation check before button is enabled
         
-        if password2Field.text != passwordField.text {
+        if nameField.text!.isEmpty && carRegField.text!.isEmpty && passwordField.text!.isEmpty && password2Field.text!.isEmpty {
             updateButton.isEnabled = false
             updateButton.backgroundColor = UIColor.gray
             noMatch.isHidden = false
-            
         } else {
-            noMatch.isHidden = true
-            updateButton.isEnabled = true
-            updateButton.backgroundColor = UIColor.systemGreen
+            if password2Field.text != passwordField.text {
+                updateButton.isEnabled = false
+                updateButton.backgroundColor = UIColor.gray
+                noMatch.isHidden = false
+                
+            } else {
+                noMatch.isHidden = true
+                updateButton.isEnabled = true
+                updateButton.backgroundColor = UIColor.systemGreen
+            }
         }
     }
 }

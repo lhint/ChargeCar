@@ -72,21 +72,9 @@ class Book: UIViewController, UITextFieldDelegate {
     
    }
     
-    func validation(startTime: String, startPlaceholder: String, endTime: String, textField: UITextField) {
-        if startTime.isEmpty {
-            if startPlaceholder > endTime {
-                textField.text = "23:59"
-            }
-        } else if startTime > endTime {
+    func validation(startTime: String, endTime: String, textField: UITextField) {
+         if startTime > endTime {
             textField.text = "23:59"
-        }
-    }
-    
-    func validationStart(startTime: String, endPlaceholder: String, endTime: String, textField: UITextField) {
-        if startTime.isEmpty {
-            if endPlaceholder < startTime {
-                textField.text = "00:00"
-            }
         }
     }
     
@@ -105,6 +93,7 @@ class Book: UIViewController, UITextFieldDelegate {
         let time = formatter.string(from: timePicker!.date)
         startTimeField.text = time
         self.selectedStartTime = time
+        validation(startTime: startTimeField.text!, endTime: endTimeField.text!, textField: endTimeField)
         self.endTimeField.becomeFirstResponder()
     }
     
@@ -115,7 +104,7 @@ class Book: UIViewController, UITextFieldDelegate {
         let time = formatter.string(from: timePicker!.date)
         endTimeField.text = time
         self.selectedEndTime = time
-        
+        validation(startTime: startTimeField.text!, endTime: endTimeField.text!, textField: endTimeField)
         
         self.endTimeField.resignFirstResponder()
     }
