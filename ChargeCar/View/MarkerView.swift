@@ -14,21 +14,13 @@ class MarkerView: MKAnnotationView {
             if (newValue as? Charger) != nil {
                 canShowCallout = true
                 rightCalloutAccessoryView = UIButton(type: .infoLight)
-                let pinImage = UIImage(named: "PublicAnnotation")
-                let size = CGSize(width: 50, height: 50)
-                UIGraphicsBeginImageContext(size)
-                pinImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-                image = resizedImage
+                let pinImage = UIImage(named: "publicannotation50")
+                image = pinImage
             } else if (newValue as? PrivateChargerMap != nil) {
                 canShowCallout = true
                 rightCalloutAccessoryView = UIButton(type: .infoLight)
-                let pinImage = UIImage(named: "HomeAnnotation")
-                let size = CGSize(width: 50, height: 50)
-                UIGraphicsBeginImageContext(size)
-                pinImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-                image = resizedImage
+                let pinImage = UIImage(named: "privateannotation50")
+                image = pinImage
             } else {
                 return
             }

@@ -11,7 +11,7 @@
 		B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCD269E0276002EF4BA /* PrivateChargers.swift */; };
 		B73536BE2694959D009C8A81 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73536BD2694959D009C8A81 /* Global.swift */; };
 		B7500C5226A2D5480088C610 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7500C5126A2D5480088C610 /* PickerView.swift */; };
-		B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */; };
+		B7557C3125FCF655005D66D7 /* Charger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3025FCF655005D66D7 /* Charger.swift */; };
 		B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7557C3325FCFD45005D66D7 /* MarkerView.swift */; };
 		B766C5F9268C82540043B7CD /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766C5F8268C82540043B7CD /* Login.swift */; };
 		B7798BAB267FEE3E0005A6FC /* ChargerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */; };
@@ -32,7 +32,7 @@
 		B7E5F68825F0E6E10084073C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68625F0E6E10084073C /* Main.storyboard */; };
 		B7E5F68A25F0E6E20084073C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68925F0E6E20084073C /* Assets.xcassets */; };
 		B7E5F68D25F0E6E20084073C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7E5F68B25F0E6E20084073C /* LaunchScreen.storyboard */; };
-		B7E5F69625F0FC080084073C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69525F0FC080084073C /* LocationManager.swift */; };
+		B7E5F69625F0FC080084073C /* GetLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69525F0FC080084073C /* GetLocation.swift */; };
 		B7E5F69925F11AA20084073C /* PublicChargerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E5F69825F11AA20084073C /* PublicChargerData.swift */; };
 		B7FCAAFE26C3EA9000680426 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FCAAFD26C3EA9000680426 /* Dashboard.swift */; };
 		B7FCAB0026C3EAD300680426 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FCAAFF26C3EAD300680426 /* Book.swift */; };
@@ -47,7 +47,7 @@
 		B730FCCD269E0276002EF4BA /* PrivateChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChargers.swift; sourceTree = "<group>"; };
 		B73536BD2694959D009C8A81 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		B7500C5126A2D5480088C610 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
-		B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationData.swift; sourceTree = "<group>"; };
+		B7557C3025FCF655005D66D7 /* Charger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charger.swift; sourceTree = "<group>"; };
 		B7557C3325FCFD45005D66D7 /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		B766C5F8268C82540043B7CD /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		B7798BAA267FEE3E0005A6FC /* ChargerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerInfo.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		B7E5F68925F0E6E20084073C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B7E5F68C25F0E6E20084073C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B7E5F68E25F0E6E20084073C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B7E5F69525F0FC080084073C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		B7E5F69525F0FC080084073C /* GetLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocation.swift; sourceTree = "<group>"; };
 		B7E5F69825F11AA20084073C /* PublicChargerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargerData.swift; sourceTree = "<group>"; };
 		B7FCAAFD26C3EA9000680426 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		B7FCAAFF26C3EAD300680426 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		B7957D30267E03C50066E3DB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B7557C3025FCF655005D66D7 /* MapAnnotationData.swift */,
+				B7557C3025FCF655005D66D7 /* Charger.swift */,
 				B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */,
 				B7E5F69825F11AA20084073C /* PublicChargerData.swift */,
 				B7A5B1BF26A084D800552DAA /* PrivateChargerData.swift */,
@@ -134,7 +134,7 @@
 				B7500C5126A2D5480088C610 /* PickerView.swift */,
 				B77FADAD269C600800C4CC97 /* Account.swift */,
 				B77FADAF269C602100C4CC97 /* Help.swift */,
-				B7E5F69525F0FC080084073C /* LocationManager.swift */,
+				B7E5F69525F0FC080084073C /* GetLocation.swift */,
 				B7E5F68025F0E6E10084073C /* AppDelegate.swift */,
 				B7E5F68225F0E6E10084073C /* SceneDelegate.swift */,
 				B7E5F68425F0E6E10084073C /* HomeViewController.swift */,
@@ -305,7 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7D2042026926C2F0037BE70 /* SignOut.swift in Sources */,
-				B7E5F69625F0FC080084073C /* LocationManager.swift in Sources */,
+				B7E5F69625F0FC080084073C /* GetLocation.swift in Sources */,
 				B7DDB5E126BDBAD80001E4F0 /* Schedule.swift in Sources */,
 				B77FADB0269C602100C4CC97 /* Help.swift in Sources */,
 				B7557C3425FCFD45005D66D7 /* MarkerView.swift in Sources */,
@@ -324,7 +324,7 @@
 				B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */,
 				B7FCAB0026C3EAD300680426 /* Book.swift in Sources */,
 				B730FCCC269E0065002EF4BA /* PrivateMapAnnotationData.swift in Sources */,
-				B7557C3125FCF655005D66D7 /* MapAnnotationData.swift in Sources */,
+				B7557C3125FCF655005D66D7 /* Charger.swift in Sources */,
 				B7A5B1C026A084D800552DAA /* PrivateChargerData.swift in Sources */,
 				B7957D34267E05B00066E3DB /* PublicChargers.swift in Sources */,
 				B7E5F68125F0E6E10084073C /* AppDelegate.swift in Sources */,

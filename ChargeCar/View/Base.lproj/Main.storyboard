@@ -63,7 +63,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIt-Uc-h9l">
                                 <rect key="frame" x="11" y="175" width="28" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="info.circle" catalog="system"/>
+                                <state key="normal" image="information"/>
                                 <connections>
                                     <segue destination="ygG-xP-JoB" kind="show" id="0Zv-A6-zet"/>
                                 </connections>
@@ -1229,7 +1229,7 @@
         <image name="MenuIcon" width="500" height="500"/>
         <image name="PngItem_2882247" width="461" height="238"/>
         <image name="RefreshButton" width="500" height="500"/>
-        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="information" width="51" height="51"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
