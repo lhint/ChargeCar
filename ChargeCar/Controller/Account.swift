@@ -17,12 +17,15 @@ class Account: UIViewController {
     @IBOutlet weak var shareToggle: UISwitch!
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var noMatch: UILabel!
+    @IBOutlet weak var scheduleButton: UIButton!
+    @IBOutlet weak var alwaysShare: UISwitch!
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     var name = Global.shared.username
     var carReg = Global.shared.userReg
     var home = HomeViewController()
     var error = false
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
@@ -31,6 +34,9 @@ class Account: UIViewController {
         nameField.placeholder = name
         carRegField.placeholder = carReg
         noMatch.isHidden = true
+        scheduleButton.backgroundColor = .systemGreen
+        scheduleButton.isEnabled = true
+        alwaysShare.isEnabled = true
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         nameField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
@@ -42,6 +48,12 @@ class Account: UIViewController {
             shareToggle.isOn = true
         } else {
             shareToggle.isOn = false
+        }
+        
+        if Global.shared.returnedChargerName.isEmpty {
+            scheduleButton.backgroundColor = .gray
+            scheduleButton.isEnabled = false
+            alwaysShare.isEnabled = false
         }
     }
     
@@ -504,5 +516,34 @@ class Account: UIViewController {
                 updateButton.backgroundColor = UIColor.systemGreen
             }
         }
+    }
+    @IBAction func deleteAccount(_ sender: Any) {
+        let alert = UIAlertController(title: "Are you sure?", message: "You are about to delete your account, all details will be deleted.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Go Back", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete!", style: .default, handler: { (action) -> Void in
+        // Do action
+        //Delete Account
+            let user = Auth.auth().currentUser
+            user?.delete { error in
+              if let error = error {
+                print(error)
+                let alert = UIAlertController(title: "Error Deleting Account!", message: "Please sign out and login, then try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true)
+              } else {
+                //Delete data
+                self.ref.child(Global.shared.userUid).removeValue()
+                //Reset local device sign out variables
+                Global.shared.signedIn = false
+                Global.shared.signinUserEmail = ""
+                self.defaults.set("Global.shared.signedIn", forKey: "SignedIn")
+                self.defaults.set(Global.shared.signinUserEmail, forKey: "signedinUserEmail")
+                Global.shared.newSaveEmail = false
+                self.defaults.set(Global.shared.newSaveEmail, forKey: "NewSaveEmail")
+                self.performSegue(withIdentifier: "backhome", sender: nil)
+              }
+            }
+    }))
+        self.present(alert, animated: true, completion: nil)
     }
 }

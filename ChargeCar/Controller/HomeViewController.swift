@@ -150,7 +150,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         print("Charger Name: \(Global.shared.returnedChargerName)")
                         
                     } else {
-                        print("Error")
+                        Global.shared.returnedChargerName = ""
                         
                     }
                 })
@@ -164,8 +164,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         print("Charger Lat: \(Global.shared.returnedChargerLat)")
                         
                     } else {
-                        print("Error")
-                        
+                        Global.shared.returnedChargerLat = ""
                     }
                 })
                 
@@ -179,8 +178,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         print("Charger Long: \(Global.shared.returnedChargerLong)")
                         
                     } else {
-                        print("Error")
-                        
+                        Global.shared.returnedChargerLong = ""
                     }
                 })
                 
@@ -192,7 +190,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         Global.shared.userFree = snapshot.value as? String ?? ""
 
                     } else {
-                        print("Error")
+                        Global.shared.userFree = "false"
 
                     }
                 })
@@ -205,7 +203,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         Global.shared.userConnector = snapshot.value as? String ?? ""
 
                     } else {
-                        print("Error")
+                        Global.shared.userConnector = ""
 
                     }
                 })
@@ -218,12 +216,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                         Global.shared.userKWH = snapshot.value as? String ?? ""
 
                     } else {
-                        print("Error")
+                        Global.shared.userKWH = ""
 
                     }
                 })
-                
-                
                 
                 group.leave()
                 
@@ -1116,13 +1112,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+   //Checks if the booking is still in date or its removed.
     @objc func bookingStillAlive() {
-//        let currentDate = String(DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none))
-//        print("TimeStamp1: \(Global.shared.bookingTimeStamp1)")
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd-MM-yyyy"
-//        let date = dateFormatter.string(for: currentDate)!
-        
+
         let setDate = String(DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none))
         let dateFormatter = DateFormatter()
         //dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
@@ -1140,7 +1132,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime1":"","bookedEndTime1":"","bookingdatestamp1":"","bookinguseruid1":""])
                 Global.shared.confirmedBookings.removeAll()
             } else {
-                //Gray out green book button on that host
+            
             }
         }
         
@@ -1155,7 +1147,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime2":"","bookedEndTime2":"","bookingdatestamp2":"","bookinguseruid2":""])
                 Global.shared.confirmedBookings.removeAll()
             } else {
-                //Gray out green book button on that host
+            
             }
         }
         
@@ -1171,7 +1163,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime3":"","bookedEndTime3":"","bookingdatestamp3":"","bookinguseruid3":""])
                 Global.shared.confirmedBookings.removeAll()
             } else {
-                //Gray out green book button on that host
+            
             }
         }
         
@@ -1185,7 +1177,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime4":"","bookedEndTime4":"","bookingdatestamp4":"","bookinguseruid4":""])
                 Global.shared.confirmedBookings.removeAll()
             } else {
-                //Gray out green book button on that host
+            
             }
         }
         
@@ -1199,11 +1191,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
                 self.ref.child(Global.shared.userUid).updateChildValues(["bookedStartTime5":"","bookedEndTime5":"","bookingdatestamp5":"","bookinguseruid5":""])
                 Global.shared.confirmedBookings.removeAll()
             } else {
-                //Gray out green book button on that host
+
             }
         }
-        
-        //Call this function = Test if it works. Test that privateChargerUid is that of the host
     }
     
     @objc func dashboardString() {

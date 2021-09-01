@@ -53,24 +53,12 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.placeholder = Global.shared.hostEndTimeDay
         startTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(startTimeSelected))
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
-        self.selectDay.text = Global.shared.bookings.first
+        self.selectDay.text = ""
         dayCheck(day: Global.shared.bookings.first ?? "")
         startTimeField.placeholder = Global.shared.hostStartTimeDay
         endTimeField.placeholder = Global.shared.hostEndTimeDay
         
     }
-    
-    func validateBooking() {
-        
-    if selectDay.text! == self.selectDay.text! || startTimeField.text! == self.selectedStartTime || endTimeField.text! == self.selectedEndTime {
-        let alert = UIAlertController(title: "Whoops...", message: "Please select a start and end time.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true)
-    } else {
-        
-    }
-    
-   }
     
     func validation(startTime: String, endTime: String, textField: UITextField) {
          if startTime > endTime {
@@ -164,7 +152,6 @@ class Book: UIViewController, UITextFieldDelegate {
         Global.shared.chosenDate = setFutureDate(chosenDay: selectDay.text!)
         
         print("SetFutureDate \(setFutureDate(chosenDay: selectDay.text!))")
-        validateBooking()
         
         if  selectedStartTime > selectedEndTime || alreadyBooked() {
             
@@ -196,16 +183,7 @@ class Book: UIViewController, UITextFieldDelegate {
             
         }))
         present(alert, animated: true)
-        
-        
-        //Add if statement to homeViewController to check the booked time and gray out green booking for that time.
-        
-        //Check trello notes
-        //When booking finishes clear start and end times (check this works in if statement)
-        //Create text to display booking info for dashboard and save to confirmed bookings array - How to save this to the database? Store locally and then do a check to see if the booking still exists?
-        
     }
-    
     
     
     func alreadyBooked() -> Bool {
