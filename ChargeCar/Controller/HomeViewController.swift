@@ -58,7 +58,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate {
         if Global.shared.newSaveEmail == true {
         Global.shared.signinUserEmail = defaults.string(forKey: "signedinUserEmail") ?? "none"
         }
-        //Global.shared.signinUserEmail = defaults.string(forKey: "signedinUserEmail") ?? ""
         
         //Get current logged in user data
         

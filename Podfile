@@ -25,5 +25,7 @@ target 'ChargeCar' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Database'
+  
+  target :ChargeCarTests
 
 end

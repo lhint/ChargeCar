@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182665AA9614BB710F59A0ED /* Pods_ChargeCar_ChargeCarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E92A9ED627324AEB8ADA0EF /* Pods_ChargeCar_ChargeCarTests.framework */; };
+		B70D1E2326E26F43002D5C06 /* ChargeCarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70D1E2226E26F43002D5C06 /* ChargeCarTests.swift */; };
 		B730FCCC269E0065002EF4BA /* PrivateMapAnnotationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */; };
 		B730FCCE269E0276002EF4BA /* PrivateChargers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B730FCCD269E0276002EF4BA /* PrivateChargers.swift */; };
 		B73536BE2694959D009C8A81 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73536BD2694959D009C8A81 /* Global.swift */; };
@@ -39,10 +41,24 @@
 		E5DCCEECAA99C41458F52F33 /* Pods_ChargeCar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B70D1E2526E26F43002D5C06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B7E5F67525F0E6E10084073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B7E5F67C25F0E6E10084073C;
+			remoteInfo = ChargeCar;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		2E92A9ED627324AEB8ADA0EF /* Pods_ChargeCar_ChargeCarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeCar_ChargeCarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.release.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.release.xcconfig"; sourceTree = "<group>"; };
 		6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar.debug.xcconfig"; path = "Target Support Files/Pods-ChargeCar/Pods-ChargeCar.debug.xcconfig"; sourceTree = "<group>"; };
 		AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChargeCar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B70D1E2026E26F43002D5C06 /* ChargeCarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChargeCarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B70D1E2226E26F43002D5C06 /* ChargeCarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeCarTests.swift; sourceTree = "<group>"; };
+		B70D1E2426E26F43002D5C06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B730FCCB269E0065002EF4BA /* PrivateMapAnnotationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMapAnnotationData.swift; sourceTree = "<group>"; };
 		B730FCCD269E0276002EF4BA /* PrivateChargers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChargers.swift; sourceTree = "<group>"; };
 		B73536BD2694959D009C8A81 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -75,9 +91,19 @@
 		B7E5F69825F11AA20084073C /* PublicChargerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChargerData.swift; sourceTree = "<group>"; };
 		B7FCAAFD26C3EA9000680426 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		B7FCAAFF26C3EAD300680426 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		C255D6B448A2CA7987D4F929 /* Pods-ChargeCar-ChargeCarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar-ChargeCarTests.debug.xcconfig"; path = "Target Support Files/Pods-ChargeCar-ChargeCarTests/Pods-ChargeCar-ChargeCarTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E0A4ADB175B1BBFA242F84A8 /* Pods-ChargeCar-ChargeCarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChargeCar-ChargeCarTests.release.xcconfig"; path = "Target Support Files/Pods-ChargeCar-ChargeCarTests/Pods-ChargeCar-ChargeCarTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B70D1E1D26E26F43002D5C06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				182665AA9614BB710F59A0ED /* Pods_ChargeCar_ChargeCarTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B7E5F67A25F0E6E10084073C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -94,8 +120,19 @@
 			children = (
 				6245D7B27E990969FA0811CB /* Pods-ChargeCar.debug.xcconfig */,
 				3376E88AA9A4AB99DD1CD4F7 /* Pods-ChargeCar.release.xcconfig */,
+				C255D6B448A2CA7987D4F929 /* Pods-ChargeCar-ChargeCarTests.debug.xcconfig */,
+				E0A4ADB175B1BBFA242F84A8 /* Pods-ChargeCar-ChargeCarTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B70D1E2126E26F43002D5C06 /* ChargeCarTests */ = {
+			isa = PBXGroup;
+			children = (
+				B70D1E2226E26F43002D5C06 /* ChargeCarTests.swift */,
+				B70D1E2426E26F43002D5C06 /* Info.plist */,
+			);
+			path = ChargeCarTests;
 			sourceTree = "<group>";
 		};
 		B7957D30267E03C50066E3DB /* Model */ = {
@@ -153,6 +190,7 @@
 				B7E5F68E25F0E6E20084073C /* Info.plist */,
 				B7D2041D26925F4A0037BE70 /* GoogleService-Info.plist */,
 				B7E5F67F25F0E6E10084073C /* ChargeCar */,
+				B70D1E2126E26F43002D5C06 /* ChargeCarTests */,
 				B7E5F67E25F0E6E10084073C /* Products */,
 				1E2F0AB0201DE321B995ADAC /* Pods */,
 				EBC6EA2D141F33349CAF5059 /* Frameworks */,
@@ -163,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				B7E5F67D25F0E6E10084073C /* ChargeCar.app */,
+				B70D1E2026E26F43002D5C06 /* ChargeCarTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +221,7 @@
 			children = (
 				B7D1A5A5267CFD54004796ED /* SVProgressHUD.framework */,
 				AEE7A5153CE612676531CE86 /* Pods_ChargeCar.framework */,
+				2E92A9ED627324AEB8ADA0EF /* Pods_ChargeCar_ChargeCarTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -189,6 +229,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B70D1E1F26E26F43002D5C06 /* ChargeCarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B70D1E2926E26F43002D5C06 /* Build configuration list for PBXNativeTarget "ChargeCarTests" */;
+			buildPhases = (
+				623AE51C54383232053B1F35 /* [CP] Check Pods Manifest.lock */,
+				B70D1E1C26E26F43002D5C06 /* Sources */,
+				B70D1E1D26E26F43002D5C06 /* Frameworks */,
+				B70D1E1E26E26F43002D5C06 /* Resources */,
+				B069609CB9A1312A93A97565 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B70D1E2626E26F43002D5C06 /* PBXTargetDependency */,
+			);
+			name = ChargeCarTests;
+			productName = ChargeCarTests;
+			productReference = B70D1E2026E26F43002D5C06 /* ChargeCarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B7E5F67C25F0E6E10084073C /* ChargeCar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7E5F69125F0E6E20084073C /* Build configuration list for PBXNativeTarget "ChargeCar" */;
@@ -217,9 +277,13 @@
 				KnownAssetTags = (
 					1,
 				);
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					B70D1E1F26E26F43002D5C06 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = B7E5F67C25F0E6E10084073C;
+					};
 					B7E5F67C25F0E6E10084073C = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -239,11 +303,19 @@
 			projectRoot = "";
 			targets = (
 				B7E5F67C25F0E6E10084073C /* ChargeCar */,
+				B70D1E1F26E26F43002D5C06 /* ChargeCarTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B70D1E1E26E26F43002D5C06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B7E5F67B25F0E6E10084073C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,6 +347,45 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChargeCar/Pods-ChargeCar-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		623AE51C54383232053B1F35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChargeCar-ChargeCarTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B069609CB9A1312A93A97565 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChargeCar-ChargeCarTests/Pods-ChargeCar-ChargeCarTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChargeCar-ChargeCarTests/Pods-ChargeCar-ChargeCarTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChargeCar-ChargeCarTests/Pods-ChargeCar-ChargeCarTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E54E733A35F919D4E8CD6E03 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -300,6 +411,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B70D1E1C26E26F43002D5C06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B70D1E2326E26F43002D5C06 /* ChargeCarTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B7E5F67925F0E6E10084073C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -334,6 +453,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B70D1E2626E26F43002D5C06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B7E5F67C25F0E6E10084073C /* ChargeCar */;
+			targetProxy = B70D1E2526E26F43002D5C06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		B7E5F68625F0E6E10084073C /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -354,6 +481,50 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B70D1E2726E26F43002D5C06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C255D6B448A2CA7987D4F929 /* Pods-ChargeCar-ChargeCarTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WYDVY5R2Q;
+				INFOPLIST_FILE = ChargeCarTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lukehinton.ChargeCarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChargeCar.app/ChargeCar";
+			};
+			name = Debug;
+		};
+		B70D1E2826E26F43002D5C06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0A4ADB175B1BBFA242F84A8 /* Pods-ChargeCar-ChargeCarTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7WYDVY5R2Q;
+				INFOPLIST_FILE = ChargeCarTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.lukehinton.ChargeCarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChargeCar.app/ChargeCar";
+			};
+			name = Release;
+		};
 		B7E5F68F25F0E6E20084073C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -517,6 +688,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B70D1E2926E26F43002D5C06 /* Build configuration list for PBXNativeTarget "ChargeCarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B70D1E2726E26F43002D5C06 /* Debug */,
+				B70D1E2826E26F43002D5C06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B7E5F67825F0E6E10084073C /* Build configuration list for PBXProject "ChargeCar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
