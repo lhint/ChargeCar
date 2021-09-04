@@ -35,8 +35,6 @@ class Book: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tap)
         callhostDateStamps()
         
         self.selectDay.inputView = self.pickerView
@@ -57,12 +55,16 @@ class Book: UIViewController, UITextFieldDelegate {
         dayCheck(day: Global.shared.bookings.first ?? "")
         startTimeField.placeholder = Global.shared.hostStartTimeDay
         endTimeField.placeholder = Global.shared.hostEndTimeDay
+        bookButton.backgroundColor = UIColor.gray
+        bookButton.isEnabled = false
         
     }
     
+    
+
     func validation(startTime: String, endTime: String, textField: UITextField) {
          if startTime > endTime {
-            textField.text = "23:59"
+            textField.text = "\(Global.shared.hostEndTimeDay)"
         }
     }
     
@@ -153,6 +155,14 @@ class Book: UIViewController, UITextFieldDelegate {
         
         print("SetFutureDate \(setFutureDate(chosenDay: selectDay.text!))")
         
+        if selectedStartTime.isEmpty {
+            selectedStartTime = Global.shared.hostStartTimeDay
+        }
+        
+        if selectedEndTime.isEmpty {
+            selectedEndTime = Global.shared.hostEndTimeDay
+        }
+
         if  selectedStartTime > selectedEndTime || alreadyBooked() {
             
             if selectedStartTime > selectedEndTime {
@@ -504,6 +514,10 @@ extension Book: ToolbarPickerViewDelegate {
         self.pickerView.selectRow(row, inComponent: 0, animated: false)
         self.selectDay.text = self.titles[row]
         self.selectDay.resignFirstResponder()
+        if selectDay.text != nil {
+            bookButton.backgroundColor = UIColor.systemGreen
+            bookButton.isEnabled = true
+        }
     }
 
     func didTapCancel() {

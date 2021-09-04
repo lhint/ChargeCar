@@ -523,6 +523,68 @@ class Account: UIViewController {
             }
         }
     }
+    
+    @IBAction func test(_ sender: Any) {
+    }
+    
+    
+    func findAllBookingsToDelete() {
+        self.ref.observeSingleEvent(of: .value) { (snapshot) in
+            
+            for child in snapshot.children {
+                let snap = child as! DataSnapshot
+                let bookingUserUid1 = snap.childSnapshot(forPath: "bookinguseruid1").value as? String
+                let bookingUserUid2 = snap.childSnapshot(forPath: "bookinguseruid2").value as? String
+                let bookingUserUid3 = snap.childSnapshot(forPath: "bookinguseruid3").value as? String
+                let bookingUserUid4 = snap.childSnapshot(forPath: "bookinguseruid4").value as? String
+                let bookingUserUid5 = snap.childSnapshot(forPath: "bookinguseruid5").value as? String
+                let uid = snap.childSnapshot(forPath: "uid").value as? String
+                
+                print("UID: \(uid!)")
+                if bookingUserUid1 == ("\(Global.shared.userUid)") {
+                    self.deleteBookingSlot(uid: uid!, userUid: Global.shared.userUid, bookingUserUidValue: bookingUserUid1!, slot: 1)
+                }
+                if bookingUserUid2 == ("\(Global.shared.userUid)") {
+                    self.deleteBookingSlot(uid: uid!, userUid: Global.shared.userUid, bookingUserUidValue: bookingUserUid2!, slot: 2)
+                }
+                if bookingUserUid3 == ("\(Global.shared.userUid)") {
+                    self.deleteBookingSlot(uid: uid!, userUid: Global.shared.userUid, bookingUserUidValue: bookingUserUid3!, slot: 3)
+                }
+                if bookingUserUid4 == ("\(Global.shared.userUid)") {
+                    self.deleteBookingSlot(uid: uid!, userUid: Global.shared.userUid, bookingUserUidValue: bookingUserUid4!, slot: 4)
+                }
+                if bookingUserUid5 == ("\(Global.shared.userUid)") {
+                    self.deleteBookingSlot(uid: uid!, userUid: Global.shared.userUid, bookingUserUidValue: bookingUserUid5!, slot: 5)
+                }
+            }
+        }
+    }
+    
+    func deleteBookingSlot(uid: String, userUid: String, bookingUserUidValue: String, slot: Int) {
+        print("Global UID \(userUid)")
+        print("booking slot \(slot): \(bookingUserUidValue)")
+        
+        switch slot {
+        case 1:
+            print("Deleting slot 1")
+            self.ref.child(uid).updateChildValues(["bookedEndTime1": "", "bookedStartTime1": "", "bookingdatestamp1": "","bookinguseruid1": ""])
+        case 2:
+            print("Deleting slot 2")
+            self.ref.child(uid).updateChildValues(["bookedEndTime2": "", "bookedStartTime2": "", "bookingdatestamp2": "","bookinguseruid2": ""])
+        case 3:
+            print("Deleting slot 3")
+            self.ref.child(uid).updateChildValues(["bookedEndTime3": "", "bookedStartTime3": "", "bookingdatestamp3": "","bookinguseruid3": ""])
+        case 4:
+            print("Deleting slot 4")
+            self.ref.child(uid).updateChildValues(["bookedEndTime4": "", "bookedStartTime4": "", "bookingdatestamp4": "","bookinguseruid4": ""])
+        case 5:
+            print("Deleting slot 5")
+            self.ref.child(uid).updateChildValues(["bookedEndTime5": "", "bookedStartTime5": "", "bookingdatestamp5": "","bookinguseruid5": ""])
+        default:
+            print(0)
+        }
+    }
+    
     @IBAction func deleteAccount(_ sender: Any) {
         let alert = UIAlertController(title: "Are you sure?", message: "You are about to delete your account, all details will be deleted.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Go Back", style: UIAlertAction.Style.default, handler: nil))
@@ -538,6 +600,7 @@ class Account: UIViewController {
                 self.present(alert, animated: true)
               } else {
                 //Delete data
+                self.findAllBookingsToDelete()
                 self.ref.child(Global.shared.userUid).removeValue()
                 //Reset local device sign out variables
                 Global.shared.signedIn = false
