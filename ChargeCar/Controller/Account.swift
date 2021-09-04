@@ -35,7 +35,7 @@ class Account: UIViewController {
         carRegField.placeholder = carReg
         noMatch.isHidden = true
         scheduleButton.backgroundColor = .systemGreen
-        scheduleButton.isEnabled = true
+        //scheduleButton.isEnabled = true
         alwaysShare.isEnabled = true
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
@@ -52,7 +52,7 @@ class Account: UIViewController {
         
         if Global.shared.returnedChargerName.isEmpty {
             scheduleButton.backgroundColor = .gray
-            scheduleButton.isEnabled = false
+            //scheduleButton.isEnabled = false
             alwaysShare.isEnabled = false
         }
     }
@@ -335,7 +335,13 @@ class Account: UIViewController {
 
     
     @IBAction func scheduleButton(_ sender: Any) {
-        performSegue(withIdentifier: "schedule", sender: self)
+        if scheduleButton.backgroundColor == UIColor.gray {
+            let alert = UIAlertController(title: "Whoops...", message: "Please setup the host first on the host screen from the menu.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true)
+        } else {
+                performSegue(withIdentifier: "schedule", sender: self)
+        }
         super.viewWillAppear(true)
     }
     
