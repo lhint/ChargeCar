@@ -524,10 +524,6 @@ class Account: UIViewController {
         }
     }
     
-    @IBAction func test(_ sender: Any) {
-    }
-    
-    
     func findAllBookingsToDelete() {
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
@@ -586,16 +582,30 @@ class Account: UIViewController {
     }
     
     @IBAction func deleteAccount(_ sender: Any) {
-        let alert = UIAlertController(title: "Are you sure?", message: "You are about to delete your account, all details will be deleted.", preferredStyle: .alert)
+        
+        let alert = UIAlertController(title: "Are you sure?", message: "You are about to delete your account, all details will be deleted. Please enter your account password below:", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+                textField.isSecureTextEntry = true
+            }
         alert.addAction(UIAlertAction(title: "Go Back", style: UIAlertAction.Style.default, handler: nil))
+        //let submitAction = UIAlertAction(title: "", style: .default) { [unowned alert] _ in
+          
+        
         alert.addAction(UIAlertAction(title: "Delete!", style: .default, handler: { (action) -> Void in
         // Do action
+            let password = alert.textFields![0].text
+            // alert.addAction(submitAction)
+         //Authenticate
+         Auth.auth().signIn(withEmail: Global.shared.userEmail, password: password!) { authResult, error in
+             if error != nil {
+                 }
+         }
         //Delete Account
             let user = Auth.auth().currentUser
             user?.delete { error in
               if let error = error {
                 print(error)
-                let alert = UIAlertController(title: "Error Deleting Account!", message: "Please sign out and login, then try again.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error Deleting Account!", message: "Password Incorrect!.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true)
               } else {

@@ -827,14 +827,6 @@
                                     <action selector="deleteAccount:" destination="qaF-Wp-UbG" eventType="touchUpInside" id="enU-sf-T31"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEK-BA-Ju6">
-                                <rect key="frame" x="319" y="725" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Test"/>
-                                <connections>
-                                    <action selector="test:" destination="qaF-Wp-UbG" eventType="touchUpInside" id="j4Z-E3-wCt"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UWF-20-bvO"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
