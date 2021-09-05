@@ -605,7 +605,7 @@ class Account: UIViewController {
             user?.delete { error in
               if let error = error {
                 print(error)
-                let alert = UIAlertController(title: "Error Deleting Account!", message: "Password Incorrect!.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error Deleting Account!", message: "Password Incorrect!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true)
               } else {
