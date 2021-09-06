@@ -46,8 +46,12 @@ class Account: UIViewController {
         
         if Global.shared.shareChargerOverride.contains("true") {
             shareToggle.isOn = true
+            scheduleButton.isEnabled = true
+            scheduleButton.backgroundColor = UIColor.systemGreen
         } else {
             shareToggle.isOn = false
+            scheduleButton.isEnabled = false
+            scheduleButton.backgroundColor = UIColor.gray
         }
         
         if Global.shared.returnedChargerName.isEmpty {
@@ -278,8 +282,12 @@ class Account: UIViewController {
         
         if sender.isOn == false {
         self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "false"])
+            scheduleButton.isEnabled = false
+            scheduleButton.backgroundColor = UIColor.gray
         } else {
             self.ref.child(Global.shared.userUid).updateChildValues(["sharechargeroverride": "true"])
+            scheduleButton.isEnabled = true
+            scheduleButton.backgroundColor = UIColor.systemGreen
         }
     }
     
