@@ -12,6 +12,7 @@ class Menu: UITableViewController {
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
+    //Data to load on startup
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Charge Car"
@@ -23,6 +24,7 @@ class Menu: UITableViewController {
             
             group.enter()
             
+            //Downloads data from database
             self.ref.child("\(Global.shared.userUid)").child("sharechargeroverride").observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get item value
                 
@@ -51,6 +53,7 @@ class Menu: UITableViewController {
     var menu1: [String] = ["Login", "Register"]
     var menu2: [String] = ["\(Global.shared.username)","Dashboard","Host","Help","Sign Out"]
     
+    //Default tableview methods to display table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var total = 0
         if Global.shared.signedIn == false {

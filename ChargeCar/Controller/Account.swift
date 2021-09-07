@@ -27,6 +27,7 @@ class Account: UIViewController {
     var error = false
     let defaults = UserDefaults.standard
     
+    //Data to load on startup
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
         updateButton.isEnabled = false
@@ -44,6 +45,7 @@ class Account: UIViewController {
         passwordField.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         password2Field.addTarget(self, action: #selector(validation), for: UIControl.Event.editingChanged)
         
+        //Sets toggle value from variable
         if Global.shared.shareChargerOverride.contains("true") {
             shareToggle.isOn = true
             scheduleButton.isEnabled = true
@@ -61,12 +63,14 @@ class Account: UIViewController {
         }
     }
     
+    //Is called whenever the screen reappears
     override func viewWillAppear(_ animated: Bool) {
         callShareValues()
         callTimeValues()
         callUserShareValues()
     }
     
+    //Returns values from the database
     func callTimeValues() {
         
         //Get exisiting times to show as place holders in the scheduel screen
@@ -277,6 +281,7 @@ class Account: UIViewController {
         
     }
     
+    //Share toggle selection
     @IBAction func ShareToggle(_ sender: UISwitch) {
         //Removes from the map - Sets the showCharger parameter in firbase to true.
         
@@ -291,6 +296,7 @@ class Account: UIViewController {
         }
     }
     
+    //Update button
     @IBAction func updateButton(_ sender: Any) {
         //Updates username
         if nameField.text!.isEmpty {
@@ -341,7 +347,7 @@ class Account: UIViewController {
         }
     }
 
-    
+    //Schedule button
     @IBAction func scheduleButton(_ sender: Any) {
         if scheduleButton.backgroundColor == UIColor.gray {
             let alert = UIAlertController(title: "Whoops...", message: "Please setup the host first on the host screen from the menu.", preferredStyle: .alert)
@@ -353,6 +359,7 @@ class Account: UIViewController {
         super.viewWillAppear(true)
     }
     
+    //Return database values
     func callShareValues() {
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
@@ -391,6 +398,7 @@ class Account: UIViewController {
         }
     }
     
+    //Downloads values from database
     func callUserShareValues() {
         
         DispatchQueue.global(qos: .default).async {
@@ -532,6 +540,7 @@ class Account: UIViewController {
         }
     }
     
+    //Searches for bookings that have past the current date
     func findAllBookingsToDelete() {
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
@@ -564,9 +573,10 @@ class Account: UIViewController {
         }
     }
     
+    //Deletes bookings past the current date from the database
     func deleteBookingSlot(uid: String, userUid: String, bookingUserUidValue: String, slot: Int) {
-        print("Global UID \(userUid)")
-        print("booking slot \(slot): \(bookingUserUidValue)")
+        //print("Global UID \(userUid)")
+        //print("booking slot \(slot): \(bookingUserUidValue)")
         
         switch slot {
         case 1:
@@ -589,6 +599,7 @@ class Account: UIViewController {
         }
     }
     
+    //Deletes the users account from the database, authentication and current bookings
     @IBAction func deleteAccount(_ sender: Any) {
         
         let alert = UIAlertController(title: "Are you sure?", message: "You are about to delete your account, all details will be deleted. Please enter your account password below:", preferredStyle: .alert)

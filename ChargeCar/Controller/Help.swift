@@ -10,6 +10,7 @@ import SVProgressHUD
 
 class Help: UIViewController {
     
+    //Data to load on startup
     override func viewDidLoad() {
         SVProgressHUD.dismiss()
     }

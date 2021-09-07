@@ -35,6 +35,7 @@ class Schedule: UIViewController {
     
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
+    //Data to load on startup
     override func viewDidLoad() {
         
         mondayStart.setTimePickerAsInputViewFor(target: self, selector: #selector(mondayStartSelected))
@@ -71,6 +72,7 @@ class Schedule: UIViewController {
         
     }
     
+    //Downloads and checks share value toggles from database
     func checkShareValues() {
         
         if Global.shared.userMondayShare.contains("true") {
@@ -114,6 +116,7 @@ class Schedule: UIViewController {
         }
     }
     
+    //Start and end time validaton
     func validation(startTime: String, startPlaceholder: String, endTime: String, textField: UITextField) {
         if startTime.isEmpty {
             if startPlaceholder > endTime {
@@ -124,6 +127,7 @@ class Schedule: UIViewController {
         }
     }
     
+    //Additional start time validation
     func validationStart(startTime: String, endPlaceholder: String, endTime: String, textField: UITextField) {
         if startTime.isEmpty {
             if endPlaceholder < startTime {
@@ -132,8 +136,8 @@ class Schedule: UIViewController {
         }
     }
     
+    //Time text field functions
     @objc func mondayStartSelected() {
-        
         
         let timePicker = mondayStart.inputView as? UIDatePicker
         let formatter = DateFormatter()
@@ -328,7 +332,7 @@ class Schedule: UIViewController {
         self.sundayEnd.resignFirstResponder()
     }
     
-    
+    //Share toggls functions
     @IBAction func mondayShareAction(_ sender: UISwitch) {
         if sender.isOn == false {
             self.ref.child(Global.shared.userUid).updateChildValues(["mondayshare": "false"])

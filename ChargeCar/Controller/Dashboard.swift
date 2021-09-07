@@ -27,6 +27,7 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var bookinguid1 = ""
     var bookerUid = ""
     
+    //Data to load on startup
     override func viewDidLoad() {
         super.viewDidLoad()
         SVProgressHUD.dismiss()
@@ -35,10 +36,7 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
             print("Confirmed Bookings: \(i)")
         }
         
-        //Check why blank row is created?\
-        //Get text to fill entire row
-        
-        //Download all bookstarttime1 etc bookendtime1 etc
+        //Returns all booking data from the database
         self.ref.observeSingleEvent(of: .value) { (snapshot) in
             
             for child in snapshot.children {
@@ -63,7 +61,7 @@ class Dashboard: UIViewController, UITableViewDelegate, UITableViewDataSource {
         bookingTable.tableFooterView = UIView()
     }
 
-    //In the dashboard table, display bookings array value in table.
+    //Dashboard tableview, displays booking array strings in table.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Global.shared.confirmedBookings.count
     }

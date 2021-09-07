@@ -19,15 +19,19 @@ class Login: UIViewController, UITextFieldDelegate {
     let defaults = UserDefaults.standard
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
+    //Data to load on startup
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Removes loading circle from screen
         SVProgressHUD.dismiss()
+        //Allows touch on screen to dismiss keyboard
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         
         self.email.delegate = self
         self.password.delegate = self
         
+        //Scans the textfields for changes and enforces validation
         email.addTarget(self, action: #selector(passwordValidation), for: UIControl.Event.editingChanged)
         password.addTarget(self, action: #selector(passwordValidation), for: UIControl.Event.editingChanged)
         
@@ -37,6 +41,7 @@ class Login: UIViewController, UITextFieldDelegate {
 
     }
     
+    //Dictates what the return key does on the keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField {
         case self.email:
@@ -49,13 +54,16 @@ class Login: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    //Login button on screen.
     @IBAction func loginButton(_ sender: Any) {
         //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
         
         let userEmail = email.text!
         
+        //Validation
         if let email = email.text, let password = password.text {
             var answer = ""
+            //Authentication
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if error != nil {
                     // report error - Taken from: https://stackoverflow.com/questions/37449919/reading-firebase-auth-error-thrown-firebase-3-x-and-swift
@@ -76,6 +84,7 @@ class Login: UIViewController, UITextFieldDelegate {
                     self.present(alert, animated: true)
                     return
                 } else {
+                    //Saves values to local device and saved after app is terminated
                     Global.shared.signedIn = true
                     self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
                     Global.shared.signinUserEmail = userEmail
@@ -91,6 +100,7 @@ class Login: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //Validation
     @objc func passwordValidation() {
         
         if email.text == "" || password.text == "" {
@@ -102,9 +112,10 @@ class Login: UIViewController, UITextFieldDelegate {
         }
     }
 
+    //Forgot password button
     @IBAction func forgotPassword(_ sender: Any) {
         var answer = ""
-        
+        //Reset password
         Auth.auth().sendPasswordReset(withEmail: self.email.text!) { error in
             
             if error != nil {
@@ -122,6 +133,7 @@ class Login: UIViewController, UITextFieldDelegate {
             
                     }
                 }
+                //UI screen alerts
                 let alert = UIAlertController(title: "Whoops", message: "\(answer)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Continue...", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true)

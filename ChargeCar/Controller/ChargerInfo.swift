@@ -44,9 +44,11 @@ class ChargerInfo: UIViewController {
     var mondayShareDay = "", tuesdayShareDay = "", wednesdayShareDay = "", thursdayShareDay = "", fridayShareDay = "", saturdayShareDay = "", sundayShareDay = ""
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
    
+    //Data to load on startup
     override func viewDidLoad() {
+        //Removes loading circle from users UI
         SVProgressHUD.dismiss()
-        print("chargerInfo free \(free)")
+        //print("chargerInfo free \(free)")
         if privateName.isEmpty {
             
             //Public Chargers
@@ -85,6 +87,7 @@ class ChargerInfo: UIViewController {
         
     }
     
+    //Enables if there is second device info to show from the public charger data
     func showCharger2(k2: Double) {
         if k2 == 1.0 {
             self.device2Title.isHidden = true
@@ -96,6 +99,7 @@ class ChargerInfo: UIViewController {
         }
     }
     
+    //This converts the numeric value from the API to the correct user operation. This was references from the OpenCharge API doc.
     func checkKey(value: Double) -> String {
         var answer = ""
         if value == 25 {
@@ -120,6 +124,7 @@ class ChargerInfo: UIViewController {
         return answer
     }
     
+    //Checks if the data provides KW data or to return a empty string instead
     func kwCheck(kw: Double) -> String {
         
         var answer = ""
@@ -134,16 +139,19 @@ class ChargerInfo: UIViewController {
         return answer
     }
     
+    //Info UI button for user informaton
     @IBAction func infoButton(_ sender: Any) {
         let alert = UIAlertController(title: "Info", message: "Data maybe incomplete in showing actual number of chargers available.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.default, handler: nil))
         present(alert, animated: true)
     }
     
+    //Book button which sugues to the book page
     @IBAction func book(_ sender: Any) {
         performSegue(withIdentifier: "book", sender: self)
     }
     
+    //Returns the days that are set to share in the schedule
     func getShareDays() {
         DispatchQueue.global(qos: .default).async {
 

@@ -23,12 +23,14 @@ class Register: UIViewController, UITextFieldDelegate {
     let defaults = UserDefaults.standard
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     
+    //Data to load on startup
     override func viewDidLoad() {
         super.viewDidLoad()
         noMatch.isHidden = true
         register.isUserInteractionEnabled = false
         register.backgroundColor = UIColor.gray
         SVProgressHUD.dismiss()
+        //Allows touch on screen to dismiss keyboard
         let tap: UIGestureRecognizer = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
         
@@ -89,8 +91,8 @@ class Register: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //Action on register button push
     @IBAction func registerButton(_ sender: Any) {
-        //Code from the London App Brewery Udemy Course: https://www.udemy.com/course-dashboard-redirect/?course_id=1778502
         
         if let email = email.text, let password2 = password2.text {
             var answer = ""
@@ -118,23 +120,21 @@ class Register: UIViewController, UITextFieldDelegate {
                     self.present(alert, animated: true)
                     return
                 } else {
-                    //Sets the details in the global app variables.
+                    //Sets the details in the global app variables
                     Global.shared.signedIn = true
                     Global.shared.username = self.name.text!
                     Global.shared.userEmail = self.email.text!
                     Global.shared.userReg = self.carReg.text!
                     self.defaults.set(Global.shared.signedIn, forKey: "SignedIn")
                     self.defaults.set(Global.shared.username, forKey: "UserName")
+                    //Segues to homeViewController on press
                     self.performSegue(withIdentifier: "home", sender: self)
                     Global.shared.newSaveEmail = true
+                    //Saves the variable locally even when app is terminated
                     self.defaults.set(Global.shared.newSaveEmail, forKey: "NewSaveEmail")
                 }
             })
         }
-        
-        //DVLA car check reg check API
-        //Show name in menu
-        //Logged in message on map page
         
     }
 }

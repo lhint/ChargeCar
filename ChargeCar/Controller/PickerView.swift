@@ -15,6 +15,7 @@ protocol ToolbarPickerViewDelegate: AnyObject {
     func didTapCancel()
 }
 
+//Sets the box and toolbar that surounds the picker view
 class ToolbarPickerView: UIPickerView {
 
     public private(set) var toolbar: UIToolbar?
@@ -47,7 +48,8 @@ class ToolbarPickerView: UIPickerView {
 
         self.toolbar = toolBar
     }
-
+    
+    //Toolbar button options
     @objc func doneTapped() {
         self.toolbarDelegate?.didTapDone()
     }

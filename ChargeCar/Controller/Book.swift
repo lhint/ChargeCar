@@ -31,8 +31,7 @@ class Book: UIViewController, UITextFieldDelegate {
     var selectedEndTime = ""
     var bookedDay = ""
     
-   
-    
+    //Data to load on startup
     override func viewDidLoad() {
         super.viewDidLoad()
         callhostDateStamps()
@@ -60,14 +59,14 @@ class Book: UIViewController, UITextFieldDelegate {
         
     }
     
-    
-
+    //Validation to stop users picker a higher start time than the end time
     func validation(startTime: String, endTime: String, textField: UITextField) {
          if startTime > endTime {
             textField.text = "\(Global.shared.hostEndTimeDay)"
         }
     }
     
+    //updates the text fields with value selected from the picker
     @IBAction func update(_ sender: AnyObject) {
         print("reloaded")
         pickerView.reloadAllComponents()
@@ -76,6 +75,7 @@ class Book: UIViewController, UITextFieldDelegate {
         endTimeField.setTimePickerAsInputViewForBook(target: self, selector: #selector(endTimeSelected))
     }
     
+    //Start time value is set from the picker
     @objc func startTimeSelected() {
         let timePicker = startTimeField.inputView as? UIDatePicker
         let formatter = DateFormatter()
@@ -87,6 +87,7 @@ class Book: UIViewController, UITextFieldDelegate {
         self.endTimeField.becomeFirstResponder()
     }
     
+    //End time value is set from the picker
     @objc func endTimeSelected() {
         let timePicker = endTimeField.inputView as? UIDatePicker
         let formatter = DateFormatter()
@@ -99,6 +100,7 @@ class Book: UIViewController, UITextFieldDelegate {
         self.endTimeField.resignFirstResponder()
     }
     
+    //Allocate bookings to the correct slot
     func allocateBookings(start: String, end: String) -> Int {
         var bookingNumber = 1
         print("datestamps \(Global.shared.hostBookingDateStamp1) -  \(Global.shared.hostBookingDateStamp2)  -  \(Global.shared.hostBookingDateStamp3) - \(Global.shared.hostBookingDateStamp4)  -  \(Global.shared.hostBookingDateStamp5)")
@@ -130,6 +132,7 @@ class Book: UIViewController, UITextFieldDelegate {
         return bookingNumber
     }
     
+    //Creates the date stamp of the booked day
     func createDateStampName(bookingNumber: Int) -> String {
         var output = ""
         if bookingNumber == 1 {
@@ -146,6 +149,7 @@ class Book: UIViewController, UITextFieldDelegate {
         return "\(output)"
     }
     
+    //Books the slot
     @IBAction func book(_ sender: Any) {
         
         bookedDay = selectDay.text ?? ""
@@ -155,6 +159,7 @@ class Book: UIViewController, UITextFieldDelegate {
         
         print("SetFutureDate \(setFutureDate(chosenDay: selectDay.text!))")
         
+        //Updates global start and end time variables
         if selectedStartTime.isEmpty {
             selectedStartTime = Global.shared.hostStartTimeDay
         }
@@ -163,6 +168,7 @@ class Book: UIViewController, UITextFieldDelegate {
             selectedEndTime = Global.shared.hostEndTimeDay
         }
 
+        //Checks booking validation
         if  selectedStartTime > selectedEndTime || alreadyBooked() {
             
             if selectedStartTime > selectedEndTime {
@@ -177,9 +183,11 @@ class Book: UIViewController, UITextFieldDelegate {
             }
            
             } else {
+                //Saves booking to the database
                 self.ref.child(Global.shared.tempHostUid).updateChildValues(["bookedStartTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedStartTime)","totalbookings" : "\(totalBookings)", "bookedEndTime\(allocateBookings(start: selectedStartTime, end: selectedEndTime))": "\(selectedEndTime)", "bookinguseruid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.userUid)", "bookingdatestamp\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : "\(Global.shared.chosenDate)", "hostuid\(allocateBookings(start: selectedStartTime, end: selectedEndTime))" : self.privateHostUid])
             }
         
+        //Sets date stamp
         callhostDateStamps()
         
         totalBookings = totalBookings + 1
@@ -195,7 +203,7 @@ class Book: UIViewController, UITextFieldDelegate {
         present(alert, animated: true)
     }
     
-    
+    //Checks if the slot is already booked
     func alreadyBooked() -> Bool {
         print("TEMPHOSTUID")
         print(Global.shared.tempHostUid)
@@ -307,6 +315,7 @@ class Book: UIViewController, UITextFieldDelegate {
         return "\(newDateFormatted)"
     }
     
+    //Sets the correct day of week value for day selected to process date
     func dayDeltaCheck(chosenDay: String, day: String, dayDeltaStart: Int) -> Int {
         
         var dayDelta = 0
@@ -328,6 +337,7 @@ class Book: UIViewController, UITextFieldDelegate {
         return dayDelta
     }
     
+    //This gets the date of the day selected
     func getDayOfWeek(date: String) -> String {
         //Inspired from: https://stackoverflow.com/questions/24089999/how-do-you-create-a-swift-date-object
         let dateFormatter = DateFormatter()
@@ -340,13 +350,14 @@ class Book: UIViewController, UITextFieldDelegate {
         return day
     }
     
+    //Returns start and end times set in the hosts schedule for the selected day
     func dayCheck(day: String) {
-            print("dayCheck Called")
+            //print("dayCheck Called")
             let lowerday = day.lowercased()
             self.startTimeDay = "\(lowerday)start"
-            print("startTimeDay \(self.startTimeDay)")
+            //print("startTimeDay \(self.startTimeDay)")
             self.endTimeDay = "\(lowerday)end"
-            print("endTimeDay \(self.endTimeDay)")
+            //print("endTimeDay \(self.endTimeDay)")
             
             DispatchQueue.global(qos: .default).async {
 
@@ -402,6 +413,7 @@ class Book: UIViewController, UITextFieldDelegate {
         }
 }
 
+//Returns the booking date stamps
 func callhostDateStamps() {
     let ref = Database.database(url: "\(Global.shared.databaseURL)").reference()
     DispatchQueue.global(qos: .default).async {
@@ -485,6 +497,7 @@ func callhostDateStamps() {
     }
 }
 
+//Picker view extension
 extension Book: UIPickerViewDelegate, UIPickerViewDataSource {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -507,6 +520,7 @@ extension Book: UIPickerViewDelegate, UIPickerViewDataSource {
     
 }
 
+//Toolbar for picker view
 extension Book: ToolbarPickerViewDelegate {
 
     func didTapDone() {
