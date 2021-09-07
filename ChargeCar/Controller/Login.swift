@@ -129,7 +129,7 @@ class Login: UIViewController, UITextFieldDelegate {
                     case .missingEmail:
                         answer = "Please enter an email address."
                     default:
-                        answer = "Please enter a vaild email address"
+                        answer = "Email address is not registered!"
             
                     }
                 }
